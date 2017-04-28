@@ -1,0 +1,25 @@
+.new-timer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  border: 1px solid #f00;
+}
+.new-timer > input {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 50%;
+          flex: 0 1 50%;
+}
+.form-label {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 25%;
+          flex: 0 1 25%;
+}
+.edit-timer {
+  cursor: pointer;
+  color: #f00;
+}
+.edit-timer:hover {
+  text-decoration: underline;
+}

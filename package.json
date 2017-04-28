@@ -1,0 +1,52 @@
+{
+  "name": "workout-app",
+  "version": "1.0.0",
+  "description": "A full-featured workout app and custom timer written in React-Redux",
+  "main": "./dist",
+  "scripts": {
+    "start": "./node_modules/.bin/webpack-dev-server",
+    "styles": "./node_modules/.bin/stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
+    "styles:watch": "./node_modules/.bin/stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wkoutre/react-redux-workout-app.git"
+  },
+  "keywords": [
+    "workout",
+    "react",
+    "redux"
+  ],
+  "author": "Nick Koutrelakos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wkoutre/react-redux-workout-app/issues"
+  },
+  "homepage": "https://github.com/wkoutre/react-redux-workout-app#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.7.7",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.0",
+    "history": "^4.6.1",
+    "json-loader": "^0.5.4",
+    "postcss-loader": "^1.3.3",
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+    "style-loader": "^0.16.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.5"
+  }
+}
