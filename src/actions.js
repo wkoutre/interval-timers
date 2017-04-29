@@ -57,3 +57,15 @@ export const editTimer = (props) =>
 		payload: props
 	})
 
+export const deleteTimer = (props) =>
+	({
+		type: C.DELETE_TIMER,
+		payload: props
+	})
+
+export const startTimer = (props) =>
+	({
+		type: C.START_TIMER,
+		payload: props
+	})
+

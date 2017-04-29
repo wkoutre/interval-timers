@@ -1,5 +1,5 @@
-import Timer from '../ui/Timer'
-import { clearForm, setTimerName, saveTimer, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement, editTimer } from '../../actions'
+import CreateTimer from '../ui/CreateTimer'
+import { clearForm, setTimerName, saveTimer, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement, editTimer, deleteTimer, startTimer } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ timers, timerName, intervalTime, numIntervals, restIncrement, restTime }, props) =>
@@ -34,7 +34,7 @@ const mapDispatchToProps = dispatch =>
 				setRestIncrement(val)
 			)
 		},
-		setTimerName(name) {
+		setTimerName(name) {	
 			dispatch(
 				setTimerName(name)
 			)
@@ -50,11 +50,20 @@ const mapDispatchToProps = dispatch =>
 			)
 		},
 		editTimer(props) {
-			console.log(props);
 			dispatch(
 				editTimer(props)
+			)
+		},
+		deleteTimer(props) {
+			dispatch(
+				deleteTimer(props)
+			)
+		},
+		startTimer(props) {
+			dispatch(
+				startTimer(props)
 			)
 		}
 	})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Timer);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateTimer);

@@ -4,7 +4,6 @@
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  border: 1px solid #f00;
 }
 .new-timer > input {
   -webkit-box-flex: 0;
@@ -18,8 +17,31 @@
 }
 .edit-timer {
   cursor: pointer;
-  color: #f00;
+  color: #00f;
 }
 .edit-timer:hover {
   text-decoration: underline;
+}
+.delete-timer {
+  cursor: pointer;
+  color: #f00;
+}
+.delete-timer:hover {
+  text-decoration: underline;
+}
+.start-timer {
+  cursor: pointer;
+  color: #008000;
+}
+.start-timer:hover {
+  text-decoration: underline;
+}
+.save-timer {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 80%;
+          flex: 0 1 80%;
+  cursor: pointer;
+}
+.line-across {
+  border: 3px solid #000;
 }

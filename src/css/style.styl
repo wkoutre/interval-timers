@@ -1,7 +1,7 @@
 .new-timer
 	display flex
 	flex-wrap wrap
-	border 1px solid red
+	// border 1px solid red
 	& > input
 		flex 0 1 50%
 		
@@ -10,6 +10,26 @@
 
 .edit-timer
 	cursor pointer
+	color blue
+	&:hover
+		text-decoration underline
+
+.delete-timer
+	cursor pointer
 	color red
 	&:hover
 		text-decoration underline
+		
+.start-timer
+	cursor pointer
+	color green
+	&:hover
+		text-decoration underline
+	
+		
+.save-timer
+	flex 0 1 80%
+	cursor pointer
+
+.line-across
+	border 3px solid black

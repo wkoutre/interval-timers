@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SavedTimers from './SavedTimers'
 
-class Timer extends React.Component {
+class CreateTimer extends React.Component {
 	constructor(props) {
 		super(props);
 	}
@@ -81,6 +81,17 @@ class Timer extends React.Component {
 		return this.props.restIncrement !== 1 ? " seconds" : " second";
 	}
 
+	canSubmit = () => {
+		const { intervalTime, numIntervals, timerName, timers } = this.props;
+
+		return (
+						!numIntervals ||
+						!intervalTime ||
+						!timerName ||
+						timers.filter(objs => objs.timerName === timerName).length > 0
+					)
+	}
+
 	render() {
 		const { intervalTime, numIntervals, restIncrement, restTime, timerName, timers, setTimerName, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement } = this.props;
 
@@ -88,39 +99,47 @@ class Timer extends React.Component {
 			<div>
 				{this.props.timers.length > 0 && <SavedTimers {...this.props}/>}
 				<h2>Create New Timer</h2>
-				<form className="new-timer">
-					<span className="form-label">Timer Name: </span>
-					<input type="text"
+				<form required className="new-timer">
+					<span className="form-label">Timer Name:* </span>
+					<input
+								required type="text"
 								placeholder="timer name"
 								value={timerName}
 								onChange={(e) => setTimerName(e.target.value)}/>
-					<span className="form-label">Number of Intervals: </span>
-					<input type="number"
+					<span className="form-label">Number of Intervals:* </span>
+					<input
+								required type="number"
 								placeholder="number of intervals"
 								value={numIntervals}
 								onChange={(e) => setNumIntervals(e.target.value)}/>
-					<span>{this.interval()}</span>
-					<span className="form-label">Interval Time:</span>
-					<input type="number"
+					<span>&nbsp;{this.interval()}</span>
+					<span className="form-label">Interval Time:*</span>
+					<input
+								required type="number"
 								placeholder="interval time"
 								value={intervalTime}
 								onChange={(e) => setIntervalTime(e.target.value)}/>
-					<span>{this.minutes()}</span>
+					<span>&nbsp;{this.minutes()}</span>
 					<span className="form-label">Rest Time:</span>
-					<input type="number"
+					<input
+								required type="number"
 								placeholder="rest time"
 								value={restTime}
 								onChange={(e) => setRestTime(e.target.value)}/>
-					<span>{this.restSeconds()}</span>
+					<span>&nbsp;{this.restSeconds()}</span>
 					<span className="form-label">Rest Increment Per Set:</span>
 					<input type="number"
 								placeholder="rest increment per set"
 								value={restIncrement}
 								onChange={(e) => setRestIncrement(e.target.value)}/>
-				<span>{this.restIncrement()}</span>
-				<input
+				<span>&nbsp;{this.restIncrement()}</span>
+				<button
 					type="submit"
-					onClick={(e) => this.localSaveTimer(e)}/>
+					className="save-timer"
+					disabled={this.canSubmit()}
+					onClick={(e) => this.localSaveTimer(e)}>
+						SAVE
+					</button>
 				</form>
 			<div className="total-time"><h2>Total time: </h2>{this.totalTimeCalc()}</div>
 		</div>
@@ -128,4 +147,4 @@ class Timer extends React.Component {
 	}
 }
 
-export default Timer;
+export default CreateTimer;
