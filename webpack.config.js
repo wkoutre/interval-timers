@@ -8,7 +8,8 @@ module.exports = {
 	devServer: {
 		inline: true,
 		contentBase: "./dist",
-		port: 4500
+		port: 4500,
+		historyApiFallback: true
 	},
 	module: {
 		loaders: [

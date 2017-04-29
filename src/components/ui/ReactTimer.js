@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SavedTimers from './SavedTimers'
+import SavedTimers from './containers/ConSavedTimers'
 
 class Timer extends React.Component {
 	constructor(props) {
@@ -86,7 +86,7 @@ class Timer extends React.Component {
 
 		return (
 			<div>
-				{this.props.timers.length > 0 && <SavedTimers {...this.props}/>}
+				{this.props.timers.length > 0 && <SavedTimers />}
 				<h2>Create New Timer</h2>
 				<form className="new-timer">
 					<span className="form-label">Timer Name: </span>

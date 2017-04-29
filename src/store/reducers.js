@@ -3,11 +3,11 @@ import { combineReducers } from 'redux'
 
 const numIntervals = (state=0, action) => {
 	switch (action.type) {
-		case C.CLEAR_FORM: case C.START_TIMER:
+		case C.CLEAR_FORM:
 			return 0;
 		case C.SET_NUM_INTERVALS:
 			return action.payload;
-		case C.EDIT_TIMER:
+		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return parseInt(action.payload.numIntervals)
 		default:
 			return state;
@@ -16,11 +16,11 @@ const numIntervals = (state=0, action) => {
 
 const intervalTime = (state=0, action) => {
 	switch (action.type) {
-		case C.CLEAR_FORM: case C.START_TIMER:
+		case C.CLEAR_FORM:
 			return 0;
 		case C.SET_INTERVAL_TIME:
 			return action.payload;
-		case C.EDIT_TIMER:
+		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return +(action.payload.intervalTime)
 		default:
 			return state;
@@ -29,11 +29,11 @@ const intervalTime = (state=0, action) => {
 
 const restTime = (state=0, action) => {
 	switch (action.type) {
-		case C.CLEAR_FORM: case C.START_TIMER:
+		case C.CLEAR_FORM:
 			return 0;
 		case C.SET_REST_TIME:
 			return action.payload;
-		case C.EDIT_TIMER:
+		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return parseInt(action.payload.restTime)
 		default:
 			return state;
@@ -42,11 +42,11 @@ const restTime = (state=0, action) => {
 
 const restIncrement = (state=0, action) => {
 	switch (action.type) {
-		case C.CLEAR_FORM: case C.START_TIMER:
+		case C.CLEAR_FORM:
 			return 0;
 		case C.SET_REST_INCREMENT:
 			return action.payload;
-		case C.EDIT_TIMER:
+		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return parseInt(action.payload.restIncrement)
 		default:
 			return state;
@@ -75,22 +75,34 @@ const timers = (state=[], action) => {
 
 const timerName = (state="", action) => {
 	switch (action.type) {
-		case C.CLEAR_FORM: case C.START_TIMER:
+		case C.CLEAR_FORM:
 			return "";
 		case C.SET_TIMER_NAME:
 			return action.payload;
-		case C.EDIT_TIMER:
+		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return action.payload.timerName
 		default:
 			return state;
 	}
 }
 
+const currentTimer = (state={}, action) => {
+	switch (action.type) {
+		case C.CHOOSE_TIMER:
+			return action.payload;
+		default:
+			return state;
+	}
+}
+
 export default combineReducers({
-	numIntervals,
-	intervalTime,
-	restTime,
-	restIncrement,
-	timerName,
-	timers
+	timerProps: combineReducers({
+		numIntervals,
+		intervalTime,
+		restTime,
+		restIncrement,
+		timerName,
+		timers	
+	}),
+	currentTimer
 })

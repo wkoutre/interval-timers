@@ -7,6 +7,12 @@ class CreateTimer extends React.Component {
 		super(props);
 	}
 
+	componentDidMount() {
+		const { clearForm } = this.props;
+
+		clearForm();
+	}
+
 	addedIncrementTime = () => {
 		const { restIncrement, numIntervals } = this.props;
 		if (!restIncrement)
@@ -93,7 +99,7 @@ class CreateTimer extends React.Component {
 	}
 
 	render() {
-		const { intervalTime, numIntervals, restIncrement, restTime, timerName, timers, setTimerName, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement } = this.props;
+		const { intervalTime, numIntervals, restIncrement, restTime, timerName, timers, setTimerName, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement } = this.props;		  
 
 		return (
 			<div>

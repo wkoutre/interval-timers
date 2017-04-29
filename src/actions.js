@@ -63,9 +63,14 @@ export const deleteTimer = (props) =>
 		payload: props
 	})
 
+export const chooseTimer = (props) =>
+	({
+		type: C.CHOOSE_TIMER,
+		payload: props
+	})
+
 export const startTimer = (props) =>
 	({
 		type: C.START_TIMER,
 		payload: props
 	})
-

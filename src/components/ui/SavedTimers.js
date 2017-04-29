@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 const SavedTimers = (props) => {
 	// timers is an array of objects
-	const { timers, editTimer, deleteTimer, startTimer } = props;
+	const { timers, editTimer, deleteTimer, chooseTimer } = props;
 
 	let timerNames = timers.map( (obj, i) => 
 		(
@@ -16,13 +17,11 @@ const SavedTimers = (props) => {
 					onClick={() => deleteTimer(timers[i])}
 					className="delete-timer">delete</span>
 					&nbsp;
-					<span
-					onClick={() => {
-							console.log("TODO: change to actual timer page");
-							startTimer(timers[i])
-						}
-					}
-					className="start-timer">start</span>
+					<Link to="/run-timer">
+						<span
+							onClick={() => chooseTimer(timers[i])}
+							className="start-timer">start</span>
+					</Link>
 			</li>
 		)
 	);
