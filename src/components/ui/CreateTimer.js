@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SavedTimers from './SavedTimers'
+import * as timeFuncs from '../../timeHelpers'
 
 class CreateTimer extends React.Component {
 	constructor(props) {

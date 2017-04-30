@@ -1,5 +1,9 @@
 import C from './constants'
 
+/*
+** TIMER PROPS
+*/
+
 export const setNumIntervals = (num) => {
 	return ({
 		type: C.SET_NUM_INTERVALS,
@@ -63,6 +67,8 @@ export const deleteTimer = (props) =>
 		payload: props
 	})
 
+
+// sets runningTimer
 export const chooseTimer = (props) =>
 	({
 		type: C.CHOOSE_TIMER,

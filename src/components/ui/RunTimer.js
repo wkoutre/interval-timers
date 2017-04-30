@@ -1,16 +1,21 @@
 import React from 'react';
 import Stopwatch from 'timer-stopwatch';
+import * as timeFuncs from '../../timeHelpers'
 
 const RunTimer = ({ timerName, intervalTime, numIntervals, restIncrement, restTime }) => {
+	let stop;
+
+	const { msToMinutes, msToSeconds } = timeFuncs;
 
 	const runTimer = () => {
-			const time = intervalTime * 60; // seconds
-
-			const timer = new Stopwatch(time * 100);
+			const timer = new Stopwatch(intervalTime);
 			timer.start();
-			const counter = setInterval( () => console.log(timer.ms), 1000)
+			stop = setInterval( () => console.log(`${Math.floor(msToMinutes(timer.ms))} minutes,
+				${Math.round(msToSeconds(timer.ms))} seconds`), 1000)
+	}
 
-			// fix this!
+	const stopTimer = () => {
+		clearInterval(stop);
 	}
 
 	return (
@@ -19,14 +24,15 @@ const RunTimer = ({ timerName, intervalTime, numIntervals, restIncrement, restTi
 			<div className="timer-totals">
 				<h2>Timer Totals</h2>
 				<ul>
-					<li>Interval Time: {intervalTime}</li>
-					<li>Total Intervals: {numIntervals}</li>
-					<li>Rest Time: {restTime}</li>
-					{restIncrement !== 0 && <li>Rest Increment: {restIncrement}</li>}
+					<li>Interval Time: {msToMinutes(intervalTime)} minutes</li>
+					<li>Total Intervals: {numIntervals} intervals</li>
+					<li>Rest Time: {msToSeconds(restTime)} seconds</li>
+					{restIncrement !== 0 && <li>Rest Increment: {msToSeconds(restIncrement)} seconds</li>}
 				</ul>
 			</div>
 			<div className="timer">
 				<button onClick={() => runTimer()}>Start</button>
+				<button onClick={() => stopTimer()}>Stop</button>
 			</div>
 		</div>
 	)

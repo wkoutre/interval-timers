@@ -1,9 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import * as timeFuncs from '../../timeHelpers';
 
 const SavedTimers = (props) => {
 	// timers is an array of objects
 	const { timers, editTimer, deleteTimer, chooseTimer } = props;
+
+	// converting all values from timer to ms to pass into store
+
+	const localChooseTimer = ({ numIntervals, intervalTime, restTime, timerName, restIncrement }) => {
+		intervalTime = timeFuncs.minToMs(intervalTime);
+		restTime = timeFuncs.secToMs(restTime);
+		restIncrement = timeFuncs.secToMs(restIncrement);
+
+		const obj = {
+			intervalTime,
+			restTime,
+			numIntervals,
+			timerName,
+			restIncrement
+		}
+
+		return chooseTimer(obj);
+	}
 
 	let timerNames = timers.map( (obj, i) => 
 		(
@@ -19,7 +38,7 @@ const SavedTimers = (props) => {
 					&nbsp;
 					<Link to="/run-timer">
 						<span
-							onClick={() => chooseTimer(timers[i])}
+							onClick={() => localChooseTimer(timers[i])}
 							className="start-timer">start</span>
 					</Link>
 			</li>

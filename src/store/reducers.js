@@ -1,12 +1,17 @@
 import C from '../constants'
 import { combineReducers } from 'redux'
+import { twoPlacedFloat } from '../timeHelpers';
+
+/*
+** sets app.timerProps
+*/
 
 const numIntervals = (state=0, action) => {
 	switch (action.type) {
 		case C.CLEAR_FORM:
 			return 0;
 		case C.SET_NUM_INTERVALS:
-			return action.payload;
+			return parseInt(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return parseInt(action.payload.numIntervals)
 		default:
@@ -19,9 +24,9 @@ const intervalTime = (state=0, action) => {
 		case C.CLEAR_FORM:
 			return 0;
 		case C.SET_INTERVAL_TIME:
-			return action.payload;
+			return twoPlacedFloat(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
-			return +(action.payload.intervalTime)
+			return twoPlacedFloat(action.payload.intervalTime);
 		default:
 			return state;
 	}
@@ -32,9 +37,9 @@ const restTime = (state=0, action) => {
 		case C.CLEAR_FORM:
 			return 0;
 		case C.SET_REST_TIME:
-			return action.payload;
+			return twoPlacedFloat(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
-			return parseInt(action.payload.restTime)
+			return twoPlacedFloat(action.payload.restTime)
 		default:
 			return state;
 	}
@@ -45,9 +50,9 @@ const restIncrement = (state=0, action) => {
 		case C.CLEAR_FORM:
 			return 0;
 		case C.SET_REST_INCREMENT:
-			return action.payload;
+			return twoPlacedFloat(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
-			return parseInt(action.payload.restIncrement)
+			return twoPlacedFloat(action.payload.restIncrement)
 		default:
 			return state;
 	}
@@ -86,7 +91,12 @@ const timerName = (state="", action) => {
 	}
 }
 
-const currentTimer = (state={}, action) => {
+/*
+** sets app.currentTImer
+** reference for app.runningTimer
+*/
+
+const timerData = (state={}, action) => {
 	switch (action.type) {
 		case C.CHOOSE_TIMER:
 			return action.payload;
@@ -94,6 +104,8 @@ const currentTimer = (state={}, action) => {
 			return state;
 	}
 }
+
+/**/
 
 export default combineReducers({
 	timerProps: combineReducers({
@@ -104,5 +116,7 @@ export default combineReducers({
 		timerName,
 		timers	
 	}),
-	currentTimer
+	currentTimer: combineReducers({
+		timerData
+	})
 })
