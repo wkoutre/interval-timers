@@ -7,13 +7,4 @@ You've GOT to remember when functions are actually being called... USE what you 
 To-Do:
 
 - convert RunTimer to a Stateful Component
-- its state will have the timer data, which will be referenced in the HTML
-- the Redux store will be in charge of nothing in terms of the timer... it's all client-side
-	-- the data, obviously, will still initially come from the store which will eventually be on the server
-
-	TODAY wasn't a waste; it was a learning experience, as always.
-
-	Read more.
-	Plan more.
-	Don't get discouraged.
-	Build simple, but beautiful.
+	-- finish trigger functions

@@ -1,5 +1,6 @@
 import RunTimer from '../ui/RunTimer'
-import { startTimer, stopTimer, incrementIntervals } from '../../actions'
+// import { startTimer, stopTimer, incrementIntervals } from '../../actions'
+import { chooseTimer } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {
@@ -15,27 +16,15 @@ const mapStateToProps = ({ app }, props) => {
 		restTime,
 		intervalTime,
 		totalTime,
-		numIntervals,
-		completedIntervals,
-		incrementIntervals
+		numIntervals
 	};
 }
 	
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
 	({
-		startTimer(val) {
+		chooseTimer() {
 			dispatch(
-				startTimer(val)
-			)
-		},
-		stopTimer() {
-			dispatch(
-				stopTimer()
-			)
-		},
-		incrementIntervals() {
-			dispatch(
-				incrementIntervals()
+				chooseTimer(currentTimerObj)
 			)
 		}
 	})

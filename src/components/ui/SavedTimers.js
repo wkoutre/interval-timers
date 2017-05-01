@@ -5,7 +5,7 @@ import Stopwatch from 'timer-stopwatch';
 
 const SavedTimers = (props) => {
 	// timers is an array of objects
-	const { timers, editTimer, deleteTimer, chooseTimer, setInitialInterval } = props;
+	const { timers, editTimer, deleteTimer, chooseTimer } = props;
 
 	// converting all values from timer to ms to pass into store
 
@@ -31,7 +31,6 @@ const SavedTimers = (props) => {
 			totalTime: total
 		}
 
-		setInitialInterval();
 		return chooseTimer(obj);
 	}
 

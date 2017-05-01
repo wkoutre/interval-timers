@@ -2,130 +2,147 @@ import React from 'react';
 import Stopwatch from 'timer-stopwatch';
 import * as timeFuncs from '../../timeHelpers'
 
-const RunTimer = ({ timerName, intervalTime, numIntervals, completedIntervals, restIncrement, restTime, totalTime, startTimer, stopTimer, incrementIntervals }) => {
+class RunTimer extends React.Component {
+	constructor(props) {
+		super(props);
+		const { intervalTime, restIncrement, restTime, totalTime } = props;
 
-	let intervalTimer = new Stopwatch(intervalTime),
-		restTimer = new Stopwatch(restTimer),
-		totalTimer = new Stopwatch(totalTime)
-
-		// can still do setInterval chains... just do them with a controlled local React state!
-
-	const runTimer = () => {
-
-		if (intervalTimer.ms === 0 && completedIntervals < numIntervals) {
-			intervalTimer = new Stopwatch(intervalTime);
-		} else if (completedIntervals == numIntervals) {
-			// Timer is complete!
-			stopTimer()
-			console.log('TODO: Make noise; option to restart, etc');
+		// everything in state is in milliseconds
+		this.state = {
+			completedIntervals: 0,
+			totalTimer: new Stopwatch(totalTime),
+			totalId: 0,
+			intervalSecs: intervalTime,
+			restSecs: restTime,
+			newBreak: totalTime - intervalTime,
+			active: "interval",
+			timeElapsed: 0,
+			timeRemaining: props.totalTime - props.restTime
 		}
-
-		intervalTimer.startstop();
-
-		startTimer(
-			setInterval( () => {
-					console.log("interval " + Math.ceil(timeFuncs.msToSeconds(intervalTimer.ms)));
-					if (intervalTimer.ms === 0) {
-						stopTimer()
-						startRest()
-						incrementIntervals();
-					}
-				}, 1000)
-			)
-
-		return ;
 	}
 
-	const startRest = () => {
-		if (restTimer.ms === 0 && completedIntervals < numIntervals) {
-			restTimer = new Stopwatch(restTime);
+	timerIsComplete = () => {
+		return this.state.completedIntervals === this.props.numIntervals;
+	}
+
+	resetTimers = () => {
+		const { intervalTime, restIncrement, restTime, totalTime } = this.props;
+
+		this.stopTimer();
+		this.setState({
+			completedIntervals: 0,
+			totalTimer: new Stopwatch(totalTime),
+			totalId: 0,
+			id: 0,
+			intervalSecs: intervalTime,
+			restSecs: restTime,
+			newBreak: totalTime - intervalTime,
+			active: "interval",
+			timeRemaining: totalTime - restTime,
+			timeElapsed: 0
+		})
+	}
+
+	timerDoneTrigger = () => {
+		console.log('Timer is done!');
+		this.stopTimer();
+	}
+
+	changeInterval = () => {
+		console.log("changing interval");
+		
+		this.setState({ intervalSecs: this.state.intervalSecs - 1000 })
+
+		if (this.state.intervalSecs === 0) {
+			this.setState({
+				intervalSecs: this.props.intervalTime,
+				active: "rest",
+				completedIntervals: this.state.completedIntervals + 1
+			 })
+
+			this.state.completedIntervals === this.props.numIntervals && this.timerDoneTrigger();
 		}
-
-		restTimer.startstop();
-		startTimer(
-			setInterval( () => {
-					console.log("rest " + Math.ceil(timeFuncs.msToSeconds(restTimer.ms)));
-					if (restTimer.ms === 0) {
-						stopTimer()
-						runTimer()
-					}
-				}, 1000)
-		)
-
-		return ;
 	}
 
-	const localStopTimer = () => {
-		intervalTimer.startstop();
-		restTimer.startstop();
-		stopTimer();
+	changeRest = () => {
+		console.log("changing rest");
+		this.setState({ restSecs: this.state.restSecs - 1000 })
+
+		if (this.state.restSecs === 0) {
+			this.setState({
+				restSecs: this.props.restTime,
+				active: "interval"
+			 })
+		}
 	}
 
-	const { msToMinutes, msToSeconds } = timeFuncs;
+	runTimer = () => {
+		const { totalTimer, restSecs, intervalSecs } = this.state;
+		const { totalTime, restTime, intervalTime } = this.props;
+		console.log('running Total Timer');
+		totalTimer.onDone(this.timerDoneTrigger)
+		totalTimer.start();
+		
+		const totalId = setInterval( () => {
+			const { active } = this.state;
+			const timeElapsed = this.state.timeElapsed + 1000;
+			const timeRemaining = totalTime - restTime - timeElapsed;
+			this.setState({ timeRemaining, timeElapsed })
 
-	const totalMinRemaining = (timer) => {
-		return Math.floor(timeFuncs.msToMinutes(timer.ms));
+			if (this.state.active === 'interval') {
+				this.changeInterval();
+			} else {
+				this.changeRest();
+			}
+		}, 1000)
+
+		this.setState({ totalId })
 	}
 
-	const totalSecRemaining = (timer) => {
-		const minutes = timeFuncs.msToMinutes(timer.ms);
-		const minFloor = Math.floor(minutes);
-
-		return Math.floor((minutes - minFloor) * 60);
+	stopTimer = () => {
+		const { totalId, totalTimer } = this.state;
+		totalTimer.stop()
+		clearInterval(totalId);
 	}
 
-	const minElapsed = () => {
-		const diff = totalTime - totalTimer.ms; // ms difference
+	render() {
+		const { timerName,
+		restIncrement,
+		restTime,
+		intervalTime,
+		totalTime,
+		numIntervals,
+		incrementIntervals } = this.props;
 
-		return timeFuncs.msToMinutes(diff);
-	}
+		const { completedIntervals, intervalSecs, restSecs, timeElapsed, totalTimer, active, timeRemaining } = this.state;
+		const { msToText } = timeFuncs;
 
-	const secElapsed = () => {
-		const mins = timeFuncs.msToMinutes(totalTime - totalTimer.ms);
-		const minsFloor = Math.floor(mins);
-
-		return Math.floor((mins - minsFloor) * 60);
-	}
-
-	const intMins = () => {
-		console.log("Interval Mins:", intervalTimer.ms);
-		let ret = Math.floor(timeFuncs.msToMinutes(intervalTimer.ms));
-
-		return ret;
-	}
-
-	const intSecs = () => {
-		let mins = timeFuncs.msToMinutes(intervalTimer.ms);
-		let floor = Math.floor(mins);
-		let ret = Math.floor((mins - floor) * 60);
-
-		return ret;
-	}
-
-	return (
-		<div>
-			<h1>{timerName}</h1>
-			<div className="timer-totals">
-				<h2>Timer Totals</h2>
-				<ul>
-					<li>Interval Time: {msToMinutes(intervalTime)} minutes</li>
-					<li>Total Intervals: {numIntervals} intervals</li>
-					<li>Rest Time: {msToSeconds(restTime)} seconds</li>
-					{restIncrement !== 0 && <li>Rest Increment: {msToSeconds(restIncrement)} seconds</li>}
-				</ul>
-			</div>
-			<div className="timer">
-				<button onClick={() => runTimer()}>Start</button>
-				<button onClick={() => localStopTimer()}>Stop</button>
-			</div>
+		return (
 			<div>
-			<p>Interval: {completedIntervals} / {numIntervals}</p>
-			<p>Time Remaining in Interval: {intMins()} minutes {intSecs()} seconds</p>
-			<p>Total Time Elapsed: {minElapsed()} minutes {secElapsed()} seconds</p>
-			<p>Total time remaining: {totalMinRemaining(totalTimer)} minutes, {totalSecRemaining(totalTimer)} seconds</p>
+				<h1>{timerName}</h1>
+				<div className="timer-totals">
+					<h2>Timer Totals</h2>
+					<ul>
+						<li>Total Intervals: {numIntervals} intervals</li>
+						<li>Interval Time: {msToText(intervalTime)}</li>						
+						<li>Rest Time: {msToText(restTime)}</li>
+						{restIncrement !== 0 && <li>Rest Increment: {msToText(restIncrement)}</li>}
+					</ul>
+				</div>
+				<div className="timer">
+					<button onClick={() => this.runTimer()}>Start</button>
+					<button onClick={() => this.stopTimer()}>Stop</button>
+					<button onClick={() => this.resetTimers()}>Reset</button>
+				</div>
+				<div>
+				<p>Interval: {completedIntervals} / {numIntervals}</p>
+				<p>Time Remaining in {active}: {active === "interval" ? msToText(intervalSecs) : msToText(restSecs)} </p>
+				<p>Total Time Elapsed: {msToText(timeElapsed)}</p>
+				<p>Total time remaining: {msToText(timeRemaining)}</p>
+				</div>
 			</div>
-		</div>
-	)
+		)
+	}
 }
 
 export default RunTimer;

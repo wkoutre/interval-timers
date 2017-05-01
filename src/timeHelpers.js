@@ -29,3 +29,17 @@ export const calcTotalTime = (numIntervals, intervalTime, restIncrement, restTim
 
 	return totalIntervalTime + totalRestIncrementTime + totalRestTime;
 }
+
+export const secondsToText = (seconds) => {
+	const secs = Math.floor(seconds % 60);
+	const mins = Math.floor(seconds / 60);
+
+	return `${mins} min, ${secs} secs`
+}
+
+export const msToText = (ms) => {
+	const secs = Math.floor((msToSeconds(ms)) % 60);
+	const mins = Math.floor(msToMinutes(ms));
+
+	return `${mins} min, ${secs} secs`
+}

@@ -1,5 +1,5 @@
 import SavedTimers from '../ui/SavedTimers'
-import { editTimer, deleteTimer, chooseTimer, setInitialInterval } from '../../actions'
+import { editTimer, deleteTimer, chooseTimer } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {
@@ -27,11 +27,6 @@ const mapDispatchToProps = dispatch =>
 		chooseTimer(obj) {
 			dispatch(
 				chooseTimer(obj)
-			)
-		},
-		setInitialInterval() {
-			dispatch(
-				setInitialInterval()
 			)
 		}
 	})
