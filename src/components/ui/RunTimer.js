@@ -2,20 +2,57 @@ import React from 'react';
 import Stopwatch from 'timer-stopwatch';
 import * as timeFuncs from '../../timeHelpers'
 
-const RunTimer = ({ timerName, intervalTime, numIntervals, restIncrement, restTime }) => {
-	let stop;
-
-	const { msToMinutes, msToSeconds } = timeFuncs;
+const RunTimer = ({ timerName, intervalTime, numIntervals, completedIntervals, restIncrement, restTime, totalTime, intervalTimer, restTimer, totalTimer }) => {
 
 	const runTimer = () => {
-			const timer = new Stopwatch(intervalTime);
-			timer.start();
-			stop = setInterval( () => console.log(`${Math.floor(msToMinutes(timer.ms))} minutes,
-				${Math.round(msToSeconds(timer.ms))} seconds`), 1000)
+		console.log("2", intervalTimer);
+		
+		intervalTimer.start();
 	}
 
 	const stopTimer = () => {
-		clearInterval(stop);
+		intervalTimer.stop();
+	}
+
+	const { msToMinutes, msToSeconds } = timeFuncs;
+
+	const totalMinRemaining = () => {
+		return Math.floor(timeFuncs.msToMinutes(totalTimer.ms));
+	}
+
+	const totalSecRemaining = () => {
+		const minutes = timeFuncs.msToMinutes(totalTimer.ms);
+		const minFloor = Math.floor(minutes);
+
+		return Math.ceil((minutes - minFloor) * 60);
+	}
+
+	const minElapsed = () => {
+		const diff = totalTime - totalTimer.ms; // ms difference
+
+		return timeFuncs.msToMinutes(diff);
+	}
+
+	const secElapsed = () => {
+		const mins = timeFuncs.msToMinutes(totalTime - totalTimer.ms);
+		const minsFloor = Math.floor(mins);
+
+		return Math.ceil((mins - minsFloor) * 60);
+	}
+
+	const intMins = () => {
+		console.log("Interval Mins:", intervalTimer.ms);
+		let ret = Math.floor(timeFuncs.msToMinutes(intervalTimer.ms));
+
+		return ret;
+	}
+
+	const intSecs = () => {
+		let mins = timeFuncs.msToMinutes(intervalTimer.ms);
+		let floor = Math.floor(mins);
+		let ret = Math.ceil((mins - floor) * 60);
+
+		return ret;
 	}
 
 	return (
@@ -33,6 +70,12 @@ const RunTimer = ({ timerName, intervalTime, numIntervals, restIncrement, restTi
 			<div className="timer">
 				<button onClick={() => runTimer()}>Start</button>
 				<button onClick={() => stopTimer()}>Stop</button>
+			</div>
+			<div>
+			<p>Interval: {completedIntervals} / {numIntervals}</p>
+			<p>Time Remaining in Interval: {intMins()} minutes {intSecs()} seconds</p>
+			<p>Total Time Elapsed: {minElapsed()} minutes {secElapsed()} seconds</p>
+			<p>Total time remaining: {totalMinRemaining()} minutes, {totalSecRemaining()} seconds</p>
 			</div>
 		</div>
 	)

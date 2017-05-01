@@ -14,20 +14,6 @@ class CreateTimer extends React.Component {
 		clearForm();
 	}
 
-	addedIncrementTime = () => {
-		const { restIncrement, numIntervals } = this.props;
-		if (!restIncrement)
-			return 0;
-
-		let total = 0;
-		for (let i = 1; i < numIntervals; i++) {
-			total += i * restIncrement;
-		}
-
-		// returns seconds
-		return total;
-	}
-
 	totalTimeCalc = () => {
 		let { numIntervals, intervalTime, restTime, restIncrement } = this.props;
 
@@ -37,7 +23,7 @@ class CreateTimer extends React.Component {
 
 		// all values in minutes
 		const intervalMins = (numIntervals * intervalTime);
-		const restIncrementTime = this.addedIncrementTime() / 60;
+		const restIncrementTime = timeFuncs.addedIncrementTime(restIncrement, numIntervals) / 60;
 		const restMins = (restTime / 60) * numIntervals + restIncrementTime;
 		const total = intervalMins + restMins;
 
@@ -51,13 +37,17 @@ class CreateTimer extends React.Component {
 	
 		e.preventDefault();
 
-		const { saveTimer, clearForm, timerName, numIntervals, intervalTime, restTime, restIncrement } = this.props;
+			const { saveTimer, clearForm, timerName, numIntervals, intervalTime, restTime, restIncrement } = this.props;
+
+		const totalTime = timeFuncs.calcTotalTime(numIntervals, intervalTime, restIncrement, restTime);
+
 		const timerObj = {
 			timerName,
 			numIntervals,
 			intervalTime,
 			restTime,
-			restIncrement
+			restIncrement,
+			totalTime
 		}
 
 		saveTimer(timerObj);
@@ -94,6 +84,7 @@ class CreateTimer extends React.Component {
 		return (
 						!numIntervals ||
 						!intervalTime ||
+						intervalTime === '0.00' ||
 						!timerName ||
 						timers.filter(objs => objs.timerName === timerName).length > 0
 					)
@@ -112,33 +103,33 @@ class CreateTimer extends React.Component {
 								required type="text"
 								placeholder="timer name"
 								value={timerName}
-								onChange={(e) => setTimerName(e.target.value)}/>
+								onChange={(e) => setTimerName(e.target.value || "")}/>
 					<span className="form-label">Number of Intervals:* </span>
 					<input
 								required type="number"
 								placeholder="number of intervals"
 								value={numIntervals}
-								onChange={(e) => setNumIntervals(e.target.value)}/>
+								onChange={(e) => setNumIntervals(e.target.value || 0)}/>
 					<span>&nbsp;{this.interval()}</span>
 					<span className="form-label">Interval Time:*</span>
 					<input
 								required type="number"
 								placeholder="interval time"
 								value={intervalTime}
-								onChange={(e) => setIntervalTime(e.target.value)}/>
+								onChange={(e) => setIntervalTime(parseFloat(e.target.value) || 0)}/>
 					<span>&nbsp;{this.minutes()}</span>
 					<span className="form-label">Rest Time:</span>
 					<input
 								required type="number"
 								placeholder="rest time"
 								value={restTime}
-								onChange={(e) => setRestTime(e.target.value)}/>
+								onChange={(e) => setRestTime(e.target.value || 0)}/>
 					<span>&nbsp;{this.restSeconds()}</span>
 					<span className="form-label">Rest Increment Per Set:</span>
 					<input type="number"
 								placeholder="rest increment per set"
 								value={restIncrement}
-								onChange={(e) => setRestIncrement(e.target.value)}/>
+								onChange={(e) => setRestIncrement(e.target.value || 0)}/>
 				<span>&nbsp;{this.restIncrement()}</span>
 				<button
 					type="submit"

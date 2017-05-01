@@ -24,6 +24,7 @@ const intervalTime = (state=0, action) => {
 		case C.CLEAR_FORM:
 			return 0;
 		case C.SET_INTERVAL_TIME:
+		
 			return twoPlacedFloat(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return twoPlacedFloat(action.payload.intervalTime);
@@ -37,9 +38,9 @@ const restTime = (state=0, action) => {
 		case C.CLEAR_FORM:
 			return 0;
 		case C.SET_REST_TIME:
-			return twoPlacedFloat(action.payload);
+			return parseInt(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
-			return twoPlacedFloat(action.payload.restTime)
+			return parseInt(action.payload.restTime)
 		default:
 			return state;
 	}
@@ -50,9 +51,9 @@ const restIncrement = (state=0, action) => {
 		case C.CLEAR_FORM:
 			return 0;
 		case C.SET_REST_INCREMENT:
-			return twoPlacedFloat(action.payload);
+			return parseInt(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
-			return twoPlacedFloat(action.payload.restIncrement)
+			return parseInt(action.payload.restIncrement)
 		default:
 			return state;
 	}
@@ -91,6 +92,15 @@ const timerName = (state="", action) => {
 	}
 }
 
+const totalTime = (state=0, action) => {
+	switch (action.type) {
+		case C.SET_TOTAL_TIME:
+			return action.payload;
+		default:
+			return state
+	}
+}
+
 /*
 ** sets app.currentTImer
 ** reference for app.runningTimer
@@ -114,7 +124,7 @@ export default combineReducers({
 		restTime,
 		restIncrement,
 		timerName,
-		timers	
+		timers
 	}),
 	currentTimer: combineReducers({
 		timerData

@@ -36,7 +36,7 @@ export const setTimerName = (name) =>
 	})
 
 export const saveTimer = (obj) => {
-	const { timerName, numIntervals, intervalTime, restTime, restIncrement } = obj;
+	const { timerName, numIntervals, intervalTime, restTime, restIncrement, totalTime } = obj;
 
 	return ({
 		type: C.SAVE_TIMER,
@@ -45,7 +45,8 @@ export const saveTimer = (obj) => {
 			numIntervals,
 			intervalTime,
 			restTime,
-			restIncrement
+			restIncrement,
+			totalTime
 		}
 	})
 }
@@ -74,6 +75,12 @@ export const chooseTimer = (props) =>
 		type: C.CHOOSE_TIMER,
 		payload: props
 	})
+
+export const setTotalTime = (ms) =>
+	({
+		type: C.SET_TOTAL_TIME,
+		payload: ms
+})
 
 export const startTimer = (props) =>
 	({
