@@ -77,6 +77,10 @@ class RunTimer extends React.Component {
 	}
 
 	runTimer = () => {
+		if (this.timerIsComplete()) {
+			alert('Timer is done. Click OK to reset it!', this.resetTimers());
+			return ;
+		}
 		const { totalTimer, restSecs, intervalSecs } = this.state;
 		const { totalTime, restTime, intervalTime } = this.props;
 		console.log('running Total Timer');
