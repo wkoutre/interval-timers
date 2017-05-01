@@ -115,6 +115,32 @@ const timerData = (state={}, action) => {
 	}
 }
 
+const timerSwitch = (state=0, action) => {
+	switch (action.type) {
+		case C.START_TIMER:
+			return action.payload;
+		case C.STOP_TIMER:
+			clearInterval(state);
+			return state;
+		case C.CLEAR_TIMER:
+			clearInterval(state);
+			return 0;
+		default:
+			return state;
+	}
+}
+
+const completedIntervals = (state=0, action) => {
+	switch (action.type) {
+		case C.INCREMENT_INTERVALS:
+			return state + 1;
+		case C.SET_INITIAL_INTERVAL:
+			return 0;
+		default:
+			return state;
+	}
+}
+
 /**/
 
 export default combineReducers({
@@ -127,6 +153,8 @@ export default combineReducers({
 		timers
 	}),
 	currentTimer: combineReducers({
-		timerData
+		timerData,
+		timerSwitch,
+		completedIntervals
 	})
 })

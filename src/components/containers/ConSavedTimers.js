@@ -1,9 +1,8 @@
 import SavedTimers from '../ui/SavedTimers'
-import { editTimer, deleteTimer, chooseTimer } from '../../actions'
+import { editTimer, deleteTimer, chooseTimer, setInitialInterval } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {
-	// console.log(props);
 	const { timerProps } = app;
 	const { timers } = timerProps;
 
@@ -15,9 +14,26 @@ const mapStateToProps = ({ app }, props) => {
 
 const mapDispatchToProps = dispatch =>
 	({
-		editTimer,
-		deleteTimer,
-		chooseTimer
+		editTimer(obj) {
+			dispatch(
+				editTimer(obj)
+			)
+		},
+		deleteTimer(obj) {
+			dispatch(
+				deleteTimer(obj)
+			)
+		},
+		chooseTimer(obj) {
+			dispatch(
+				chooseTimer(obj)
+			)
+		},
+		setInitialInterval() {
+			dispatch(
+				setInitialInterval()
+			)
+		}
 	})
 
 export default connect(mapStateToProps, mapDispatchToProps)(SavedTimers);

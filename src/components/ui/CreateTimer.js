@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SavedTimers from './SavedTimers'
+import SavedTimers from '../containers/ConSavedTimers'
 import * as timeFuncs from '../../timeHelpers'
 
 class CreateTimer extends React.Component {
@@ -95,7 +95,7 @@ class CreateTimer extends React.Component {
 
 		return (
 			<div>
-				{this.props.timers.length > 0 && <SavedTimers {...this.props}/>}
+				{this.props.timers.length > 0 && <SavedTimers />}
 				<h2>Create New Timer</h2>
 				<form required className="new-timer">
 					<span className="form-label">Timer Name:* </span>

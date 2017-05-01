@@ -82,8 +82,21 @@ export const setTotalTime = (ms) =>
 		payload: ms
 })
 
-export const startTimer = (props) =>
+export const startTimer = (intervalID) =>
 	({
 		type: C.START_TIMER,
-		payload: props
+		payload: intervalID
+	})
+
+export const stopTimer = () =>
+	({ type: C.STOP_TIMER })
+
+export const incrementIntervals = () =>
+	({
+		type: C.INCREMENT_INTERVALS
+	})
+
+export const setInitialInterval = () =>
+	({
+		type: C.SET_INITIAL_INTERVAL
 	})

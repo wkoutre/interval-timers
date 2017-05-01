@@ -1,9 +1,13 @@
 import RunTimer from '../ui/RunTimer'
-import { startTimer } from '../../actions'
+import { startTimer, stopTimer, incrementIntervals } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {
-	const { timerName, restIncrement, restTime, intervalTime, numIntervals, intervalTimer, restTimer, totalTimer, totalTime, completedIntervals } = app.currentTimer.timerData;
+	const { timerName, restIncrement, restTime, intervalTime, numIntervals, totalTime } = app.currentTimer.timerData;
+
+	const { completedIntervals } = app.currentTimer;
+
+	const { setIntervalTimer } = app.currentTimer
 
 	return {
 		timerName,
@@ -13,15 +17,27 @@ const mapStateToProps = ({ app }, props) => {
 		totalTime,
 		numIntervals,
 		completedIntervals,
-		intervalTimer,
-		restTimer,
-		totalTimer,
+		incrementIntervals
 	};
 }
 	
 const mapDispatchToProps = dispatch =>
 	({
-		startTimer
+		startTimer(val) {
+			dispatch(
+				startTimer(val)
+			)
+		},
+		stopTimer() {
+			dispatch(
+				stopTimer()
+			)
+		},
+		incrementIntervals() {
+			dispatch(
+				incrementIntervals()
+			)
+		}
 	})
 
 export default connect(mapStateToProps, mapDispatchToProps)(RunTimer);
