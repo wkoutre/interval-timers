@@ -17,7 +17,8 @@ class RunTimer extends React.Component {
 			newBreak: totalTime - intervalTime,
 			active: "interval",
 			timeElapsed: 0,
-			timeRemaining: props.totalTime - props.restTime
+			timeRemaining: props.totalTime - props.restTime,
+			running: false
 		}
 	}
 
@@ -39,8 +40,11 @@ class RunTimer extends React.Component {
 			newBreak: totalTime - intervalTime,
 			active: "interval",
 			timeRemaining: totalTime - restTime,
-			timeElapsed: 0
+			timeElapsed: 0,
+			running: false
 		})
+		console.log('timer has been reset');
+		
 	}
 
 	timerDoneTrigger = () => {
@@ -70,7 +74,7 @@ class RunTimer extends React.Component {
 
 		if (this.state.restSecs === 0) {
 			this.setState({
-				restSecs: this.props.restTime,
+				restSecs: this.props.restTime + (this.props.restIncrement * this.state.completedIntervals),
 				active: "interval"
 			 })
 		}
@@ -80,33 +84,42 @@ class RunTimer extends React.Component {
 		if (this.timerIsComplete()) {
 			alert('Timer is done. Click OK to reset it!', this.resetTimers());
 			return ;
+		} else if (!this.state.running) {
+			const { totalTimer, restSecs, intervalSecs } = this.state;
+			const { totalTime, restTime, intervalTime, restIncrement } = this.props;
+			console.log('running Total Timer');
+			totalTimer.onDone(this.timerDoneTrigger)
+			totalTimer.start();
+			
+			const totalId = setInterval( () => {
+				const { active } = this.state;
+				const timeElapsed = this.state.timeElapsed + 1000;
+				const sumRestIncrement = restIncrement * this.state.completedIntervals;
+				// console.log(incrementIntervals);
+				
+				const timeRemaining = totalTime - restTime - sumRestIncrement - timeElapsed ;
+				this.setState({ timeRemaining, timeElapsed })
+
+				if (this.state.active === 'interval') {
+					this.changeInterval();
+				} else {
+					this.changeRest();
+				}
+			}, 1000)
+
+			this.setState({ totalId, running: !this.state.running })
 		}
-		const { totalTimer, restSecs, intervalSecs } = this.state;
-		const { totalTime, restTime, intervalTime } = this.props;
-		console.log('running Total Timer');
-		totalTimer.onDone(this.timerDoneTrigger)
-		totalTimer.start();
-		
-		const totalId = setInterval( () => {
-			const { active } = this.state;
-			const timeElapsed = this.state.timeElapsed + 1000;
-			const timeRemaining = totalTime - restTime - timeElapsed;
-			this.setState({ timeRemaining, timeElapsed })
-
-			if (this.state.active === 'interval') {
-				this.changeInterval();
-			} else {
-				this.changeRest();
-			}
-		}, 1000)
-
-		this.setState({ totalId })
 	}
 
 	stopTimer = () => {
-		const { totalId, totalTimer } = this.state;
-		totalTimer.stop()
-		clearInterval(totalId);
+		if (this.state.running) {
+			console.log('stopping timer');
+		
+			const { totalId, totalTimer } = this.state;
+			totalTimer.stop()
+			clearInterval(totalId);
+			this.setState({ running: false })	
+		}
 	}
 
 	render() {
