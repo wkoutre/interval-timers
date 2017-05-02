@@ -3,7 +3,7 @@ import { editTimer, deleteTimer, chooseTimer } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {
-	const { timerProps } = app;
+	const { timerProps } = app.user;
 	const { timers } = timerProps;
 
 	return {

@@ -4,11 +4,11 @@ import { chooseTimer } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {
-	const { timerName, restIncrement, restTime, intervalTime, numIntervals, totalTime } = app.currentTimer.timerData;
+	const { timerName, restIncrement, restTime, intervalTime, numIntervals, totalTime } = app.user.currentTimer.timerData;
 
-	const { completedIntervals } = app.currentTimer;
+	const { completedIntervals } = app.user.currentTimer;
 
-	const { setIntervalTimer } = app.currentTimer
+	const { setIntervalTimer } = app.user.currentTimer
 
 	return {
 		timerName,

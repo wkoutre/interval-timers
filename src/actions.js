@@ -80,23 +80,15 @@ export const setTotalTime = (ms) =>
 	({
 		type: C.SET_TOTAL_TIME,
 		payload: ms
-})
+	})
 
-// export const startTimer = (intervalID) =>
-// 	({
-// 		type: C.START_TIMER,
-// 		payload: intervalID
-// 	})
+export const login = (uid) =>
+	({
+		type: C.SET_LOGIN_UID,
+		payload: uid
+	})
 
-// export const stopTimer = () =>
-// 	({ type: C.STOP_TIMER })
-
-// export const incrementIntervals = () =>
-// 	({
-// 		type: C.INCREMENT_INTERVALS
-// 	})
-
-// export const setInitialInterval = () =>
-// 	({
-// 		type: C.SET_INITIAL_INTERVAL
-// 	})
+export const logout = () =>
+	({
+		type: C.LOGOUT
+	})

@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 const Header = (props) => {
 	return (
 		<div className="header">
-			<button className="login-button">LOGIN</button>
+			<button 
+				className="logout-button"
+				onClick={() => props.logout()}>LOGOUT</button>
 			<input type="number" className="weight" placeholder="Today's weight"/>
 			<input type="text" className="weight-goal" placeholder="Weight goal"/>
 		</div>

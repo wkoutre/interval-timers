@@ -141,20 +141,34 @@ const completedIntervals = (state=0, action) => {
 	}
 }
 
+const uid = (state="", action) => {
+	switch (action.type) {
+		case C.SET_LOGIN_UID:
+			return action.payload;
+		case C.LOGOUT:
+			return "";
+		default:
+			return state;
+	}
+}
+
 /**/
 
 export default combineReducers({
-	timerProps: combineReducers({
-		numIntervals,
-		intervalTime,
-		restTime,
-		restIncrement,
-		timerName,
-		timers
-	}),
-	currentTimer: combineReducers({
-		timerData,
-		timerSwitch,
-		completedIntervals
+	user: combineReducers({
+		uid,
+		timerProps: combineReducers({
+			numIntervals,
+			intervalTime,
+			restTime,
+			restIncrement,
+			timerName,
+			timers
+		}),
+		currentTimer: combineReducers({
+			timerData,
+			timerSwitch,
+			completedIntervals
+		})	
 	})
 })
