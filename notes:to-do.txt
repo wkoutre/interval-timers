@@ -6,5 +6,4 @@ You've GOT to remember when functions are actually being called... USE what you 
 
 To-Do:
 
-- convert RunTimer to a Stateful Component
-	-- finish trigger functions
+- do login
