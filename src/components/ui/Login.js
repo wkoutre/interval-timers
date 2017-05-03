@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import base from '../Base';
 
+// careful about using global variables... find a better way to do this once proof of concept is achieved
+
+export let userUid = "";
+
 class Login extends React.Component {
 
 	componentWillMount() {
@@ -39,12 +43,14 @@ class Login extends React.Component {
 			console.log(data); // initiallyreturns empty object, returns uidRef object once user has signed up for an account once
 			console.log({authData}); // data returned from FB authentication
 			const { uid, displayName, email } = authData.user;
+
+			userUid = uid;
 			
 			uidRef.set({
 				uid
 			});
 
-			const userRef = base.database().ref(`users/${uid}`)
+			const userRef = base.database().ref(`users/${uid}/userInfo`)
 
 			userRef.set({
 				displayName,

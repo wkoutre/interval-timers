@@ -31,5 +31,3 @@ class App extends React.Component {
 }
 
 export default App
-
-// <Route exact path="/" component={Home} />

@@ -10,7 +10,7 @@ class Home extends React.Component {
 	shouldComponentUpdate(nextProps, nextState) {
 		console.log('componentShouldUpdate');
 		
-		return this.props.uid === "" && nextProps.uid !== "";
+		return this.props.uid !== nextProps.uid;
 	}
 
 	checkLogin = () => {
