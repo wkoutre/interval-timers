@@ -1,9 +1,9 @@
 import Login from '../ui/Login'
-import { login } from '../../actions'
+import { login, setInitialState } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {
-	const { uid } = app;
+	const { uid } = app.user;
 
 	return { uid };
 }
@@ -13,6 +13,11 @@ const mapDispatchToProps = dispatch =>
 		login(uid) {
 			dispatch(
 				login(uid)
+			)
+		},
+		setInitialState(obj) {
+			dispatch(
+				setInitialState(obj)
 			)
 		}
 	})

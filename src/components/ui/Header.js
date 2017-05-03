@@ -2,11 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Header = (props) => {
+	const localLogOut = () => {
+		console.log('local logout');
+		
+		props.logout();
+		props.history.push('/');
+	}
 	return (
 		<div className="header">
 			<button 
 				className="logout-button"
-				onClick={() => props.logout()}>LOGOUT</button>
+				onClick={() => localLogOut()}>LOGOUT</button>
 			<input type="number" className="weight" placeholder="Today's weight"/>
 			<input type="text" className="weight-goal" placeholder="Weight goal"/>
 		</div>

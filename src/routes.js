@@ -20,7 +20,8 @@ class App extends React.Component {
 			<Provider store={store}>
 				<Router history={history}>
 					<div>
-						<Route exact path="/" component={Home} />
+						<Route exact path="/home" component={Home} />
+						<Route exact path="/" component={Login} />
 						<Route path="/timers" component={CreateTimer}/>
 						<Route path="/run-timer" component={RunTimer}/>
 					</div>

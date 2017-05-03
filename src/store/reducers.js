@@ -152,9 +152,21 @@ const uid = (state="", action) => {
 	}
 }
 
+const rootReducer = (state, action) => {
+	switch (action.type) {
+		case C.SET_INITIAL_STATE:
+			return action.payload;
+		case C.LOGOUT:
+			state = undefined;
+			return mainReducer(state, action);
+		default:
+			return state;
+	}
+}
+
 /**/
 
-export default combineReducers({
+const mainReducer = combineReducers({
 	user: combineReducers({
 		uid,
 		timerProps: combineReducers({
@@ -172,3 +184,5 @@ export default combineReducers({
 		})	
 	})
 })
+
+export default mainReducer;

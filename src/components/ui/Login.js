@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import base from '../Base';
+import { store } from '../../store/store'
 
 // careful about using global variables... find a better way to do this once proof of concept is achieved
 
@@ -9,19 +10,9 @@ export let userUid = "";
 class Login extends React.Component {
 
 	componentWillMount() {
-		console.log('mounting Login');
-		
-		this.ref = base.syncState(
-			'test',
-			{
-				context: this,
-				state: 'test'
-			}
-		);
-	}
-
-	componentWillUnmount() {
-		base.removeBinding(this.ref);
+		if (this.props.uid) {
+			this.props.history.push('/home');
+		} 
 	}
 
 	authenticate = (provider) => {
@@ -34,29 +25,37 @@ class Login extends React.Component {
 			return ;
 		}
 
-		const uidRef = base.database().ref('users'); // to use FireBase API at"users" key on the database Tree
+		const userRef = base.database().ref('users'); // to use FireBase API at"users" key on the database Tree
+	
 
-		uidRef.once('value', snapshot => {
+		userRef.once('value', snapshot => {
 			const { login } = this.props;
+			// console.log("DATA 1:", snapshot.val())
 			const data = snapshot.val() || {};
 
-			console.log(data); // initiallyreturns empty object, returns uidRef object once user has signed up for an account once
-			console.log({authData}); // data returned from FB authentication
+			console.log("DATA 2:", data); // initiallyreturns empty object, returns userRef object once user has signed up for an account once
+
+			console.log("authData:", authData); // data returned from FB authentication
+
 			const { uid, displayName, email } = authData.user;
 
 			userUid = uid;
-			
-			uidRef.set({
-				uid
-			});
 
-			const userRef = base.database().ref(`users/${uid}/userInfo`)
-
-			userRef.set({
-				displayName,
-				email
-			});
-
+			if (!data[uid]){
+				// Do we have to explicitly set users/uid before the uidRef setting action?
+				// Seems to work without it...
+				userRef.set(uid)
+				const uidRef = base.database().ref(`users/${uid}`);
+				uidRef.set({
+					userInfo: {
+						displayName,
+						email
+					}
+				})
+				console.log("not in there yet");
+			} else {
+				this.localSetInitialState(data[uid]);
+			}
 			/*
 			** need to update the store with user:
 				if (uid exists) {
@@ -68,21 +67,31 @@ class Login extends React.Component {
 			*/
 
 			login(uid);
+			console.log(typeof this.saveState);
+			
+			store.subscribe(() => this.saveState(uid));
+			this.props.history.push('home');
 		});
 	}
 
-	renderLogin = () => {
+	saveState = (uid) => {
+		base.database().ref(`users/${uid}/store`).set(JSON.stringify(store.getState()))
+	}
+
+	localSetInitialState = (data) => {
+		data = JSON.parse(data.store).app;
+		console.log({data});
+
+		this.props.setInitialState(data);
+	}
+
+	render() {
 		return (
 			<div>
 				<h2>Login</h2>
 				<p>Please login, or create an account!</p>
 				<button onClick={() => this.authenticate('facebook')}>Login with Facebook</button>
 			</div>
-		)
-	}	
-	render() {
-		return (
-			<div>{this.renderLogin()}</div>
 		)
 	}
 }

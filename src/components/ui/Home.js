@@ -13,25 +13,35 @@ class Home extends React.Component {
 		return this.props.uid !== nextProps.uid;
 	}
 
-	checkLogin = () => {
-		return localStorage['workout-app'];
+	componentWillMount() {
+		if (!this.isLoggedIn()) {
+			this.props.history.push('/');
+		}
+	}
+
+	// need to change this to reference server
+	isLoggedIn = () => {
+		return this.props.uid !== "";
 	}
 
 	render() {
+		const { history } = this.props;
 		const home = (
 				<div>
-					<Header />
-					<HomeBody />
-					<Footer />
+					<Header history={history}/>
+					<HomeBody history={history}/>
+					<Footer history={history}/>
 				</div>
 			)
 
 		return (
 			<div>
-				{this.props.uid !== "" ? home : <Login />}
+				{home}
 			</div>
 		) 
 	}
 }
 
 export default Home;
+
+// {this.checkLogin() ? home : <Login history={this.props.history}/>}

@@ -92,3 +92,11 @@ export const logout = () =>
 	({
 		type: C.LOGOUT
 	})
+
+export const setInitialState = (uidState) => {
+	
+	return ({
+		type: C.SET_INITIAL_STATE,
+		payload: uidState
+	})
+}

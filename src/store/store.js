@@ -4,7 +4,7 @@ import { BrowserRouter as History } from 'react-router-dom'
 import createHistory from 'history/createBrowserHistory'
 import mainReducer from './reducers'
 import base from '../components/Base'
-import { userUid as uid } from '../components/ui/Login'
+// import { userUid as uid } from '../components/ui/Login'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -12,11 +12,13 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // pass it in from login function?
 //
 
-const initialState = base.database().ref(`users/${uid}/store`) ?
-		base.database().ref(`users/${uid}/store`) :
-		{}
+// const initialState = base.database().ref(`users/${uid}/store`) ?
+// 		base.database().ref(`users/${uid}/store`) :
+// 		{}
 
-console.log({initialState});
+// const initialState = {}
+
+// console.log({initialState});
 
 
 // const initialState = (localStorage["redux-timer-store"]) ?
@@ -31,7 +33,6 @@ const store = createStore(
 		app: mainReducer,
 		routing: routerReducer
 	}),
-	initialState,
 	composeEnhancers(
 		applyMiddleware(middleware)
 	)
@@ -39,17 +40,14 @@ const store = createStore(
 
 history = syncHistoryWithStore(history, store);
 
-// const saveState = () => 
-//     localStorage["redux-timer-store"] = JSON.stringify(store.getState())
+// const saveState = () =>{
+// 		if (uid !== "") {
+//     	base.database().ref(`users/${uid}/store`).set(JSON.stringify(store.getState()))
+//         console.log({uid});
+//      }
+//   }
 
-const saveState = () =>{
-		if (uid !== "") {
-    	base.database().ref(`users/${uid}/store`).set(JSON.stringify(store.getState()))
-        console.log({uid});
-     }
-  }
-
-store.subscribe(saveState);
+// store.subscribe(saveState);
 
 module.exports = {
 	store,
