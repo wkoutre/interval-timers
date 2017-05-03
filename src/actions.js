@@ -82,11 +82,15 @@ export const setTotalTime = (ms) =>
 		payload: ms
 	})
 
-export const login = (uid) =>
-	({
+export const login = (uid) => {
+	localStorage["redux-timer-store"] = uid;
+
+	return ({
 		type: C.SET_LOGIN_UID,
 		payload: uid
 	})
+}
+	
 
 export const logout = () =>
 	({
@@ -94,7 +98,7 @@ export const logout = () =>
 	})
 
 export const setInitialState = (uidState) => {
-	
+
 	return ({
 		type: C.SET_INITIAL_STATE,
 		payload: uidState

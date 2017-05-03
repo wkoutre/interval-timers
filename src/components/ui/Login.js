@@ -5,12 +5,10 @@ import { store } from '../../store/store'
 
 // careful about using global variables... find a better way to do this once proof of concept is achieved
 
-export let userUid = "";
-
 class Login extends React.Component {
 
 	componentWillMount() {
-		if (this.props.uid) {
+		if (localStorage['redux-timer-store']) {
 			this.props.history.push('/home');
 		} 
 	}
@@ -39,8 +37,6 @@ class Login extends React.Component {
 
 			const { uid, displayName, email } = authData.user;
 
-			userUid = uid;
-
 			if (!data[uid]){
 				// Do we have to explicitly set users/uid before the uidRef setting action?
 				// Seems to work without it...
@@ -67,7 +63,6 @@ class Login extends React.Component {
 			*/
 
 			login(uid);
-			console.log(typeof this.saveState);
 			
 			store.subscribe(() => this.saveState(uid));
 			this.props.history.push('home');

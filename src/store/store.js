@@ -4,7 +4,6 @@ import { BrowserRouter as History } from 'react-router-dom'
 import createHistory from 'history/createBrowserHistory'
 import mainReducer from './reducers'
 import base from '../components/Base'
-// import { userUid as uid } from '../components/ui/Login'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -29,10 +28,7 @@ let history = createHistory();
 let middleware = routerMiddleware(history);
 
 const store = createStore(
-	combineReducers({
-		app: mainReducer,
-		routing: routerReducer
-	}),
+	mainReducer,
 	composeEnhancers(
 		applyMiddleware(middleware)
 	)

@@ -6,5 +6,17 @@ You've GOT to remember when functions are actually being called... USE what you 
 
 To-Do:
 
-- do login
--
+1) login for:
+	- google
+	- twitter
+	- linkedin
+
+	-- logic to check if email already exists
+		-- add emails: { } to firebase?
+
+2) optimize saving the data so there aren't as many pings to the server
+	- don't subscribe and do it manually on save-timer
+		-- would have to refactor the setInitialState action/reducer
+		-- what info about the timers do I want to actually be live-saved?
+			a. currently saved timers
+			b. timers 

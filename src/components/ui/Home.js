@@ -10,18 +10,20 @@ class Home extends React.Component {
 	shouldComponentUpdate(nextProps, nextState) {
 		console.log('componentShouldUpdate');
 		
+		// watch out here...
 		return this.props.uid !== nextProps.uid;
 	}
 
 	componentWillMount() {
-		if (!this.isLoggedIn()) {
+		if (this.isLoggedIn()) {
 			this.props.history.push('/');
 		}
 	}
 
 	// need to change this to reference server
 	isLoggedIn = () => {
-		return this.props.uid !== "";
+		// return this.props.uid !== "";
+		return localStorage['redux-workout-app'] !== undefined;
 	}
 
 	render() {

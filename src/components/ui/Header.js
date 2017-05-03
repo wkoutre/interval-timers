@@ -7,6 +7,7 @@ const Header = (props) => {
 		
 		props.logout();
 		props.history.push('/');
+		localStorage.removeItem('redux-timer-store');
 	}
 	return (
 		<div className="header">

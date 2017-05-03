@@ -1,6 +1,7 @@
 import C from '../constants'
 import { combineReducers } from 'redux'
 import { twoPlacedFloat } from '../timeHelpers';
+import { routerReducer } from 'react-router-redux'
 
 /*
 ** sets app.timerProps
@@ -155,7 +156,7 @@ const uid = (state="", action) => {
 const rootReducer = (state, action) => {
 	switch (action.type) {
 		case C.SET_INITIAL_STATE:
-			return action.payload;
+			return mainReducer(state, action)
 		case C.LOGOUT:
 			state = undefined;
 			return mainReducer(state, action);
@@ -167,22 +168,25 @@ const rootReducer = (state, action) => {
 /**/
 
 const mainReducer = combineReducers({
-	user: combineReducers({
-		uid,
-		timerProps: combineReducers({
-			numIntervals,
-			intervalTime,
-			restTime,
-			restIncrement,
-			timerName,
-			timers
-		}),
-		currentTimer: combineReducers({
-			timerData,
-			timerSwitch,
-			completedIntervals
-		})	
-	})
-})
+	app: combineReducers({
+		user: combineReducers({
+			uid,
+			timerProps: combineReducers({
+				numIntervals,
+				intervalTime,
+				restTime,
+				restIncrement,
+				timerName,
+				timers
+			}),
+			currentTimer: combineReducers({
+				timerData,
+				timerSwitch,
+				completedIntervals
+			})	
+		})
+	}),
+	routing: routerReducer
+});
 
 export default mainReducer;
