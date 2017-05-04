@@ -8,6 +8,11 @@ class CreateTimer extends React.Component {
 		super(props);
 	}
 
+	componentWillMount() {
+		console.log('CreatTimer Props: ', this.props);
+		
+	}
+
 	componentDidMount() {
 		const { clearForm } = this.props;
 

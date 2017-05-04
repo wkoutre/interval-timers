@@ -6,6 +6,15 @@ You've GOT to remember when functions are actually being called... USE what you 
 
 To-Do:
 
+FIRST and FOREMOS:
+	-- get state from server on refresh
+		a) middleware is already there; you need to...
+			1) get setInitialState to launch immediately on a page refresh
+			2) resubscribe store to updating the server on a page refresh
+				currently it's in "Login" but... this should be changed to a helper function in componentWillMount() of App (routes)
+
+
+
 1) login for:
 	- google
 	- twitter

@@ -98,9 +98,22 @@ export const logout = () =>
 	})
 
 export const setInitialState = (uidState) => {
+	console.group('setInitialState action');
+	console.log('action.payload:',uidState);
+	console.groupEnd('setInitialState action');
 
+	localStorage["redux-timer-store"] = uidState.app.user.uid;
+	
 	return ({
 		type: C.SET_INITIAL_STATE,
 		payload: uidState
+	})
+}
+
+export const setUnsubscribe = (unsubId) => {
+
+	return ({
+		type: C.SET_UNSUBSCRIBE,
+		payload: unsubId
 	})
 }

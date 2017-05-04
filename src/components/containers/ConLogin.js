@@ -1,5 +1,5 @@
 import Login from '../ui/Login'
-import { login, setInitialState } from '../../actions'
+import { login, setInitialState, setUnsubscribe } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {
@@ -18,6 +18,11 @@ const mapDispatchToProps = dispatch =>
 		setInitialState(obj) {
 			dispatch(
 				setInitialState(obj)
+			)
+		},
+		setUnsubscribe(obj) {
+			dispatch(
+				setUnsubscribe(obj)
 			)
 		}
 	})

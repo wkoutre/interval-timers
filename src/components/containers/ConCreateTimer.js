@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as timeFuncs from '../../timeHelpers'
 
 const mapStateToProps = ({ app }, props) => {
-	const { timerProps } = app.user;
+	const { timerProps, uid } = app.user;
 	const { timers, timerName, intervalTime, numIntervals, restIncrement, restTime } = timerProps;
 
 	return {
@@ -13,7 +13,8 @@ const mapStateToProps = ({ app }, props) => {
 		restIncrement,
 		restTime,
 		timerName,
-		timers
+		timers,
+		uid
 	}
 }
 

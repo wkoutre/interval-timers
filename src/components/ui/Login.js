@@ -48,6 +48,8 @@ class Login extends React.Component {
 						email
 					}
 				})
+
+				login(uid);
 				console.log("not in there yet");
 			} else {
 				this.localSetInitialState(data[uid]);
@@ -60,11 +62,10 @@ class Login extends React.Component {
 					create key with uid;
 					set write location of store to the tree under that key
 				}
-			*/
+			*/	
+			const serverSyncing = store.subscribe(() => this.saveState(uid));
 
-			login(uid);
-			
-			store.subscribe(() => this.saveState(uid));
+			this.props.setUnsubscribe(serverSyncing);
 			this.props.history.push('home');
 		});
 	}
@@ -74,8 +75,7 @@ class Login extends React.Component {
 	}
 
 	localSetInitialState = (data) => {
-		data = JSON.parse(data.store).app;
-		console.log({data});
+		data = JSON.parse(data.store);
 
 		this.props.setInitialState(data);
 	}

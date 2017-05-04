@@ -15,6 +15,8 @@ const numIntervals = (state=0, action) => {
 			return parseInt(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return parseInt(action.payload.numIntervals)
+		// case C.SET_INITIAL_STATE:
+		// 	return action.payload.app.
 		default:
 			return state;
 	}
@@ -25,10 +27,11 @@ const intervalTime = (state=0, action) => {
 		case C.CLEAR_FORM:
 			return 0;
 		case C.SET_INTERVAL_TIME:
-		
 			return twoPlacedFloat(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return twoPlacedFloat(action.payload.intervalTime);
+		// case C.SET_INITIAL_STATE:
+			
 		default:
 			return state;
 	}
@@ -42,6 +45,8 @@ const restTime = (state=0, action) => {
 			return parseInt(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return parseInt(action.payload.restTime)
+		// case C.SET_INITIAL_STATE:
+			
 		default:
 			return state;
 	}
@@ -55,13 +60,15 @@ const restIncrement = (state=0, action) => {
 			return parseInt(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return parseInt(action.payload.restIncrement)
+		// case C.SET_INITIAL_STATE:
+			
 		default:
 			return state;
 	}
 }
 
 // array of objects with timer configurations
-const timers = (state=[], action) => {
+const timers = (state=[], action) => {	
 	switch (action.type) {
 		case C.SAVE_TIMER:
 			return [
@@ -75,6 +82,8 @@ const timers = (state=[], action) => {
 			const { timerName: name } = action.payload;
 			
 			return state.filter(timers => timers.timerName !== name)
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerProps.timers;
 		default:
 			return state
 	}
@@ -88,6 +97,8 @@ const timerName = (state="", action) => {
 			return action.payload;
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return action.payload.timerName
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerProps.timerName
 		default:
 			return state;
 	}
@@ -97,13 +108,15 @@ const totalTime = (state=0, action) => {
 	switch (action.type) {
 		case C.SET_TOTAL_TIME:
 			return action.payload;
+		// case C.SET_INITIAL_STATE:
+		// 	return action.payload.app.user.timerData.
 		default:
 			return state
 	}
 }
 
 /*
-** sets app.currentTImer
+** sets app.currentTimer
 ** reference for app.runningTimer
 */
 
@@ -111,6 +124,8 @@ const timerData = (state={}, action) => {
 	switch (action.type) {
 		case C.CHOOSE_TIMER:
 			return action.payload;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.currentTimer.timerData;
 		default:
 			return state;
 	}
@@ -148,6 +163,8 @@ const uid = (state="", action) => {
 			return action.payload;
 		case C.LOGOUT:
 			return "";
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.uid;
 		default:
 			return state;
 	}
@@ -155,11 +172,22 @@ const uid = (state="", action) => {
 
 const rootReducer = (state, action) => {
 	switch (action.type) {
-		case C.SET_INITIAL_STATE:
-			return mainReducer(state, action)
 		case C.LOGOUT:
-			state = undefined;
-			return mainReducer(state, action);
+			return mainReducer(undefined, action);
+		default:
+			return state;
+	}
+}
+
+const unsubscribeId = (state=null, action) => {
+	switch (action.type) {
+		case C.SET_UNSUBSCRIBE:
+			return action.payload;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.unsubscribeId;
+		case C.LOGOUT:
+			state();
+			return null
 		default:
 			return state;
 	}
@@ -171,6 +199,7 @@ const mainReducer = combineReducers({
 	app: combineReducers({
 		user: combineReducers({
 			uid,
+			unsubscribeId,
 			timerProps: combineReducers({
 				numIntervals,
 				intervalTime,

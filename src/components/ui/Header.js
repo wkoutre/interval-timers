@@ -5,6 +5,7 @@ const Header = (props) => {
 	const localLogOut = () => {
 		console.log('local logout');
 		
+		
 		props.logout();
 		props.history.push('/');
 		localStorage.removeItem('redux-timer-store');
