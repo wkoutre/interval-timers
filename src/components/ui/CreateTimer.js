@@ -8,17 +8,6 @@ class CreateTimer extends React.Component {
 		super(props);
 	}
 
-	componentWillMount() {
-		console.log('CreatTimer Props: ', this.props);
-		
-	}
-
-	componentDidMount() {
-		const { clearForm } = this.props;
-
-		clearForm();
-	}
-
 	totalTimeCalc = () => {
 		let { numIntervals, intervalTime, restTime, restIncrement } = this.props;
 
@@ -42,7 +31,7 @@ class CreateTimer extends React.Component {
 	
 		e.preventDefault();
 
-			const { saveTimer, clearForm, timerName, numIntervals, intervalTime, restTime, restIncrement } = this.props;
+			const { saveTimer, clearTimerForm, timerName, numIntervals, intervalTime, restTime, restIncrement } = this.props;
 
 		const totalTime = timeFuncs.calcTotalTime(numIntervals, intervalTime, restIncrement, restTime);
 
@@ -56,7 +45,7 @@ class CreateTimer extends React.Component {
 		}
 
 		saveTimer(timerObj);
-		clearForm();
+		clearTimerForm();
 	}
 
 	minuteCalc = (val) => {

@@ -1,6 +1,6 @@
 import RunTimer from '../ui/RunTimer'
 // import { startTimer, stopTimer, incrementIntervals } from '../../actions'
-import { chooseTimer } from '../../actions'
+import { chooseTimer, clearTimerForm } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {
@@ -25,6 +25,11 @@ const mapDispatchToProps = (dispatch) =>
 		chooseTimer() {
 			dispatch(
 				chooseTimer(currentTimerObj)
+			)
+		},
+		clearTimerForm() {
+			dispatch(
+				clearTimerForm()
 			)
 		}
 	})

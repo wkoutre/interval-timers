@@ -51,9 +51,9 @@ export const saveTimer = (obj) => {
 	})
 }
 
-export const clearForm = () =>
+export const clearTimerForm = () =>
 		({
-			type: C.CLEAR_FORM
+			type: C.CLEAR_TIMER_FORM
 		})
 
 export const editTimer = (props) =>
@@ -98,7 +98,7 @@ export const logout = () =>
 	})
 
 export const setInitialState = (uidState) => {
-	console.group('setInitialState action');
+	console.group('ACTION: setInitialState');
 	console.log('action.payload:',uidState);
 	console.groupEnd('setInitialState action');
 

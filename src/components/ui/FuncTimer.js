@@ -49,7 +49,7 @@ const Timer = (props) => {
 		e.preventDefault();
 
 		const valuesArray = [_numIntervals, _intervalTime, _restTime, _restIncrement, _timerName];
-		const { saveTimer, clearForm, timerName, numIntervals, intervalTime, restTime, restIncrement } = props;
+		const { saveTimer, clearTimerForm, timerName, numIntervals, intervalTime, restTime, restIncrement } = props;
 		const timerObj = {
 			timerName,
 			numIntervals,
@@ -59,7 +59,7 @@ const Timer = (props) => {
 		}
 
 		saveTimer(timerObj);
-		clearForm();
+		clearTimerForm();
 		valuesArray.map(item => item.value = "")		
 	}
 

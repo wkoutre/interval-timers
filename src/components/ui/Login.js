@@ -10,10 +10,11 @@ class Login extends React.Component {
 	componentWillMount() {
 		if (localStorage['redux-timer-store']) {
 			this.props.history.push('/home');
-		} 
+		}
+	
 	}
 
-	authenticate = (provider) => {
+	authenticate = (provider) => {	
 		base.authWithOAuthPopup(provider, this.authHandler);
 	}
 

@@ -22,6 +22,10 @@ class RunTimer extends React.Component {
 		}
 	}
 
+	componentWillUnmount() {
+		this.props.clearTimerForm();
+	}
+
 	timerIsComplete = () => {
 		return this.state.completedIntervals === this.props.numIntervals;
 	}

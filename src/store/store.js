@@ -5,14 +5,12 @@ import createHistory from 'history/createBrowserHistory'
 import mainReducer from './reducers'
 import base from '../components/Base'
 import { setInitialState } from '../actions'
+import { getStoreData } from './getStoreData'
+
+console.log('store is loading...');
+
 
 const storeFromServer = store => next => action => {
-
-	// console.log(store.getState().app.user.uid);
-	// console.log(!store.getState().app.user.uid);
-	console.log(!store.getState().app.user.uid);
-
-	console.log('localStorage:', localStorage['redux-timer-store']);	
 
 	if (!store.getState().app.user.uid && localStorage['redux-timer-store'] !== undefined) {
 		const userRef = base.database().ref(`users/${localStorage['redux-timer-store']}`);
@@ -70,16 +68,23 @@ let middleware = routerMiddleware(history);
 const store = createStore(
 	mainReducer,
 	composeEnhancers(
-		applyMiddleware(middleware, storeFromServer)
+		applyMiddleware(middleware)
 	)
 );
 
 history = syncHistoryWithStore(history, store);
 
+history.listen(location => {
+	if (localStorage['redux-timer-store'] && !store.getState().app.loggedIn) {
+			localStorage.removeItem('redux-timer-store');
+			history.push('/');
+			// getStoreData().then(data => setInitialState(data));
+	}
+})
+
 const saveState = () =>{
 		if (localStorage['redux-timer-store']) {
     	base.database().ref(`users/${uid}/store`).set(JSON.stringify(store.getState()))
-        console.log({uid});
      }
   }
 

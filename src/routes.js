@@ -11,12 +11,9 @@ import Login from './components/containers/ConLogin'
 import base from './components/Base'
 
 class App extends React.Component {
-	// componentWillMount() {
-	// 	this.ref = base.syncState()
-	// }
+	render() {		
+		window.clear = () => localStorage.clear();
 
-	render() {
-		
 		return (
 			<Provider store={store}>
 				<Router history={history}>

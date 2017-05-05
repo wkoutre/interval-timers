@@ -1,5 +1,5 @@
 import CreateTimer from '../ui/CreateTimer'
-import { clearForm, setTimerName, saveTimer, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement, editTimer, deleteTimer, chooseTimer, setTotalTime } from '../../actions'
+import { clearTimerForm, setTimerName, saveTimer, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement, editTimer, deleteTimer, chooseTimer, setTotalTime } from '../../actions'
 import { connect } from 'react-redux'
 import * as timeFuncs from '../../timeHelpers'
 
@@ -50,9 +50,9 @@ const mapDispatchToProps = dispatch =>
 				saveTimer(obj)
 			)
 		},
-		clearForm() {
+		clearTimerForm() {
 			dispatch(
-				clearForm()
+				clearTimerForm()
 			)
 		},
 		setTotalTime(ms) {

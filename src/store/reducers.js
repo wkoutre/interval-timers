@@ -9,14 +9,14 @@ import { routerReducer } from 'react-router-redux'
 
 const numIntervals = (state=0, action) => {
 	switch (action.type) {
-		case C.CLEAR_FORM:
+		case C.CLEAR_TIMER_FORM:
 			return 0;
 		case C.SET_NUM_INTERVALS:
 			return parseInt(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return parseInt(action.payload.numIntervals)
-		// case C.SET_INITIAL_STATE:
-		// 	return action.payload.app.
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerProps.numIntervals;
 		default:
 			return state;
 	}
@@ -24,14 +24,14 @@ const numIntervals = (state=0, action) => {
 
 const intervalTime = (state=0, action) => {
 	switch (action.type) {
-		case C.CLEAR_FORM:
+		case C.CLEAR_TIMER_FORM:
 			return 0;
 		case C.SET_INTERVAL_TIME:
 			return twoPlacedFloat(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return twoPlacedFloat(action.payload.intervalTime);
-		// case C.SET_INITIAL_STATE:
-			
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerProps.intervalTime;			
 		default:
 			return state;
 	}
@@ -39,14 +39,14 @@ const intervalTime = (state=0, action) => {
 
 const restTime = (state=0, action) => {
 	switch (action.type) {
-		case C.CLEAR_FORM:
+		case C.CLEAR_TIMER_FORM:
 			return 0;
 		case C.SET_REST_TIME:
 			return parseInt(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return parseInt(action.payload.restTime)
-		// case C.SET_INITIAL_STATE:
-			
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerProps.restTime;
 		default:
 			return state;
 	}
@@ -54,14 +54,14 @@ const restTime = (state=0, action) => {
 
 const restIncrement = (state=0, action) => {
 	switch (action.type) {
-		case C.CLEAR_FORM:
+		case C.CLEAR_TIMER_FORM:
 			return 0;
 		case C.SET_REST_INCREMENT:
 			return parseInt(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return parseInt(action.payload.restIncrement)
-		// case C.SET_INITIAL_STATE:
-			
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerProps.restIncrement;
 		default:
 			return state;
 	}
@@ -80,7 +80,7 @@ const timers = (state=[], action) => {
 			return state.filter(timers => timers.timerName !== timerName)
 		case C.DELETE_TIMER:
 			const { timerName: name } = action.payload;
-			
+
 			return state.filter(timers => timers.timerName !== name)
 		case C.SET_INITIAL_STATE:
 			return action.payload.app.user.timerProps.timers;
@@ -91,13 +91,13 @@ const timers = (state=[], action) => {
 
 const timerName = (state="", action) => {
 	switch (action.type) {
-		case C.CLEAR_FORM:
+		case C.CLEAR_TIMER_FORM:
 			return "";
 		case C.SET_TIMER_NAME:
 			return action.payload;
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return action.payload.timerName
-		case C.SET_INITIAL_STATE:
+		case C.SET_INITIAL_STATE:		
 			return action.payload.app.user.timerProps.timerName
 		default:
 			return state;
@@ -108,8 +108,8 @@ const totalTime = (state=0, action) => {
 	switch (action.type) {
 		case C.SET_TOTAL_TIME:
 			return action.payload;
-		// case C.SET_INITIAL_STATE:
-		// 	return action.payload.app.user.timerData.
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.currentTimer.timerData.totalTime;
 		default:
 			return state
 	}
@@ -157,6 +157,17 @@ const completedIntervals = (state=0, action) => {
 	}
 }
 
+const loggedIn = (state=false, action) => {
+	switch (action.type) {
+		case C.SET_LOGIN_UID: case C.SET_INITIAL_STATE:
+			return true
+		case C.LOGOUT:
+			return false;
+		default:
+			return state;
+	}
+}
+
 const uid = (state="", action) => {
 	switch (action.type) {
 		case C.SET_LOGIN_UID:
@@ -179,15 +190,15 @@ const rootReducer = (state, action) => {
 	}
 }
 
-const unsubscribeId = (state=null, action) => {
+const unsubscribeId = (state=0, action) => {
 	switch (action.type) {
 		case C.SET_UNSUBSCRIBE:
 			return action.payload;
-		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.unsubscribeId;
+		// case C.SET_INITIAL_STATE:
+		// 	return action.payload.app.user.unsubscribeId;
 		case C.LOGOUT:
 			state();
-			return null
+			return 0;
 		default:
 			return state;
 	}
@@ -197,6 +208,7 @@ const unsubscribeId = (state=null, action) => {
 
 const mainReducer = combineReducers({
 	app: combineReducers({
+		loggedIn,
 		user: combineReducers({
 			uid,
 			unsubscribeId,
