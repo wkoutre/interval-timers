@@ -1,4 +1,5 @@
 import C from './constants'
+import base from './components/Base'
 
 /*
 ** TIMER PROPS
@@ -83,7 +84,7 @@ export const setTotalTime = (ms) =>
 	})
 
 export const login = (uid) => {
-	localStorage["redux-timer-store"] = uid;
+	localStorage.setItem("workout-timer-uid", uid);
 
 	return ({
 		type: C.SET_LOGIN_UID,
@@ -92,17 +93,22 @@ export const login = (uid) => {
 }
 	
 
-export const logout = () =>
-	({
+export const logout = () => {
+
+	localStorage.removeItem('workout-timer-uid');
+	localStorage.removeItem('workout-timer-app');
+
+	return ({
 		type: C.LOGOUT
 	})
+}
 
 export const setInitialState = (uidState) => {
 	console.group('ACTION: setInitialState');
 	console.log('action.payload:',uidState);
 	console.groupEnd('setInitialState action');
 
-	localStorage["redux-timer-store"] = uidState.app.user.uid;
+	localStorage.setItem("workout-timer-uid", uidState.app.user.uid);
 	
 	return ({
 		type: C.SET_INITIAL_STATE,
@@ -110,7 +116,7 @@ export const setInitialState = (uidState) => {
 	})
 }
 
-export const setUnsubscribe = (unsubId) => {
+export const setunsubscribeSyncId = (unsubId) => {
 
 	return ({
 		type: C.SET_UNSUBSCRIBE,

@@ -175,7 +175,7 @@ const uid = (state="", action) => {
 		case C.LOGOUT:
 			return "";
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.uid;
+			return localStorage['workout-timer-uid'];
 		default:
 			return state;
 	}
@@ -190,15 +190,15 @@ const rootReducer = (state, action) => {
 	}
 }
 
-const unsubscribeId = (state=0, action) => {
+const unsubscribeId = (state=() => null, action) => {
 	switch (action.type) {
 		case C.SET_UNSUBSCRIBE:
 			return action.payload;
 		// case C.SET_INITIAL_STATE:
-		// 	return action.payload.app.user.unsubscribeId;
+		// 	return localStorage['workout-']
 		case C.LOGOUT:
 			state();
-			return 0;
+			return () => null;
 		default:
 			return state;
 	}

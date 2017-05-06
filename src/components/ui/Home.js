@@ -19,5 +19,3 @@ class Home extends React.Component {
 }
 
 export default Home;
-
-// {this.checkLogin() ? home : <Login history={this.this.props.history}/>}

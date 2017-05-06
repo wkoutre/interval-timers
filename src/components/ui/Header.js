@@ -1,23 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import base from '../Base'
 
-const Header = (props) => {
-	const localLogOut = () => {
-		console.log('local logout');
-
-		props.logout();
-		props.history.push('/');
-		localStorage.removeItem('redux-timer-store');
+class Header extends React.Component {
+	componentWillMount() {
+		if (!this.props.loggedIn) {
+			console.log('Returning to LOGIN screen from HEADER');
+			this.props.history.push('/');
+		}
 	}
-	return (
-		<div className="header">
-			<button 
-				className="logout-button"
-				onClick={() => localLogOut()}>LOGOUT</button>
-			<input type="number" className="weight" placeholder="Today's weight"/>
-			<input type="text" className="weight-goal" placeholder="Weight goal"/>
-		</div>
-	)
+
+	localLogOut = () => {
+		console.log('local logout');
+		console.log('before unauth');
+		console.log(base.getAuth());
+		base.auth().signOut();
+		this.props.logout()
+		this.props.history.push('/');	
+	}
+
+	render() {
+		return (
+			<div className="header">
+				<button 
+					className="logout-button"
+					onClick={() => this.localLogOut()}>LOGOUT</button>
+				<input type="number" className="weight" placeholder="Today's weight"/>
+				<input type="text" className="weight-goal" placeholder="Weight goal"/>
+			</div>
+		)
+	}
 }
 
 export default Header;

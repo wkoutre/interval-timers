@@ -4,69 +4,45 @@ import { BrowserRouter as History } from 'react-router-dom'
 import createHistory from 'history/createBrowserHistory'
 import mainReducer from './reducers'
 import base from '../components/Base'
-import { setInitialState } from '../actions'
+import { setunsubscribeSyncId } from '../actions'
 import { getStoreData } from './getStoreData'
 
-console.log('store is loading...');
+window.clear = () => localStorage.clear();
+window.base = base;
 
+console.log('store.js is loading...');
 
-const storeFromServer = store => next => action => {
+// const checkLoginMiddleware = store => next => action => {
+// 	console.group('checkLoginMiddleware');
+// 	console.log(store.getState().app.loggedIn);
+// 	if (!store.getState().app.loggedIn && localStorage['workout-timer-uid'] === undefined) {
+// 		console.log('middleware to the rescue');
+		
+// 		history.push('/');
+// 	}
+// 	console.groupEnd('checkLoginMiddleware');
 
-	if (!store.getState().app.user.uid && localStorage['redux-timer-store'] !== undefined) {
-		const userRef = base.database().ref(`users/${localStorage['redux-timer-store']}`);
-
-		console.log('outside the promise');
-
-		userRef.once('value')
-			.then(snapshot => {
-				
-				const data = snapshot.val();
-				const state = JSON.parse(data.store);				
-
-				// store.state = 
-				console.group('Setting initial state')
-				console.info('oldState:', store.getState());
-				console.info('state from server:', state);
-				console.groupEnd('Setting initial state');
-
-				setInitialState(state);
-			})
-			.catch(err => console.error(err))
-	}
-
-	// console.log("State after:", store.getState());
 	
+	// if (!store.getState().app.loggedIn && history.location.pathname !== '/') {
+	// 	history.push('/');
+	// }
 
-	return next(action);
-}
+// 	return next(action);
+// }
 
-const uid = localStorage['redux-timer-store'] || 0;
+const uid = localStorage['workout-timer-uid'] || 0;
+const initialState = localStorage['workout-timer-app'] ?
+	JSON.parse(localStorage['workout-timer-app']) :
+	{}
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// need to grab state from uid (once logged in...
-// pass it in from login function?
-//
-
-// const initialState = base.database().ref(`users/${uid}/store`) ?
-// 		base.database().ref(`users/${uid}/store`) :
-// 		{}
-		
-
-// const initialState = {}
-
-// console.log({initialState});
-
-
-// const initialState = (localStorage["redux-timer-store"]) ?
-//     JSON.parse(localStorage["redux-timer-store"]) :
-//     {}
-
 let history = createHistory();
-let middleware = routerMiddleware(history);
+const middleware = routerMiddleware(history);
 
 const store = createStore(
 	mainReducer,
+	initialState,
 	composeEnhancers(
 		applyMiddleware(middleware)
 	)
@@ -74,21 +50,21 @@ const store = createStore(
 
 history = syncHistoryWithStore(history, store);
 
-history.listen(location => {
-	if (localStorage['redux-timer-store'] && !store.getState().app.loggedIn) {
-			localStorage.removeItem('redux-timer-store');
-			history.push('/');
-			// getStoreData().then(data => setInitialState(data));
+const syncStateServerAndLocal = () => {
+		const stringified = JSON.stringify(store.getState());
+		base.database().ref(`users/${uid}/store`).set(stringified)
+		localStorage.setItem('workout-timer-app', stringified);
 	}
-})
 
-const saveState = () =>{
-		if (localStorage['redux-timer-store']) {
-    	base.database().ref(`users/${uid}/store`).set(JSON.stringify(store.getState()))
-     }
-  }
+const saveStateToLocal = () => {
+	const stringified = JSON.stringify(store.getState());
+}
 
-// store.subscribe(saveState);
+if (localStorage['workout-timer-uid']) {
+	console.log('Restoring state from page refresh!');
+ 	const unsubscribeSyncId = store.subscribe(syncStateServerAndLocal); 
+	setunsubscribeSyncId(unsubscribeSyncId);	
+}
 
 module.exports = {
 	store,

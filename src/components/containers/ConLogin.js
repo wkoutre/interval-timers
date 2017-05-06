@@ -1,11 +1,12 @@
 import Login from '../ui/Login'
-import { login, setInitialState, setUnsubscribe } from '../../actions'
+import { login, setInitialState, setunsubscribeSyncId } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {
 	const { uid } = app.user;
+	const { loggedIn } = app;
 
-	return { uid };
+	return { uid, loggedIn };
 }
 
 const mapDispatchToProps = dispatch =>
@@ -20,9 +21,9 @@ const mapDispatchToProps = dispatch =>
 				setInitialState(obj)
 			)
 		},
-		setUnsubscribe(obj) {
+		setunsubscribeSyncId(obj) {
 			dispatch(
-				setUnsubscribe(obj)
+				setunsubscribeSyncId(obj)
 			)
 		}
 	})
