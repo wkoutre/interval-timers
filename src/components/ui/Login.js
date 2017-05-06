@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import base from '../Base';
-import { store } from '../../store/store'
+import { store } from '../../store/asyncStore'
 
 // careful about using global variables... find a better way to do this once proof of concept is achieved
 

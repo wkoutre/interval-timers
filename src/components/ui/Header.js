@@ -4,7 +4,9 @@ import base from '../Base'
 
 class Header extends React.Component {
 	componentWillMount() {
-		if (!this.props.loggedIn) {
+		console.log('HEADER: change loggedIn to this.props.loggedIn');
+		
+		if (!localStorage['workout-timer-uid']) {
 			console.log('Returning to LOGIN screen from HEADER');
 			this.props.history.push('/');
 		}

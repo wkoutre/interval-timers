@@ -1,7 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 // import { Route } from 'react-router'
-import { store, history } from './store/store'
+import { store, history } from './store/asyncStore'	
+// import { store, history } from './store/store'	
 import { Provider } from 'react-redux'
 import CreateTimer from './components/containers/ConCreateTimer'
 import RunTimer from './components/containers/ConRunTimer'
@@ -17,8 +18,8 @@ class App extends React.Component {
 		// 	 false;
 
 		console.log('App is mounting');
-		console.log("App: pathname = ", history.location.pathname);
-		console.log("App: loggedIn = ", loggedIn);
+		console.log("App: pathname =", history.location.pathname);
+		console.log("App: loggedIn =", loggedIn);
 		
 		if (history.location.pathname !== '/' && !loggedIn) {
 			console.log('routesWillMount: pushing back to /');

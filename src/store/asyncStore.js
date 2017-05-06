@@ -6,41 +6,20 @@ import mainReducer from './reducers'
 import base from '../components/Base'
 import { setunsubscribeSyncId } from '../actions'
 import { getStoreData } from './getStoreData'
-import { asyncStore } from './asyncStore'
 
-window.clear = () => localStorage.clear();
-window.base = base;
+let store, history;
 
-console.log('store.js is loading...');
+(async () => {
+	const initialState = await getStoreData();
 
-const uid = localStorage['workout-timer-uid'] || 0;
-
-/*
- This info is never deleted from localStorage on logout.
-
- Ideally, I need to set up async code to fetch the user's information from the server if they're logged in (if localStorage['workout-timer-uid'] exists)
-
-*/
-// const initialState = localStorage['workout-timer-app'] ?
-// 	JSON.parse(localStorage['workout-timer-app']) :
-// 	{}
-
-
-if (uid) {
-	asyncStore;
-} else {
-	const initialState = {}
-
-	console.log(typeof initialState);
-	console.log(initialState);
-
+	console.log("InitialState Async:", initialState);
 
 	const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-	let history = createHistory();
+	history = createHistory();
 	const middleware = routerMiddleware(history);
 
-	const store = createStore(
+	store = createStore(
 		mainReducer,
 		initialState,
 		composeEnhancers(
@@ -51,10 +30,10 @@ if (uid) {
 	history = syncHistoryWithStore(history, store);
 
 	const syncStateServerAndLocal = () => {
-			const stringified = JSON.stringify(store.getState());
-			base.database().ref(`users/${uid}/store`).set(stringified)
-			localStorage.setItem('workout-timer-app', stringified);
-		}
+		const stringified = JSON.stringify(store.getState());
+		base.database().ref(`users/${uid}/store`).set(stringified)
+		localStorage.setItem('workout-timer-app', stringified);
+	}
 
 	const saveStateToLocal = () => {
 		const stringified = JSON.stringify(store.getState());
@@ -65,7 +44,7 @@ if (uid) {
 	 	const unsubscribeSyncId = store.subscribe(syncStateServerAndLocal); 
 		setunsubscribeSyncId(unsubscribeSyncId);	
 	}
-}
+	})();
 
 module.exports = {
 	store,
