@@ -104,7 +104,7 @@ export const logout = () => {
 }
 
 export const setInitialState = (uidState) => {
-	console.group('ACTION: setInitialState');
+	console.groupCollapsed('ACTION: setInitialState');
 	console.log('action.payload:',uidState);
 	console.groupEnd('setInitialState action');
 
@@ -113,13 +113,5 @@ export const setInitialState = (uidState) => {
 	return ({
 		type: C.SET_INITIAL_STATE,
 		payload: uidState
-	})
-}
-
-export const setunsubscribeSyncId = (unsubId) => {
-
-	return ({
-		type: C.SET_UNSUBSCRIBE,
-		payload: unsubId
 	})
 }

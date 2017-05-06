@@ -12,7 +12,7 @@ const storeFromServer = store => next => action => {
 				const state = JSON.parse(data.store);				
 
 				// store.state = 
-				console.group('Setting initial state')
+				console.groupCollapsed('Setting initial state')
 				console.info('oldState:', store.getState());
 				console.info('state from server:', state);
 				console.groupEnd('Setting initial state');
@@ -34,4 +34,18 @@ export const checkLoginMiddleware = store => next => action => {
 	}
 
 	return next(action);
+}
+
+export const syncingMiddleware = store => next => action => {
+	const id = localStorage['workout-timer-uid'];
+	if (id !== undefined) {
+		console.log('middleware takeover');
+		console.log('ID:', id);
+		
+		const stringified = JSON.stringify(store.getState());
+		base.database().ref(`users/${id}/store`).set(stringified)
+		localStorage.setItem('workout-timer-app', stringified);
+	}
+
+	return next(action);	
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import base from '../Base'
+import { store } from '../../store/store'
 
 class Header extends React.Component {
 	componentWillMount() {

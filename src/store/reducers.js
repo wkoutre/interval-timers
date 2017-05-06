@@ -190,20 +190,6 @@ const rootReducer = (state, action) => {
 	}
 }
 
-const unsubscribeId = (state=() => null, action) => {
-	switch (action.type) {
-		case C.SET_UNSUBSCRIBE:
-			return action.payload;
-		// case C.SET_INITIAL_STATE:
-		// 	return localStorage['workout-']
-		case C.LOGOUT:
-			state();
-			return () => null;
-		default:
-			return state;
-	}
-}
-
 /**/
 
 const mainReducer = combineReducers({
@@ -211,7 +197,6 @@ const mainReducer = combineReducers({
 		loggedIn,
 		user: combineReducers({
 			uid,
-			unsubscribeId,
 			timerProps: combineReducers({
 				numIntervals,
 				intervalTime,

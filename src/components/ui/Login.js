@@ -10,7 +10,7 @@ export let errorProvider;
 class Login extends React.Component {
 
 	componentWillMount() {
-		if (localStorage['workout-timer-uid']) {
+		if (this.props.loggedIn) {
 			this.props.history.push('/home');
 		}
 	}
@@ -37,23 +37,19 @@ class Login extends React.Component {
 			const { login } = this.props;
 			const data = snapshot.val() || {};
 			
-
 			// 'data' is initially an empty object; then it's the userRef object once user has signed up for an account once
 
-			// authData: data returned from FB API from FB authentication
+			// authData: data returned from FB/Google API from FB/Google authentication
 
 			const { uid, displayName, email } = authData.user;
 
-			console.group('login stuff')
-			console.log(data);
-			console.log(data[uid]);
-			console.log(authData);
+			console.groupCollapsed('login stuff')
+				console.log(data);
+				console.log(data[uid]);
+				console.log(authData);
 			console.groupEnd('login stuff')
 
-			// need to account for Facebook's different API...
-
-			// if there's a new user
-			console.log("*** UID ***", uid);
+			// if there's a new user...
 			
 			if (!data[uid]){
 				const uidRef = base.database().ref(`users/${uid}`);
@@ -72,23 +68,8 @@ class Login extends React.Component {
 				this.localSetInitialState(uid, data[uid]);
 			}
 
-			console.log('Setting serverSyncing');
-			
-			const serverSyncing = store.subscribe(() => this.syncStateServerAndLocal(uid));
-
-			this.props.setunsubscribeSyncId(serverSyncing);
 			this.props.history.push('home');
 		});
-	}
-
-	saveStateToLocal = () => {
-		const stringified = JSON.stringify(store.getState());
-	}
-
-	syncStateServerAndLocal = (uid) => {
-		const stringified = JSON.stringify(store.getState());
-		base.database().ref(`users/${uid}/store`).set(stringified)
-		localStorage.setItem('workout-timer-app', stringified);
 	}
 
 	localSetInitialState = (uid, data) => {
