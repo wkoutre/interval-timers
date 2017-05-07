@@ -2,18 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import base from '../Base';
 import { store } from '../../store/store'
+import { push } from 'connected-react-router'
 
 // careful about using global variables... find a better way to do this once proof of concept is achieved
 
 export let errorProvider;
 
 class Login extends React.Component {
-
-	componentWillMount() {
-		if (this.props.loggedIn) {
-			this.props.history.push('/home');
-		}
-	}
 
 	authenticate = (provider) => {	
 		base.authWithOAuthPopup(provider, this.authHandler);
@@ -44,14 +39,15 @@ class Login extends React.Component {
 			const { uid, displayName, email } = authData.user;
 
 			console.groupCollapsed('login stuff')
-				console.log(data);
-				console.log(data[uid]);
-				console.log(authData);
+				console.log('snapshot.val()', data);
+				console.log('data[uid]', data[uid]);
+				console.log('authData', authData);
 			console.groupEnd('login stuff')
 
 			// if there's a new user...
 			
 			if (!data[uid]){
+				console.log("New user sign in");
 				const uidRef = base.database().ref(`users/${uid}`);
 				uidRef.set({
 					userInfo: {
@@ -60,21 +56,23 @@ class Login extends React.Component {
 						uid
 					}
 				})
-				login(uid);
-				console.log("New user sign in");
 			} else {
 				console.log("Preexisting user signing");
-				// uid = 
 				this.localSetInitialState(uid, data[uid]);
 			}
 
-			this.props.history.push('home');
+			login(uid);
+			this.props.push('/home');
 		});
 	}
 
 	localSetInitialState = (uid, data) => {
+		console.log('uid', uid);
+		console.log('data', data);
+		
+		
 		data = JSON.parse(data.store);
-		data.app.user.uid = uid;
+		console.log('data', data);
 
 		this.props.setInitialState(data);
 	}

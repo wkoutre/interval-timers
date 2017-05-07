@@ -1,10 +1,9 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
-import { routerReducer, routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
-import { BrowserRouter as History } from 'react-router-dom'
-import createHistory from 'history/createBrowserHistory'
 import mainReducer from './reducers'
 import base from '../components/Base'
 import { syncingMiddleware } from'./mainMiddleware'
+import { createBrowserHistory } from 'history'
+import { connectRouter, routerMiddleware } from 'connected-react-router'
 
 window.clear = () => localStorage.clear();
 window.base = base;
@@ -18,18 +17,18 @@ const initialState = localStorage['workout-timer-app'] ?
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-let history = createHistory();
+const history = createBrowserHistory();
 const middleware = routerMiddleware(history);
 
 const store = createStore(
-	mainReducer,
+	connectRouter(history)(mainReducer),
 	initialState,
 	composeEnhancers(
-		applyMiddleware(middleware, syncingMiddleware)
+		applyMiddleware(
+			middleware, syncingMiddleware, routerMiddleware(history)
+		)
 	)
 );
-
-history = syncHistoryWithStore(history, store);
 
 module.exports = {
 	store,

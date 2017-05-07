@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import base from '../Base'
 import { store } from '../../store/store'
+import { push } from 'connected-react-router'
 
 class Header extends React.Component {
 	componentWillMount() {
+				
 		if (!this.props.loggedIn) {
 			console.log('Returning to LOGIN screen from HEADER');
-			this.props.history.push('/');
+			this.props.push('/');
 		}
 	}
 
@@ -17,7 +19,12 @@ class Header extends React.Component {
 		console.log(base.getAuth());
 		base.auth().signOut();
 		this.props.logout()
-		this.props.history.push('/');	
+	}
+
+	componentWillUnmount() {
+		if (this.props.loggedIn) {
+
+		}
 	}
 
 	render() {
@@ -25,9 +32,18 @@ class Header extends React.Component {
 			<div className="header">
 				<button 
 					className="logout-button"
-					onClick={() => this.localLogOut()}>LOGOUT</button>
-				<input type="number" className="weight" placeholder="Today's weight"/>
-				<input type="text" className="weight-goal" placeholder="Weight goal"/>
+					onClick={() => this.localLogOut()}>Logout</button>
+				<button
+					className="profile-button"
+					onClick={() => console.log('Go To Profile')}>
+						Profile
+				</button>
+				<button
+					className="settings-button"
+					onClick={() => console.log('Go To Settings')}>
+						Settings
+				</button>
+				{this.props.children}
 			</div>
 		)
 	}

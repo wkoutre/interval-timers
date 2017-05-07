@@ -1,6 +1,7 @@
 import Login from '../ui/Login'
 import { login, setInitialState } from '../../actions'
 import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
 
 const mapStateToProps = ({ app }, props) => {
 	const { uid } = app.user;
@@ -19,6 +20,11 @@ const mapDispatchToProps = dispatch =>
 		setInitialState(obj) {
 			dispatch(
 				setInitialState(obj)
+			)
+		},
+		push(path) {
+			dispatch(
+				push(path)
 			)
 		}
 	})

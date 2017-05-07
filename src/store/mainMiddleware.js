@@ -1,3 +1,5 @@
+import C from '../constants'
+
 const storeFromServer = store => next => action => {
 
 	if (!store.getState().app.user.uid && localStorage['workout-timer-uid'] !== undefined) {
@@ -22,9 +24,6 @@ const storeFromServer = store => next => action => {
 			.catch(err => console.error(err))
 	}
 
-	// console.log("State after:", store.getState());
-	
-
 	return next(action);
 }
 
@@ -37,15 +36,22 @@ export const checkLoginMiddleware = store => next => action => {
 }
 
 export const syncingMiddleware = store => next => action => {
-	const id = localStorage['workout-timer-uid'];
-	if (id !== undefined) {
-		console.log('middleware takeover');
-		console.log('ID:', id);
-		
+
+	// const loggedIn = localStorage['workout-timer-uid'];
+	const state = store.getState();
+	const loggedIn = action.type === C.SET_INITIAL_STATE || state.app.loggedIn === true;
+
+	const setUpdate = () => {
+		const id = state.app.user.uid || action.payload.app.user.uid;		
 		const stringified = JSON.stringify(store.getState());
 		base.database().ref(`users/${id}/store`).set(stringified)
 		localStorage.setItem('workout-timer-app', stringified);
 	}
 
-	return next(action);	
+	// to sync with the current state, and not one step behind!
+	if (loggedIn && action.type !== C.LOGOUT) {
+		setTimeout(setUpdate, 0);
+	}
+
+	return next(action);
 }

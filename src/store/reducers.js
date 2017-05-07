@@ -1,7 +1,6 @@
 import C from '../constants'
 import { combineReducers } from 'redux'
 import { twoPlacedFloat } from '../timeHelpers';
-import { routerReducer } from 'react-router-redux'
 
 /*
 ** sets app.timerProps
@@ -211,8 +210,7 @@ const mainReducer = combineReducers({
 				completedIntervals
 			})	
 		})
-	}),
-	routing: routerReducer
+	})
 });
 
 export default mainReducer;
