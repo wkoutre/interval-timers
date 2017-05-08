@@ -10,6 +10,8 @@ import App from './components/containers/ConApp'
 
 import './css/style.css'
 
+console.log('STORE INITIALLY', store.getState().app);
+
 render(
 	<Provider store={store}>
 		<App />	

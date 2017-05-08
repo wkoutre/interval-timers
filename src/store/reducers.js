@@ -11,9 +11,9 @@ const numIntervals = (state=0, action) => {
 		case C.CLEAR_TIMER_FORM:
 			return 0;
 		case C.SET_NUM_INTERVALS:
-			return parseInt(action.payload);
+			return +action.payload;
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
-			return parseInt(action.payload.numIntervals)
+			return +action.payload.numIntervals
 		case C.SET_INITIAL_STATE:
 			return action.payload.app.user.timerProps.numIntervals;
 		default:
@@ -26,9 +26,9 @@ const intervalTime = (state=0, action) => {
 		case C.CLEAR_TIMER_FORM:
 			return 0;
 		case C.SET_INTERVAL_TIME:
-			return twoPlacedFloat(action.payload);
+			return +twoPlacedFloat(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
-			return twoPlacedFloat(action.payload.intervalTime);
+			return +twoPlacedFloat(action.payload.intervalTime);
 		case C.SET_INITIAL_STATE:
 			return action.payload.app.user.timerProps.intervalTime;			
 		default:
@@ -41,9 +41,9 @@ const restTime = (state=0, action) => {
 		case C.CLEAR_TIMER_FORM:
 			return 0;
 		case C.SET_REST_TIME:
-			return parseInt(action.payload);
+			return +(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
-			return parseInt(action.payload.restTime)
+			return +(action.payload.restTime)
 		case C.SET_INITIAL_STATE:
 			return action.payload.app.user.timerProps.restTime;
 		default:
@@ -56,9 +56,9 @@ const restIncrement = (state=0, action) => {
 		case C.CLEAR_TIMER_FORM:
 			return 0;
 		case C.SET_REST_INCREMENT:
-			return parseInt(action.payload);
+			return +(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
-			return parseInt(action.payload.restIncrement)
+			return +(action.payload.restIncrement)
 		case C.SET_INITIAL_STATE:
 			return action.payload.app.user.timerProps.restIncrement;
 		default:
@@ -180,6 +180,35 @@ const uid = (state="", action) => {
 	}
 }
 
+const fullName = (state="", action) => {
+	switch (action.type) {
+		case C.SET_FULLNAME:
+			return action.payload
+		// case SET_INITIAL_STATE:
+		// 	return 
+		default:
+			return state;
+	}
+}
+
+const email = (state="", action) => {
+	switch (action.type) {
+		case C.SET_EMAIL:
+			return action.payload
+		default:
+			return state;
+	}
+}
+
+const photoURL = (state="", action) => {
+	switch (action.type) {
+		case C.SET_PHOTO_URL:
+			return action.payload
+		default:
+			return state;
+	}
+}
+
 const rootReducer = (state, action) => {
 	switch (action.type) {
 		case C.LOGOUT:
@@ -195,7 +224,12 @@ const mainReducer = combineReducers({
 	app: combineReducers({
 		loggedIn,
 		user: combineReducers({
-			uid,
+			details: combineReducers({
+				fullName,
+				email,
+				photoURL,
+				uid
+			}),
 			timerProps: combineReducers({
 				numIntervals,
 				intervalTime,

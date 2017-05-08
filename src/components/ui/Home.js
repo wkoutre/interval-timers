@@ -11,7 +11,6 @@ class Home extends React.Component {
 		return (
 			<div>
 				<HomeBody history={this.props.history}/>
-				<Footer history={this.props.history}/>
 			</div>
 		) 
 	}

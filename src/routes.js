@@ -1,16 +1,19 @@
 import React from 'react'
-// BrowserRouter as Router,
-import { Route } from 'react-router-dom'
-import { ConnectedRouter as Router, push } from 'connected-react-router'
-// import { Route } from 'react-router'
+import { Route, Redirect, Switch } from 'react-router-dom'
+import { ConnectedRouter, push } from 'connected-react-router'
 import { history } from './store/store'
+
+import base from './components/Base'
+
+import Login from './components/containers/ConLogin'
+import Header from './components/containers/ConHeader'
+import Footer from './components/containers/ConFooter'
+import Home from './components/containers/ConHome'
 import CreateTimer from './components/containers/ConCreateTimer'
 import RunTimer from './components/containers/ConRunTimer'
-import Home from './components/containers/ConHome'
-import Header from './components/containers/ConHeader'
-import Login from './components/containers/ConLogin'
+import Profile from './components/containers/ConProfile'
 import ErrorPage from './components/containers/ConErrorPage'
-import base from './components/Base'
+
 
 class App extends React.Component {
 	// componentWillMount() {
@@ -33,20 +36,26 @@ class App extends React.Component {
 	// }
 
 	render() {
+		
 	const { loggedIn } = this.props;
 		return (
-				<Router history={history}>
+				<ConnectedRouter history={history}>
 				{!loggedIn ?
 					<Login /> :
 					<div>
-							<Header />
-							<Route exact path="/error" component={ErrorPage} />
-							<Route exact path="/home" component={Home} />
+						<Header />
+						<Switch>
+							<Redirect exact from="/" to="/home" />
+							<Route path="/error" component={ErrorPage} />
+							<Route path="/home" component={Home} />
 							<Route path="/timers" component={CreateTimer}/>
 							<Route path="/run-timer" component={RunTimer}/>
+							<Route path="/profile" component={Profile}/>
+						</Switch>
+						<Footer />
 					</div>
 					}
-				</Router>
+				</ConnectedRouter>
 		)	
 	}
 }

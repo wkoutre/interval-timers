@@ -74,7 +74,8 @@ class RunTimer extends React.Component {
 
 	changeRest = () => {
 		console.log("changing rest");
-		this.setState({ restSecs: this.state.restSecs - 1000 })
+		const restSecs = this.state.restSecs - 1000;
+		this.setState({ restSecs })
 
 		if (this.state.restSecs === 0) {
 			this.setState({
@@ -85,12 +86,13 @@ class RunTimer extends React.Component {
 	}
 
 	runTimer = () => {
+		const { totalTimer, restSecs, intervalSecs } = this.state;
+			const { totalTime, restTime, intervalTime, restIncrement } = this.props;
+
 		if (this.timerIsComplete()) {
 			alert('Timer is done. Click OK to reset it!', this.resetTimers());
 			return ;
 		} else if (!this.state.running) {
-			const { totalTimer, restSecs, intervalSecs } = this.state;
-			const { totalTime, restTime, intervalTime, restIncrement } = this.props;
 			console.log('running Total Timer');
 			totalTimer.onDone(this.timerDoneTrigger)
 			totalTimer.start();
@@ -98,10 +100,13 @@ class RunTimer extends React.Component {
 			const totalId = setInterval( () => {
 				const { active } = this.state;
 				const timeElapsed = this.state.timeElapsed + 1000;
-				const sumRestIncrement = restIncrement * this.state.completedIntervals;
-				// console.log(incrementIntervals);
 				
-				const timeRemaining = totalTime - restTime - sumRestIncrement - timeElapsed ;
+				const timeRemaining = totalTime - timeElapsed - restTime;
+				console.log(`totalTime`, totalTime);
+				console.log(`timeElapsed`, timeElapsed);
+				console.log(`timeRemaining`, timeRemaining);
+				
+				
 				this.setState({ timeRemaining, timeElapsed })
 
 				if (this.state.active === 'interval') {

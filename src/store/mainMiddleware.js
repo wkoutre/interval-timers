@@ -1,4 +1,5 @@
 import C from '../constants'
+import _ from 'lodash'
 
 const storeFromServer = store => next => action => {
 
@@ -37,20 +38,28 @@ export const checkLoginMiddleware = store => next => action => {
 
 export const syncingMiddleware = store => next => action => {
 
-	// const loggedIn = localStorage['workout-timer-uid'];
+
 	const state = store.getState();
+	const id = state.app.user.details.uid;
 	const loggedIn = action.type === C.SET_INITIAL_STATE || state.app.loggedIn === true;
 
-	const setUpdate = () => {
-		const id = state.app.user.uid || action.payload.app.user.uid;		
+	console.groupCollapsed('syncingMiddleware');
+		console.log('state:', state);
+		console.log('id:', id);
+		console.log('loggedIn', loggedIn);
+	console.groupEnd('syncingMiddleware');	
+
+	const update = () => {
+		console.log('inside setting the update');
+		
 		const stringified = JSON.stringify(store.getState());
 		base.database().ref(`users/${id}/store`).set(stringified)
 		localStorage.setItem('workout-timer-app', stringified);
-	}
+	};
 
 	// to sync with the current state, and not one step behind!
-	if (loggedIn && action.type !== C.LOGOUT) {
-		setTimeout(setUpdate, 0);
+	if (loggedIn && action.type !== C.LOGOUT && id && id !== 'undefined') {
+		setTimeout(update, 0);
 	}
 
 	return next(action);

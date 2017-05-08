@@ -36,7 +36,7 @@ class Login extends React.Component {
 
 			// authData: data returned from FB/Google API from FB/Google authentication
 
-			const { uid, displayName, email } = authData.user;
+			const { uid, displayName, email, photoURL } = authData.user;
 
 			console.groupCollapsed('login stuff')
 				console.log('snapshot.val()', data);
@@ -49,6 +49,12 @@ class Login extends React.Component {
 			if (!data[uid]){
 				console.log("New user sign in");
 				const uidRef = base.database().ref(`users/${uid}`);
+				this.props.setFullName(displayName)
+				this.props.setEmail(email)
+				console.log('New user: remember to resize the photo from the photoURL');
+				
+				this.props.setPhotoURL(photoURL)
+
 				uidRef.set({
 					userInfo: {
 						displayName,
@@ -67,12 +73,9 @@ class Login extends React.Component {
 	}
 
 	localSetInitialState = (uid, data) => {
-		console.log('uid', uid);
-		console.log('data', data);
-		
+		console.log('UID', uid);
 		
 		data = JSON.parse(data.store);
-		console.log('data', data);
 
 		this.props.setInitialState(data);
 	}

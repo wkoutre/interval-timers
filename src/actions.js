@@ -7,6 +7,9 @@ import base from './components/Base'
 
 export const setNumIntervals = (num) => {
 	return ({
+		meta: {
+			debounce: 'createTimer'
+		},
 		type: C.SET_NUM_INTERVALS,
 		payload: num
 	})
@@ -14,24 +17,36 @@ export const setNumIntervals = (num) => {
 
 export const setRestTime = (time) =>
 	({
+		meta: {
+			debounce: 'createTimer'
+		},
 		type: C.SET_REST_TIME,
 		payload: time
 	})
 
 export const setIntervalTime = (time) =>
 	({
+		meta: {
+			debounce: 'createTimer'
+		},
 		type: C.SET_INTERVAL_TIME,
 		payload: time
 	})
 
 export const setRestIncrement = (seconds) =>
 	({
+		meta: {
+			debounce: 'createTimer'
+		},
 		type: C.SET_REST_INCREMENT,
 		payload: seconds
 	})
 
 export const setTimerName = (name) =>
 	({
+		meta: {
+			debounce: 'createTimer'
+		},
 		type: C.SET_TIMER_NAME,
 		payload: name
 	})
@@ -69,7 +84,6 @@ export const deleteTimer = (props) =>
 		payload: props
 	})
 
-
 // sets runningTimer
 export const chooseTimer = (props) =>
 	({
@@ -91,7 +105,24 @@ export const login = (uid) => {
 		payload: uid
 	})
 }
-	
+
+export const setFullName = fullName =>
+	({
+		type: C.SET_FULLNAME,
+		payload: fullName
+	})
+
+export const setEmail = email =>
+	({
+		type: C.SET_EMAIL,
+		payload: email
+	})
+
+export const setPhotoURL = url =>
+	({
+		type: C.SET_PHOTO_URL,
+		payload: url
+	})
 
 export const logout = () => {
 

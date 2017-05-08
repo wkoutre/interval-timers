@@ -3,6 +3,7 @@ import { logout } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {
+
 	const { loggedIn } = app
 	
 	return {

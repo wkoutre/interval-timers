@@ -9,14 +9,19 @@ const SavedTimers = (props) => {
 
 	// converting all values from timer to ms to pass into store
 
-	const localChooseTimer = ({ numIntervals, intervalTime, restTime, timerName, restIncrement, totalTime }) => {
+	const localEditTimer = (data) => {
+		props.editTimer(data)
+		setTimeout(props.editCreateTimerState, 0);
+	}
+
+	const localChooseTimer = ({ numIntervals, intervalTime, restTime, timerName, restIncrement }) => {
 		
 		const totalIntervalTime = timeFuncs.minToMs((numIntervals * intervalTime));
-		const totalRestIncrementTime = timeFuncs.secToMs(timeFuncs.addedIncrementTime(restIncrement, numIntervals));
-		const totalRestTime = timeFuncs.secToMs(restTime) * numIntervals;
+		const totalRestIncrementTime = timeFuncs.secToMs(timeFuncs.addedIncrementTime(restIncrement, numIntervals-1));
+		const totalRestTime = timeFuncs.secToMs(restTime) * (numIntervals);
 
 		// in ms
-		const total = totalIntervalTime + totalRestIncrementTime + totalRestTime;
+		const totalTime = totalIntervalTime + totalRestIncrementTime + totalRestTime;
 
 		intervalTime = timeFuncs.minToMs(intervalTime);
 		restTime = timeFuncs.secToMs(restTime);
@@ -28,7 +33,7 @@ const SavedTimers = (props) => {
 			numIntervals,
 			timerName,
 			restIncrement,
-			totalTime: total
+			totalTime
 		}
 
 		return chooseTimer(obj);
@@ -39,7 +44,7 @@ const SavedTimers = (props) => {
 			<li key={i}>
 				<span className="saved-timers">{obj.timerName}</span>&nbsp;
 				<span
-					onClick={() => editTimer(timers[i])}
+					onClick={() => localEditTimer(timers[i])}
 					className="edit-timer">edit</span>
 					&nbsp;
 					<span

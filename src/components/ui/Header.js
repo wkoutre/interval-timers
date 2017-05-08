@@ -1,49 +1,50 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import base from '../Base'
 import { store } from '../../store/store'
 import { push } from 'connected-react-router'
 
 class Header extends React.Component {
-	componentWillMount() {
+	// componentWillMount() {
 				
-		if (!this.props.loggedIn) {
-			console.log('Returning to LOGIN screen from HEADER');
-			this.props.push('/');
-		}
-	}
+	// 	if (!this.props.loggedIn) {
+	// 		console.log('Returning to LOGIN screen from HEADER');
+	// 		this.props.push('/');
+	// 	}
+	// }
 
 	localLogOut = () => {
 		console.log('local logout');
-		console.log('before unauth');
 		console.log(base.getAuth());
 		base.auth().signOut();
 		this.props.logout()
 	}
 
-	componentWillUnmount() {
-		if (this.props.loggedIn) {
-
-		}
-	}
-
 	render() {
 		return (
 			<div className="header">
-				<button 
+				<Link 
 					className="logout-button"
-					onClick={() => this.localLogOut()}>Logout</button>
-				<button
-					className="profile-button"
-					onClick={() => console.log('Go To Profile')}>
+					onClick={() => this.localLogOut()}
+					to='/'>
+						Logout
+				</Link>
+				<Link
+					className="profile-button header-link"
+					to="home">
+						Home
+				</Link>
+				<Link
+					className="profile-button header-link"
+					to="profile">
 						Profile
-				</button>
-				<button
-					className="settings-button"
-					onClick={() => console.log('Go To Settings')}>
+				</Link>
+				<Link
+					className="settings-button header-link"
+					to="settings">
 						Settings
-				</button>
-				{this.props.children}
+				</Link>
 			</div>
 		)
 	}
