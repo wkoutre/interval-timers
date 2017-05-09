@@ -9,8 +9,7 @@ import { twoPlacedFloat } from '../timeHelpers';
 const numIntervals = (state=0, action) => {
 	switch (action.type) {
 		case C.CLEAR_TIMER_FORM:
-		const ret = JSON.parse(localStorage['workout-timer-app']).app.user.timerProps.defaults.defaultNumIntervals;
-			return ret
+			return ""
 		case C.SET_NUM_INTERVALS:
 			return +action.payload;
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
@@ -25,8 +24,7 @@ const numIntervals = (state=0, action) => {
 const intervalTime = (state=0, action) => {
 	switch (action.type) {
 		case C.CLEAR_TIMER_FORM:
-			const ret = JSON.parse(localStorage['workout-timer-app']).app.user.timerProps.defaults.defaultIntervalTime;
-			return ret;
+			return "";
 		case C.SET_INTERVAL_TIME:
 			return +twoPlacedFloat(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
@@ -41,8 +39,7 @@ const intervalTime = (state=0, action) => {
 const restTime = (state=0, action) => {
 	switch (action.type) {
 		case C.CLEAR_TIMER_FORM:
-			const ret = JSON.parse(localStorage['workout-timer-app']).app.user.timerProps.defaults.defaultRestTime;
-			return ret;
+			return "";
 		case C.SET_REST_TIME:
 			return +(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
@@ -57,8 +54,7 @@ const restTime = (state=0, action) => {
 const restIncrement = (state=0, action) => {
 	switch (action.type) {
 		case C.CLEAR_TIMER_FORM:
-			const ret = JSON.parse(localStorage['workout-timer-app']).app.user.timerProps.defaults.defaultRestIncrement;
-			return ret;
+			return "";
 		case C.SET_REST_INCREMENT:
 			return +(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:

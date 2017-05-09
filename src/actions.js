@@ -57,10 +57,15 @@ export const setDefaultRestIncrement = (seconds) =>
 
 export const setTimerName = (name) =>
 
+	// ({
+	// 	meta: {
+	// 		debounce: 'createTimer'
+	// 	},
+	// 	type: C.SET_TIMER_NAME,
+	// 	payload: name
+	// })
+
 	({
-		meta: {
-			debounce: 'createTimer'
-		},
 		type: C.SET_TIMER_NAME,
 		payload: name
 	})

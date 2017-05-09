@@ -5,75 +5,7 @@ import * as timeFuncs from '../../timeHelpers'
 
 class CreateTimer extends React.Component {
 	constructor(props) {
-
 		super(props);
-		const { setTimerName, setNumIntervals, setRestIncrement, setIntervalTime, setRestTime, defaultRestIncrement, defaultRestTime, defaultNumIntervals, defaultIntervalTime } = props;
-
-		this.state = {
-			timerName: props.timerName || "",
-			restIncrement: props.timerName === "" ? "" : props.restIncrement,
-			restTime: props.timerName === "" ? "" : props.restTime,
-			numIntervals: props.timerName === "" ? "" : props.numIntervals,
-			intervalTime:  props.timerName === "" ? "" : props.intervalTime,
-			functions: [setTimerName, setNumIntervals, setRestIncrement, setIntervalTime, setRestTime],
-			arrNames: ["timerName", "restIncrement", "restTime", "numIntervals", "intervalTime"],
-			defaults: [defaultRestIncrement, defaultRestTime, defaultNumIntervals, defaultIntervalTime]
-		}
-	}
-
-	// listen... I know this is kind of an anti-pattern, and rather round-about. But I have middleware that syncs the store to the server on every dispatch when the user is logged in (../../store/mainMiddleware/syncingMiddleware) so... unless I turn to a less server-intensive way of syncing, this is how this will work.
-
-	resetToDefaults = () => {
-		const arr = ["", ...this.state.defaults]		
-
-		for (let i in this.state.arrNames) {
-			const prop = this.state.arrNames[i];
-			this.setState({ [prop]: arr[i] })
-			this.runReduxStore(prop, arr[i])
-		}
-	}
-
-	runReduxStore = (prop, val) => {
-		switch(prop) {
-				case "timerName":
-					this.props.setTimerName(val);
-					break;
-				case "numIntervals":
-					this.props.setNumIntervals(val);
-					break;
-				case "restTime":
-					this.props.setRestTime(val);
-					break;
-				case "intervalTime":
-					this.props.setIntervalTime(val);
-					break;
-				case "restIncrement":
-					this.props.setRestIncrement(val);
-					break;
-				default:
-					break;
-			}
-	}
-
-	setStateFromProps = () => {	
-		const { timerName, restIncrement, restTime, numIntervals, intervalTime } = this.props;
-		const arr = [timerName, restIncrement, restTime, numIntervals, intervalTime];
-
-		for (let i in this.state.arrNames) {
-			const prop = this.state.arrNames[i];
-			this.setState({ [prop]: arr[i] })
-		}		
-	}
-
-	handleChange(e) {
-		const { setTimerName, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement } = this.props;
-		const val = e.target.value;
-		const propName = e.target.name;
-
-		this.runReduxStore(propName, val)
-		this.setState({
-			[propName]: val
-		})
 	}
 
 	totalTimeCalc = () => {
@@ -85,8 +17,8 @@ class CreateTimer extends React.Component {
 
 		// all values in minutes
 		const intervalMins = (numIntervals * intervalTime);
-		const restIncrementTime = timeFuncs.addedIncrementTime(restIncrement, numIntervals - 1) / 60;
-		const restMins = (restTime / 60) * (numIntervals-1) + restIncrementTime;
+		const restIncrementTime = timeFuncs.addedIncrementTime(restIncrement, (numIntervals - 1)) / 60;
+		const restMins = (restTime / 60) * (numIntervals - 1) + restIncrementTime;
 		const total = intervalMins + restMins;
 
 		const totalMins = Math.floor(total/1);
@@ -95,21 +27,11 @@ class CreateTimer extends React.Component {
 		return `${totalMins} ${this.minuteCalc(totalMins)}, ${totalSeconds} ${this.secondCalc(totalSeconds)}`;
 	}
 
-	// resets State to blanks
-	resetState = () => {
-
-		for (let i in this.state.arrNames) {
-			const prop = this.state.arrNames[i];
-			this.setState({ [prop]: "" })
-		}
-		this.setState({ restIncrement: "" })
-	}
-
 	localSaveTimer = (e) => {
 	
 		e.preventDefault();
 
-		const { saveTimer, clearTimerForm, timerName, numIntervals, intervalTime, restTime, restIncrement } = this.props;
+			const { saveTimer, clearTimerForm, timerName, numIntervals, intervalTime, restTime, restIncrement } = this.props;
 
 		const totalTime = timeFuncs.calcTotalTime(numIntervals, intervalTime, restIncrement, restTime);
 
@@ -123,7 +45,19 @@ class CreateTimer extends React.Component {
 		}
 
 		saveTimer(timerObj);
-		this.resetState();
+		clearTimerForm();
+	}
+
+	resetToDefaults = () => {
+		const { defaultRestIncrement, defaultRestTime, defaultNumIntervals, defaultIntervalTime, setTimerName, setNumIntervals, setRestIncrement, setIntervalTime, setRestTime } = this.props;
+		const arr = ["", defaultRestIncrement, defaultRestTime, defaultNumIntervals, defaultIntervalTime];
+
+		const functions = [setTimerName, setRestIncrement, setRestTime, setNumIntervals, setIntervalTime];
+
+		for (let i in arr) {
+			const val = arr[i];
+			functions[i](val)
+		}
 	}
 
 	minuteCalc = (val) => {
@@ -146,14 +80,12 @@ class CreateTimer extends React.Component {
 		return this.props.restTime != 1 ? " seconds" : " second";
 	}
 
-	restIncrementCalc = () => {
+	restIncrement = () => {
 		return this.props.restIncrement !== 1 ? " seconds" : " second";
 	}
 
 	canSubmit = () => {
-		const { intervalTime, numIntervals, timerName } = this.state;
-
-		const { timers } = this.props;
+		const { intervalTime, numIntervals, timerName, timers } = this.props;
 
 		return (
 						!numIntervals ||
@@ -165,54 +97,46 @@ class CreateTimer extends React.Component {
 	}
 
 	render() {
-		const { intervalTime, numIntervals, restIncrement, restTime, timerName, timers, setTimerName, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement } = this.props;		  
+		const { intervalTime, numIntervals, restIncrement, restTime, timerName, timers, setTimerName, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement, defaultIntervalTime, defaultNumIntervals, defaultRestIncrement, defaultRestTime } = this.props;		  
 
 		return (
 			<div>
-				{this.props.timers.length > 0 && <SavedTimers editCreateTimerState={this.setStateFromProps}/>}
+				{this.props.timers.length > 0 && <SavedTimers />}
 				<h2>Create New Timer</h2>
 				<form required className="new-timer">
-				<label
-					className="form-label"
-					htmlFor="timerName">Timer Name:*</label>
+					<span className="form-label">Timer Name:* </span>
 					<input
 								required type="text"
-								name="timerName"
 								placeholder="timer name"
-								value={this.state.timerName}
-								onChange={(e) => this.handleChange(e)}/>
-					<label htmlFor="numIntervals" className="form-label">Number of Intervals:* </label>
+								value={timerName}
+								onChange={(e) => setTimerName(e.target.value || "")}/>
+					<span className="form-label">Number of Intervals:* </span>
 					<input
 								required type="number"
-								name="numIntervals"
 								placeholder="number of intervals"
-								value={this.state.numIntervals}
-								onChange={(e) => this.handleChange(e)}/>
+								value={numIntervals}
+								onChange={(e) => setNumIntervals(e.target.value || 0)}/>
 					<span>&nbsp;{this.interval()}</span>
-					<label htmlFor="intervalTime" className="form-label">Interval Time:*</label>
+					<span className="form-label">Interval Time:*</span>
 					<input
 								required type="number"
-								name="intervalTime"
 								placeholder="interval time"
-								value={this.state.intervalTime}
-								onChange={(e) => this.handleChange(e)}/>
+								value={intervalTime}
+								onChange={(e) => setIntervalTime(parseFloat(e.target.value) || 0)}/>
 					<span>&nbsp;{this.minutes()}</span>
-					<label htmlFor="restTime" className="form-label">Rest Time:</label>
+					<span className="form-label">Rest Time:</span>
 					<input
 								required type="number"
-								name="restTime"
 								placeholder="rest time"
-								value={this.state.restTime}
-								onChange={(e) => this.handleChange(e)}/>
+								value={restTime}
+								onChange={(e) => setRestTime(e.target.value || 0)}/>
 					<span>&nbsp;{this.restSeconds()}</span>
-					<label htmlFor="restIncrement" className="form-label">Rest Increment Per Set:</label>
+					<span className="form-label">Rest Increment Per Set:</span>
 					<input type="number"
 								placeholder="rest increment per set"
-								name="restIncrement"
-								value={!this.state.restIncrement ? "" : this.state.restIncrement}
-								onChange={(e) => this.handleChange(e)}
-								/>
-				<span>&nbsp;{this.restIncrementCalc()}</span>
+								value={restIncrement !== 0 ? restIncrement : ""}
+								onChange={(e) => setRestIncrement(e.target.value || 0)}/>
+				<span>&nbsp;{this.restIncrement()}</span>
 				<button
 					type="submit"
 					className="save-timer"
@@ -221,8 +145,8 @@ class CreateTimer extends React.Component {
 						SAVE
 					</button>
 				</form>
-				<button onClick={() => this.resetState()}>CLEAR</button>
 				<button onClick={() => this.resetToDefaults()}>DEFAULTS</button>
+				<button onClick={() => this.props.clearTimerForm()}>CLEAR</button>
 			<div className="total-time"><h2>Total time: </h2>{this.totalTimeCalc()}</div>
 		</div>
 		)
