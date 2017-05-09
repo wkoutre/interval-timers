@@ -1,6 +1,6 @@
 import RunTimer from '../ui/RunTimer'
 // import { startTimer, stopTimer, incrementIntervals } from '../../actions'
-import { chooseTimer, clearTimerForm } from '../../actions'
+import { chooseTimer, clearTimerForm, addCompletedTimer } from '../../actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {
@@ -30,6 +30,13 @@ const mapDispatchToProps = (dispatch) =>
 		clearTimerForm() {
 			dispatch(
 				clearTimerForm()
+			)
+		},
+		addCompletedTimer(date, timer) {
+			console.log(`Adding completed timer. Format the data correctly here, in the action.`);
+			
+			dispatch(
+				addCompletedTimer(date, timer)
 			)
 		}
 	})

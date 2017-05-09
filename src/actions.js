@@ -165,3 +165,15 @@ export const setInitialState = (uidState) => {
 		payload: uidState
 	})
 }
+
+export const addCompletedTimer = ({ timerName, dateKey, totalString }) => {
+	console.log(`ACTION RECEIVED`, timerName, dateKey, totalString);
+
+	return ({
+		type: C.ADD_COMPLETED_TIMER,
+		timerName,
+		dateKey,
+		totalString
+	})
+}
+	

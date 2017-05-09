@@ -54,6 +54,25 @@ class RunTimer extends React.Component {
 	timerDoneTrigger = () => {
 		console.log('Timer is done!');
 		this.stopTimer();
+
+		const date = new Date();
+		const weekDay = date.getDay();
+		const day = date.getDate();
+		const month = date.getMonth()+1;
+		const hour = date.getHours();
+		const minute = date.getMinutes();
+		const year = date.getFullYear();
+		
+		const dateString = date.toDateString();
+		const timeString = timeFuncs.timeToStr(hour, minute)
+
+		const totalString = dateString + ' ' + timeString;
+		const { timerName } = this.props;
+		const dateKey = (`${year}${month}${day}`)
+
+		console.log(`ACTION ADDED`, timerName, dateKey, totalString);
+		
+		this.props.addCompletedTimer({ timerName, dateKey, totalString});
 	}
 
 	changeInterval = () => {

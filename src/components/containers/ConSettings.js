@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 
 const mapStateToProps = ({ app }, props) => {
-	const { defaultRestTime, defaultIntervalTime, defaultNumIntervals, defaultRestIncrement } = app.user.timerProps.defaults;
+	const { defaultRestTime, defaultIntervalTime, defaultNumIntervals, defaultRestIncrement } = app.user.timerInfo.defaults;
 	
 	return {
 		defaultRestTime,

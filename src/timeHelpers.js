@@ -43,3 +43,18 @@ export const msToText = (ms) => {
 
 	return `${mins} min, ${secs} secs`
 }
+
+export const timeToStr = (hour, minute) => {
+
+	let amPM = ""
+	if (hour > 12) {
+		hour = hour-12;
+		amPM = "PM"
+	} else {
+		amPM = "AM"
+		if (hour === 0)
+			hour = 12;
+	}
+
+	return `at ${hour}:${minute} ${amPM}`
+}

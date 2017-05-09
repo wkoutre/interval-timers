@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import { twoPlacedFloat } from '../timeHelpers';
 
 /*
-** sets app.timerProps
+** sets app.timerInfo
 */
 
 const numIntervals = (state=0, action) => {
@@ -15,7 +15,7 @@ const numIntervals = (state=0, action) => {
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return +action.payload.numIntervals
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerProps.numIntervals;
+			return action.payload.app.user.timerInfo.numIntervals;
 		default:
 			return state;
 	}
@@ -30,7 +30,7 @@ const intervalTime = (state=0, action) => {
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return +twoPlacedFloat(action.payload.intervalTime);
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerProps.intervalTime;			
+			return action.payload.app.user.timerInfo.intervalTime;			
 		default:
 			return state;
 	}
@@ -45,7 +45,7 @@ const restTime = (state=0, action) => {
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return +(action.payload.restTime)
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerProps.restTime;
+			return action.payload.app.user.timerInfo.restTime;
 		default:
 			return state;
 	}
@@ -60,7 +60,7 @@ const restIncrement = (state=0, action) => {
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return +(action.payload.restIncrement)
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerProps.restIncrement;
+			return action.payload.app.user.timerInfo.restIncrement;
 		default:
 			return state;
 	}
@@ -118,7 +118,7 @@ const timers = (state=[], action) => {
 
 			return state.filter(timers => timers.timerName !== name)
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerProps.timers;
+			return action.payload.app.user.timerInfo.timers;
 		default:
 			return state
 	}
@@ -133,7 +133,7 @@ const timerName = (state="", action) => {
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return action.payload.timerName
 		case C.SET_INITIAL_STATE:		
-			return action.payload.app.user.timerProps.timerName
+			return action.payload.app.user.timerInfo.timerName
 		default:
 			return state;
 	}
@@ -254,6 +254,19 @@ const rootReducer = (state, action) => {
 	}
 }
 
+const completedTimers = (state={}, action) => {
+	switch (action.type) {
+		case C.ADD_COMPLETED_TIMER:
+			return {
+				...state,
+				[action.dateKey]: [action.timerName, action.totalString]
+			}
+		default:
+			return state;
+	}
+}
+
+
 /**/
 
 const mainReducer = combineReducers({
@@ -266,19 +279,22 @@ const mainReducer = combineReducers({
 				photoURL,
 				uid
 			}),
-			timerProps: combineReducers({
+			timerInfo: combineReducers({
 				defaults: combineReducers({
 					defaultNumIntervals,
 					defaultIntervalTime,
 					defaultRestTime,
 					defaultRestIncrement
 				}),
-				numIntervals,
-				intervalTime,
-				restTime,
-				restIncrement,
-				timerName,
-				timers
+				timerProps: combineReducers({
+					numIntervals,
+					intervalTime,
+					restTime,
+					restIncrement,
+					timerName
+				}),
+				timers,
+				completedTimers,
 			}),
 			currentTimer: combineReducers({
 				timerData,
