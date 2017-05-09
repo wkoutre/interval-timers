@@ -7,9 +7,6 @@ import base from './components/Base'
 
 export const setNumIntervals = (num) => {
 	return ({
-		meta: {
-			debounce: 'createTimer'
-		},
 		type: C.SET_NUM_INTERVALS,
 		payload: num
 	})
@@ -17,32 +14,49 @@ export const setNumIntervals = (num) => {
 
 export const setRestTime = (time) =>
 	({
-		meta: {
-			debounce: 'createTimer'
-		},
 		type: C.SET_REST_TIME,
 		payload: time
 	})
 
 export const setIntervalTime = (time) =>
 	({
-		meta: {
-			debounce: 'createTimer'
-		},
 		type: C.SET_INTERVAL_TIME,
 		payload: time
 	})
 
 export const setRestIncrement = (seconds) =>
 	({
-		meta: {
-			debounce: 'createTimer'
-		},
 		type: C.SET_REST_INCREMENT,
 		payload: seconds
 	})
 
+export const setDefaultNumIntervals = (num) => {
+	return ({
+		type: C.SET_DEFAULT_NUM_INTERVALS,
+		payload: +num
+	})
+}
+
+export const setDefaultRestTime = (time) =>
+	({
+		type: C.SET_DEFAULT_REST_TIME,
+		payload: +time
+	})
+
+export const setDefaultIntervalTime = (time) =>
+	({
+		type: C.SET_DEFAULT_INTERVAL_TIME,
+		payload: +time
+	})
+
+export const setDefaultRestIncrement = (seconds) =>
+	({
+		type: C.SET_DEFAULT_REST_INCREMENT,
+		payload: +seconds
+	})
+
 export const setTimerName = (name) =>
+
 	({
 		meta: {
 			debounce: 'createTimer'

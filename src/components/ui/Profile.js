@@ -14,6 +14,15 @@ export const Profile = (props) => {
 			<div className="profile-photo">
 				<img src={props.photoURL} alt={`${props.fullname} profile picture`}/>
 			</div>
+			<div className="profile-dob">
+				<span>June 14, 1992</span>
+			</div>
+			<div className="profile-location">
+				<span>Fremont, CA</span>
+			</div>
+			<div className="profile-weight">
+				<span>155</span>
+			</div>
 		</div>
 	)
 }

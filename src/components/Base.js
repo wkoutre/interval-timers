@@ -8,8 +8,8 @@ const base = Rebase.createClass({
 });
 
 const storage = base.storage();
-console.log('storage', storage);
+// console.log('storage', storage);
 let ref = storage.ref();
-console.log('ref', ref);
+// console.log('ref', ref);
 
 export default base;

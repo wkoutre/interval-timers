@@ -28,5 +28,10 @@ module.exports = {
 				loader: 'style-loader!css-loader'
 			}
 		]
-	}
+	},
+	node: { 
+    net: 'empty',
+    tls: 'empty',
+    fs: 'empty'
+  },
 }

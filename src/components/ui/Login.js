@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import base from '../Base';
 import { store } from '../../store/store'
 import { push } from 'connected-react-router'
+import FB from 'fb'
+
+window.FB = FB;
+
+// console.log(`FB`, FB);
 
 // careful about using global variables... find a better way to do this once proof of concept is achieved
 
@@ -11,7 +16,9 @@ export let errorProvider;
 class Login extends React.Component {
 
 	authenticate = (provider) => {	
-		base.authWithOAuthPopup(provider, this.authHandler);
+		base.authWithOAuthPopup(provider, this.authHandler, {
+			scope: "email, user_birthday, user_photos, user_location, publish_actions, public_profile"
+		});
 	}
 
 	authHandler = (err, authData) => {
@@ -38,6 +45,8 @@ class Login extends React.Component {
 
 			const { uid, displayName, email, photoURL } = authData.user;
 
+			const { accessToken } = authData.credential;
+
 			console.groupCollapsed('login stuff')
 				console.log('snapshot.val()', data);
 				console.log('data[uid]', data[uid]);
@@ -52,7 +61,6 @@ class Login extends React.Component {
 				this.props.setFullName(displayName)
 				this.props.setEmail(email)
 				console.log('New user: remember to resize the photo from the photoURL');
-				
 				this.props.setPhotoURL(photoURL)
 
 				uidRef.set({
@@ -66,7 +74,7 @@ class Login extends React.Component {
 				console.log("Preexisting user signing");
 				this.localSetInitialState(uid, data[uid]);
 			}
-
+			
 			login(uid);
 			this.props.push('/home');
 		});

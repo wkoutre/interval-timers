@@ -27,7 +27,6 @@ const config = {
 const debouncer = createDebounce(config)
 const createMiddleware = composeEnhancers(applyMiddleware(historyMiddleware, debouncer, syncingMiddleware))
 const store = createMiddleware(createStore)(connectRouter(history)(mainReducer), initialState)
-console.log('store', store);
 
 
 // const store = createStore(

@@ -43,15 +43,13 @@ export const syncingMiddleware = store => next => action => {
 	const id = state.app.user.details.uid;
 	const loggedIn = action.type === C.SET_INITIAL_STATE || state.app.loggedIn === true;
 
-	console.groupCollapsed('syncingMiddleware');
-		console.log('state:', state);
-		console.log('id:', id);
-		console.log('loggedIn', loggedIn);
-	console.groupEnd('syncingMiddleware');	
+	// console.groupCollapsed('syncingMiddleware');
+	// 	console.log('state:', state);
+	// 	console.log('id:', id);
+	// 	console.log('loggedIn', loggedIn);
+	// console.groupEnd('syncingMiddleware');	
 
 	const update = () => {
-		console.log('inside setting the update');
-		
 		const stringified = JSON.stringify(store.getState());
 		base.database().ref(`users/${id}/store`).set(stringified)
 		localStorage.setItem('workout-timer-app', stringified);

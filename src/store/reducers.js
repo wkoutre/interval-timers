@@ -9,7 +9,8 @@ import { twoPlacedFloat } from '../timeHelpers';
 const numIntervals = (state=0, action) => {
 	switch (action.type) {
 		case C.CLEAR_TIMER_FORM:
-			return 0;
+		const ret = JSON.parse(localStorage['workout-timer-app']).app.user.timerProps.defaults.defaultNumIntervals;
+			return ret
 		case C.SET_NUM_INTERVALS:
 			return +action.payload;
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
@@ -24,7 +25,8 @@ const numIntervals = (state=0, action) => {
 const intervalTime = (state=0, action) => {
 	switch (action.type) {
 		case C.CLEAR_TIMER_FORM:
-			return 0;
+			const ret = JSON.parse(localStorage['workout-timer-app']).app.user.timerProps.defaults.defaultIntervalTime;
+			return ret;
 		case C.SET_INTERVAL_TIME:
 			return +twoPlacedFloat(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
@@ -39,7 +41,8 @@ const intervalTime = (state=0, action) => {
 const restTime = (state=0, action) => {
 	switch (action.type) {
 		case C.CLEAR_TIMER_FORM:
-			return 0;
+			const ret = JSON.parse(localStorage['workout-timer-app']).app.user.timerProps.defaults.defaultRestTime;
+			return ret;
 		case C.SET_REST_TIME:
 			return +(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
@@ -54,13 +57,50 @@ const restTime = (state=0, action) => {
 const restIncrement = (state=0, action) => {
 	switch (action.type) {
 		case C.CLEAR_TIMER_FORM:
-			return 0;
+			const ret = JSON.parse(localStorage['workout-timer-app']).app.user.timerProps.defaults.defaultRestIncrement;
+			return ret;
 		case C.SET_REST_INCREMENT:
 			return +(action.payload);
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return +(action.payload.restIncrement)
 		case C.SET_INITIAL_STATE:
 			return action.payload.app.user.timerProps.restIncrement;
+		default:
+			return state;
+	}
+}
+
+const defaultNumIntervals = (state=0, action) => {
+	switch (action.type) {
+		case C.SET_DEFAULT_NUM_INTERVALS:
+			return action.payload;
+		default:
+			return state;
+	}
+}
+
+const defaultIntervalTime = (state=0, action) => {
+	switch (action.type) {
+		case C.SET_DEFAULT_INTERVAL_TIME:
+			return action.payload;
+		default:
+			return state;
+	}
+}
+
+const defaultRestTime = (state=0, action) => {
+	switch (action.type) {
+		case C.SET_DEFAULT_REST_TIME:
+			return action.payload;
+		default:
+			return state;
+	}
+}
+
+const defaultRestIncrement = (state=0, action) => {
+	switch (action.type) {
+		case C.SET_DEFAULT_REST_INCREMENT:
+			return action.payload;
 		default:
 			return state;
 	}
@@ -231,6 +271,12 @@ const mainReducer = combineReducers({
 				uid
 			}),
 			timerProps: combineReducers({
+				defaults: combineReducers({
+					defaultNumIntervals,
+					defaultIntervalTime,
+					defaultRestTime,
+					defaultRestIncrement
+				}),
 				numIntervals,
 				intervalTime,
 				restTime,

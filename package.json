@@ -33,7 +33,10 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "connected-react-router": "^4.2.1",
+    "crypto": "0.0.3",
     "css-loader": "^0.28.0",
+    "facebook-node": "0.0.3",
+    "fb": "^2.0.0",
     "history": "^4.6.1",
     "json-loader": "^0.5.4",
     "lodash": "^4.17.4",
@@ -48,6 +51,7 @@
     "react-router-redux": "^4.0.8",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
+    "request": "^2.81.0",
     "style-loader": "^0.16.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
@@ -55,7 +59,6 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "lodash": "^4.17.4",
     "redux-debounce": "^1.0.1",
     "timer-stopwatch": "^0.2.0"
   }
