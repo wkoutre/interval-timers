@@ -33,8 +33,6 @@ const mapDispatchToProps = (dispatch) =>
 			)
 		},
 		addCompletedTimer(date, timer) {
-			console.log(`Adding completed timer. Format the data correctly here, in the action.`);
-			
 			dispatch(
 				addCompletedTimer(date, timer)
 			)

@@ -68,26 +68,26 @@ class RunTimer extends React.Component {
 
 		const totalString = dateString + ' ' + timeString;
 		const { timerName } = this.props;
-		const dateKey = (`${year}${month}${day}`)
-
-		console.log(`ACTION ADDED`, timerName, dateKey, totalString);
+		const dateKey = (`${year}${month}${day}-${timeString}`)
 		
 		this.props.addCompletedTimer({ timerName, dateKey, totalString});
 	}
 
 	changeInterval = () => {
-		console.log("changing interval");
-		
-		this.setState({ intervalSecs: this.state.intervalSecs - 1000 })
+		if (!this.timerIsComplete()) {
+			console.log("changing interval");
+			const intervalSecs = this.state.intervalSecs - 1000;
+			this.setState({ intervalSecs })
 
-		if (this.state.intervalSecs === 0) {
-			this.setState({
-				intervalSecs: this.props.intervalTime,
-				active: "rest",
-				completedIntervals: this.state.completedIntervals + 1
-			 })
-
-			this.state.completedIntervals === this.props.numIntervals && this.timerDoneTrigger();
+			if (intervalSecs <= 0) {
+				this.setState({
+					intervalSecs: this.props.intervalTime,
+					active: "rest",
+					completedIntervals: this.state.completedIntervals + 1
+				 })
+			}
+		} else {
+			this.timerDoneTrigger()
 		}
 	}
 
@@ -124,9 +124,10 @@ class RunTimer extends React.Component {
 				console.log(`totalTime`, totalTime);
 				console.log(`timeElapsed`, timeElapsed);
 				console.log(`timeRemaining`, timeRemaining);
-				
-				
-				this.setState({ timeRemaining, timeElapsed })
+
+				if (this.state.timeRemaining > 1000) {
+					this.setState({ timeRemaining, timeElapsed })	
+				}
 
 				if (this.state.active === 'interval') {
 					this.changeInterval();
@@ -180,8 +181,11 @@ class RunTimer extends React.Component {
 					<button onClick={() => this.resetTimers()}>Reset</button>
 				</div>
 				<div>
-				<p>Interval: {completedIntervals} / {numIntervals}</p>
-				<p>Time Remaining in {active}: {active === "interval" ? msToText(intervalSecs) : msToText(restSecs)} </p>
+				<p>Completed Intervals: {completedIntervals} / {numIntervals}</p>
+				{!this.timerIsComplete() ?
+					<p>Time Remaining in {active}: {active === "interval" ? msToText(intervalSecs) : msToText(restSecs)} </p> :
+					<p>You're done!</p>
+				}
 				<p>Total Time Elapsed: {msToText(timeElapsed)}</p>
 				<p>Total time remaining: {msToText(timeRemaining)}</p>
 				</div>

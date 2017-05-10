@@ -167,9 +167,8 @@ export const setInitialState = (uidState) => {
 }
 
 export const addCompletedTimer = ({ timerName, dateKey, totalString }) => {
-	console.log(`ACTION RECEIVED`, timerName, dateKey, totalString);
-
 	return ({
+		
 		type: C.ADD_COMPLETED_TIMER,
 		timerName,
 		dateKey,
@@ -177,3 +176,8 @@ export const addCompletedTimer = ({ timerName, dateKey, totalString }) => {
 	})
 }
 	
+export const removeCompletedTimer = (key) =>
+	({
+		type: C.REMOVE_COMPLETED_TIMER,
+		key
+	})

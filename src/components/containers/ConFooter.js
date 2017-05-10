@@ -1,6 +1,5 @@
 import Footer from '../ui/Footer'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 
 // const mapStateToProps = ({ app }, props) => {
 // 	const { loggedIn } = app

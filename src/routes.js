@@ -14,7 +14,7 @@ import RunTimer from './components/containers/ConRunTimer'
 import Profile from './components/containers/ConProfile'
 import ErrorPage from './components/containers/ConErrorPage'
 import Settings from './components/containers/ConSettings'
-
+import CompletedTimers from './components/containers/ConCompletedTimers'
 
 class App extends React.Component {
 	// componentWillMount() {
@@ -53,6 +53,7 @@ class App extends React.Component {
 							<Route path="/run-timer" component={RunTimer}/>
 							<Route path="/profile" component={Profile}/>
 							<Route path="/settings" component={Settings}/>
+							<Route path="/completed-timers" component={CompletedTimers}/>
 						</Switch>
 						<Footer />
 					</div>

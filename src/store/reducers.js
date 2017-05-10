@@ -261,6 +261,10 @@ const completedTimers = (state={}, action) => {
 				...state,
 				[action.dateKey]: [action.timerName, action.totalString]
 			}
+		case C.REMOVE_COMPLETED_TIMER:
+			const newState = {...state}
+			delete newState[action.key];
+			return newState;
 		default:
 			return state;
 	}
