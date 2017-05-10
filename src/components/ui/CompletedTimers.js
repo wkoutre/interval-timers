@@ -20,11 +20,14 @@ const CompletedTimers = (props) => {
 			)
 		});
 
-	return (
-		<div>Completed Timers:
-			{timerList}
-		</div>		
-	)
+	return timerList.length > 0 ?
+		(
+			<div>
+			Completed Timers:
+				{timerList}
+			</div>	
+		) :
+		<h2>No completed timers. Get some work done!</h2>
 }
 
 export default CompletedTimers;

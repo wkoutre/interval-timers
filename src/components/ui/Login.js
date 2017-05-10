@@ -74,7 +74,7 @@ class Login extends React.Component {
 				console.log("Preexisting user signing");
 				this.localSetInitialState(uid, data[uid]);
 			}
-			
+		
 			login(uid);
 			this.props.push('/home');
 		});
@@ -90,11 +90,14 @@ class Login extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<h2>Login</h2>
-				<p>Please login, or create an account!</p>
-				<button onClick={() => this.authenticate('facebook')}>Login with Facebook</button>
-				<button onClick={() => this.authenticate('google')}>Login with Google</button>
+			<div className="app-login">
+				<h2 className="login-title">Interval Timer</h2>
+				<button className="btn-facebook login-facebook" onClick={() => this.authenticate('facebook')}>Login with Facebook</button>
+				<button className="btn-google login-facebook" onClick={() => this.authenticate('google')}>Sign In with Google</button>
+				<br />
+				<p className="login-p">New here? Sign in with one of the options above, or
+					<span className="login-create-account"> create an account!</span>
+				</p>
 			</div>
 		)
 	}

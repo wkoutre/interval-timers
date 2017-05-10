@@ -15,7 +15,7 @@ const numIntervals = (state=0, action) => {
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return +action.payload.numIntervals
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.numIntervals;
+			return action.payload.app.user.timerInfo.timerProps.numIntervals;
 		default:
 			return state;
 	}
@@ -30,7 +30,7 @@ const intervalTime = (state=0, action) => {
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return +twoPlacedFloat(action.payload.intervalTime);
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.intervalTime;			
+			return action.payload.app.user.timerInfo.timerProps.intervalTime;			
 		default:
 			return state;
 	}
@@ -45,7 +45,7 @@ const restTime = (state=0, action) => {
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return +(action.payload.restTime)
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.restTime;
+			return action.payload.app.user.timerInfo.timerProps.restTime;
 		default:
 			return state;
 	}
@@ -60,7 +60,7 @@ const restIncrement = (state=0, action) => {
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return +(action.payload.restIncrement)
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.restIncrement;
+			return action.payload.app.user.timerInfo.timerProps.restIncrement;
 		default:
 			return state;
 	}
@@ -133,7 +133,7 @@ const timerName = (state="", action) => {
 		case C.EDIT_TIMER: case C.CHOOSE_TIMER:
 			return action.payload.timerName
 		case C.SET_INITIAL_STATE:		
-			return action.payload.app.user.timerInfo.timerName
+			return action.payload.app.user.timerInfo.timerProps.timerName
 		default:
 			return state;
 	}

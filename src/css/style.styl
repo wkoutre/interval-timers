@@ -1,6 +1,26 @@
+@require './_variables.styl'
+@require './_*.styl'
+
+@import url('https://fonts.googleapis.com/css?family=Lato|Open+Sans');
+
+* {
+	margin 0
+	padding 0
+	font-family Lato
+	line-height 1.25rem
+}
+
+#root
+	{$flex-row-wrap}
+
+// [class^="app"]
+// 	{$flex-row-wrap}
+
+[class$="title"]
+	font-family "Open Sans"
+
 .new-timer
-	display flex
-	flex-wrap wrap
+	{$flex-row-wrap}
 	// border 1px solid red
 	& > input
 		flex 0 1 50%

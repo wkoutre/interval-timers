@@ -6,6 +6,11 @@ import { store } from './store/store'
 
 import App from './components/containers/ConApp'
 import './css/style.css'
+import './css/bootstrap-social/bootstrap-social.css'
+// import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import './css/bootstrap/css/bootstrap.min.css'
+// import './css/font-awesome/css/font-awesome.min.css'
+
 
 // console.log(`FB`, FB);
 
