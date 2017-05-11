@@ -5,10 +5,10 @@ import { Provider } from 'react-redux'
 import { store } from './store/store'
 
 import App from './components/containers/ConApp'
-import './css/style.css'
-import './css/bootstrap-social/bootstrap-social.css'
-// import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import './css/bootstrap/css/bootstrap.min.css'
+import './css/bootstrap-social/bootstrap-social.css'
+import './css/style.css'
+// import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 // import './css/font-awesome/css/font-awesome.min.css'
 
 
@@ -36,10 +36,9 @@ import './css/bootstrap/css/bootstrap.min.css'
   //    fjs.parentNode.insertBefore(js, fjs);
   //  }(document, 'script', 'facebook-jssdk'));
 
-
 render(
-	<Provider store={store}>
-		<App />	
-	</Provider>,	
-	document.getElementById('root')
-)
+		<Provider store={store}>
+			<App />	
+		</Provider>,	
+		document.getElementById('root')
+	)

@@ -14,22 +14,26 @@ export const Settings = (props) => {
 
 	const settingChangers = settings.map( (setName, i) => {
 		// change this once the sound features are implementedDefault
+		const lower = setName.split(' ').map(letter => letter.toLowerCase()).join('-');
+
 		if (i >= 4)
 			return ;
 		return (
-				<div key={setName} className={`setting-${setName}`}>
-					<label htmlFor={`setting-input-${setName}`}>Default {setName}:</label>
+				<div key={lower} className={`settings-div`}>
+					<label className="settings-label" htmlFor={`settings-input-${lower}`}>Default {setName}:</label>
 					<input
 						type="number"
 						value={settingValues[i] || ""}
-						name={`setting-input-${setName}`}
+						name={`settings-input-${lower}`}
+						className="settings-input"
 						onChange={(e) => setters[i](e.target.value)}/>
 				</div>
 			)
 	});
 
 	return (
-		<div>
+		<div className="app-settings">
+			<p className="settings-description">Changes take effect immediately upon input.</p>
 			{settingChangers}
 		</div>
 	)

@@ -15,10 +15,12 @@ export let errorProvider;
 
 class Login extends React.Component {
 
-	authenticate = (provider) => {	
-		base.authWithOAuthPopup(provider, this.authHandler, {
-			scope: "email, user_birthday, user_photos, user_location, publish_actions, public_profile"
-		});
+	authenticate = (provider) => {
+		provider === 'facebook' ?
+			base.authWithOAuthPopup(provider, this.authHandler, {
+				scope: "email, user_birthday, user_photos, user_location, publish_actions, public_profile"
+			}) :
+			base.authWithOAuthPopup(provider, this.authHandler);
 	}
 
 	authHandler = (err, authData) => {

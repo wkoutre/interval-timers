@@ -5,10 +5,15 @@ import { Link } from 'react-router-dom';
 
 const Footer = (props) => {
 	return (
-		<div className="footer">
-			<Link to="completed-timers"><button>Completed Timers</button></Link>
-			<Link to="timers"><button>View Timers</button></Link>
-		</div>
+		<footer className="app-footer">
+			<Link
+				to="completed-timers"
+				className="footer-item">Completed Timers</Link>
+			<Link
+			to="timers"
+			className="footer-item"
+			>View Timers</Link>
+		</footer>
 	)
 }
 

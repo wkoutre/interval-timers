@@ -1,4 +1,4 @@
-import { Profile } from '../ui/Profile'
+import Profile from '../ui/Profile'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ app }, props) => {

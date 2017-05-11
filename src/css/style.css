@@ -1,3 +1,49 @@
+.app-footer {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  width: 100%;
+  font-size: 0.9rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+.footer-item {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 40%;
+          flex: 0 1 40%;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #000;
+  background-color: #ff0;
+  padding: 10px;
+}
+.app-header {
+  margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 100%;
+          flex: 0 1 100%;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+.header-link {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 14.285714285714286%;
+          flex: 0 1 14.285714285714286%;
+  font-size: 0.9rem;
+  text-align: center;
+}
+.header-logout-button {
+  color: #f00;
+}
 .app-login {
   -ms-flex-item-align: center;
       align-self: center;
@@ -13,7 +59,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 30%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .login-facebook,
 .login-google {
@@ -30,10 +78,101 @@
 .login-create-account {
   color: #00f;
 }
+.login-create-account:hover {
+  text-decoration: underline;
+}
 .login-p {
   font-size: 1rem;
   width: 60%;
   text-align: center;
+}
+.app-profile {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 100%;
+          flex: 0 1 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: space-around;
+      -ms-flex-align: space-around;
+          align-items: space-around;
+}
+.profile-photo > img {
+  border-radius: 50%;
+  width: 450px;
+}
+.profile-photo {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 50%;
+          flex: 0 1 50%;
+}
+.profile-info {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 45%;
+          flex: 0 1 45%;
+  font-size: 1.25rem;
+}
+.profile-info > p {
+  margin: 15px;
+}
+.app-settings {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 97.5%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.settings-div {
+  width: 90%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 10%;
+          flex: 0 1 10%;
+  margin: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.settings-label {
+  font-size: 0.9rem;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 40%;
+          flex: 0 1 40%;
+  text-align: right;
+}
+.settings-input {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 45%;
+          flex: 0 1 45%;
+  height: 30px !important;
+}
+.settings-description {
+  font-size: 1rem;
+  width: 70%;
+  margin-bottom: 25px;
 }
 @import url("https://fonts.googleapis.com/css?family=Lato|Open+Sans");
 * {
@@ -42,12 +181,33 @@
   font-family: Lato;
   line-height: 1.25rem;
 }
+body {
+  background-color: #ffc0cb;
+}
 #root {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+#root > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 97.5%;
+          flex: 0 1 97.5%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: space-between;
+      -ms-flex-align: space-between;
+          align-items: space-between;
+  height: 100vh;
 }
 [class$="title"] {
   font-family: "Open Sans";

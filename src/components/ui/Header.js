@@ -4,50 +4,49 @@ import PropTypes from 'prop-types';
 import base from '../Base'
 import { store } from '../../store/store'
 import { push } from 'connected-react-router'
+import HeaderLink from '../containers/ConHeaderLink'
 
-class Header extends React.Component {
-	// componentWillMount() {
-				
-	// 	if (!this.props.loggedIn) {
-	// 		console.log('Returning to LOGIN screen from HEADER');
-	// 		this.props.push('/');
-	// 	}
-	// }
-
-	localLogOut = () => {
+const Header = (props) => {
+	const localLogOut = () => {
 		console.log('local logout');
 		console.log(base.getAuth());
 		base.auth().signOut();
-		this.props.logout()
+		props.logout()
 	}
 
-	render() {
-		return (
-			<div className="header">
+	// const { pathname } = props.history.location.slice(1);
+
+	return (
+			<header className="app-header">
+				<span
+					className="header-home-button header-link"
+					onClick={() => props.history.goBack()}>
+						Back
+				</span>
+				<HeaderLink
+					classname="header-home-button header-link"
+					to="home"
+					activeClassName="active-header">
+						Home
+				</HeaderLink>
+				<HeaderLink
+					classname="header-profile-button header-link"
+					to="profile">
+						Profile
+				</HeaderLink>
+				<HeaderLink
+					classname="header-settings-button header-link"
+					to="settings">
+						Settings
+				</HeaderLink>
 				<Link 
-					className="logout-button"
-					onClick={() => this.localLogOut()}
+					className="header-logout-button header-link"
+					onClick={() => localLogOut()}
 					to='/'>
 						Logout
 				</Link>
-				<Link
-					className="profile-button header-link"
-					to="home">
-						Home
-				</Link>
-				<Link
-					className="profile-button header-link"
-					to="profile">
-						Profile
-				</Link>
-				<Link
-					className="settings-button header-link"
-					to="settings">
-						Settings
-				</Link>
-			</div>
+			</header>
 		)
-	}
 }
 
 export default Header;

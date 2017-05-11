@@ -10,11 +10,19 @@
 	line-height 1.25rem
 }
 
-#root
-	{$flex-row-wrap}
+body {
+	background-color pink
+}
 
-// [class^="app"]
-// 	{$flex-row-wrap}
+#root
+	display flex
+	justify-content center
+	& > div
+		{$flex-row-wrap}
+		flex 0 1 97.5%
+		justify-content center
+		align-items space-between
+		height 100vh
 
 [class$="title"]
 	font-family "Open Sans"
