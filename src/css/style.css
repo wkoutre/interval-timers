@@ -46,22 +46,8 @@
 }
 .app-login {
   -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
       align-self: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
 }
 .login-facebook,
 .login-google {
@@ -80,6 +66,7 @@
 }
 .login-create-account:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 .login-p {
   font-size: 1rem;
@@ -115,10 +102,58 @@
   -webkit-box-flex: 0;
       -ms-flex: 0 1 45%;
           flex: 0 1 45%;
-  font-size: 1.25rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 .profile-info > p {
-  margin: 15px;
+  margin: 10px;
+  font-size: 1.15rem;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 75%;
+          flex: 0 1 75%;
+}
+.profile-info-form {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 80%;
+          flex: 0 1 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.profile-button {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 75%;
+          flex: 0 1 75%;
+  margin-top: 15px;
+}
+.profile-label {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 20%;
+          flex: 0 1 20%;
+  text-align: right;
+}
+.profile-input {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 70%;
+          flex: 0 1 70%;
+}
+.profile-edit-button {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 75%;
+          flex: 0 1 75%;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
 }
 .app-settings {
   display: -webkit-box;

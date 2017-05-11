@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ProfileInput = (props) => {
+const ProfileLabel = (props) => {
 	const { name, text, } = props;
 
 	return (
-		<label htmlFor={name}>{text}</label>
+		<label className="profile-label" htmlFor={name}>{text}</label>
 	)
 }
 
-export default ProfileInput;
+export default ProfileLabel;

@@ -181,3 +181,9 @@ export const removeCompletedTimer = (key) =>
 		type: C.REMOVE_COMPLETED_TIMER,
 		key
 	})
+
+export const setProfileInfo = (infoObj) =>
+	({
+		type: C.SET_PROFILE_INFO,
+		payload: infoObj
+	})

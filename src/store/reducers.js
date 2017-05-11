@@ -219,9 +219,11 @@ const uid = (state="", action) => {
 const fullName = (state="", action) => {
 	switch (action.type) {
 		case C.SET_FULLNAME:
-			return action.payload
-		// case SET_INITIAL_STATE:
-		// 	return 
+			return action.payload;
+		case C.SET_PROFILE_INFO:
+			return action.payload.fullName;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.details.fullName;
 		default:
 			return state;
 	}
@@ -231,6 +233,10 @@ const email = (state="", action) => {
 	switch (action.type) {
 		case C.SET_EMAIL:
 			return action.payload
+		case C.SET_PROFILE_INFO:
+			return action.payload.email;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.details.email;
 		default:
 			return state;
 	}
@@ -239,16 +245,9 @@ const email = (state="", action) => {
 const photoURL = (state="", action) => {
 	switch (action.type) {
 		case C.SET_PHOTO_URL:
-			return action.payload
-		default:
-			return state;
-	}
-}
-
-const rootReducer = (state, action) => {
-	switch (action.type) {
-		case C.LOGOUT:
-			return mainReducer(undefined, action);
+			return action.payload;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.details.photoURL;
 		default:
 			return state;
 	}
@@ -270,6 +269,59 @@ const completedTimers = (state={}, action) => {
 	}
 }
 
+const weight = (state=0, action) => {
+	switch (action.type) {
+		case C.SET_PROFILE_INFO:
+			return action.payload.weight;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.details.weight;
+		default:
+			return state;
+	}
+}
+
+const location = (state="", action) => {
+	switch (action.type) {
+		case C.SET_PROFILE_INFO:
+			return action.payload.location;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.details.location;
+		default:
+			return state;
+	}
+}
+
+const birthday = (state="", action) => {
+	switch (action.type) {
+		case C.SET_PROFILE_INFO:
+			return action.payload.birthday;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.details.birthday;
+		default:
+			return state;
+	}
+}
+
+const visibility = (state="", action) => {
+	switch (action.type) {
+		case C.SET_PROFILE_INFO:
+			return action.payload.visibility;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.details.visibility;
+		default:
+			return state;
+	}
+}
+
+const rootReducer = (state, action) => {
+	switch (action.type) {
+		case C.LOGOUT:
+			return mainReducer(undefined, action);
+		default:
+			return state;
+	}
+}
+
 
 /**/
 
@@ -281,7 +333,11 @@ const mainReducer = combineReducers({
 				fullName,
 				email,
 				photoURL,
-				uid
+				uid,
+				birthday,
+				location,
+				visibility,
+				weight
 			}),
 			timerInfo: combineReducers({
 				defaults: combineReducers({

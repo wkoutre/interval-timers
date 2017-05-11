@@ -11,7 +11,7 @@ const HeaderLink = (props) => {
 	}
 
 	const activeStyle = {
-		"textDecoration": "none",
+		"textDecoration": "underline",
 		"color": "green"
 	}
 

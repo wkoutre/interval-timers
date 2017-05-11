@@ -1,3 +1,5 @@
+var webpack = require('webpack')
+
 module.exports = {
 	entry: "./src/index.js",
 	output: {
@@ -58,4 +60,9 @@ module.exports = {
     tls: 'empty',
     fs: 'empty'
   },
+  plugins:[
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    })
+  ]
 }

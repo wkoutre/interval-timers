@@ -5,7 +5,7 @@ const ProfileInput = (props) => {
 	const { name, type, handleChange } = props;
 
 	return (
-		<input value={props.value} type={type} name={name} onChange={(e) => handleChange(e, name)}/>
+		<input className="profile-input" value={props.value} type={type} name={name} onChange={(e) => handleChange(e, name)}/>
 	)
 }
 
