@@ -58,3 +58,22 @@ export const timeToStr = (hour, minute) => {
 
 	return `at ${hour}:${minute} ${amPM}`
 }
+
+export const findAge = (dateFromInput) => {
+	const year = +dateFromInput.slice(0, 4)
+	const dateArr = dateFromInput.split('-');
+	const month = +dateArr[1]
+	const day = +dateArr[2]
+	const present = new Date();
+	const curYear = present.getFullYear();
+	const curMonth = present.getMonth()+1;
+	const curDay = present.getDate();
+	let age = curYear - year - 1;
+	
+	if (curMonth == month && curDay >= day)
+		age++;
+	else if (curMonth > month)
+		age++;
+
+	return age;
+}

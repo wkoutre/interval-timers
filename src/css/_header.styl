@@ -1,19 +1,25 @@
 .header
+	position fixed
+	top 0
 	display flex
-	flex 0 1 100%
+	width 100%
 	justify-content space-around
 	align-self flex-start
 	background-color $black0
 	z-index 1
+	height 7.5vh
 
 .header-link
-	flex 1 1 (100%/7)
+	flex 1 1 10%
 	font-size 1rem
-	text-align center
+	// text-align center
 	color $black4
 	font-family $title
 	padding 10px
 	transition 0.5s all ease
+	display flex
+	align-items center
+	justify-content center
 
 .header-logout-button
 	color $white
@@ -23,3 +29,7 @@
 
 .header-back-button
 	color $white
+
+@media all and (orientation landscape)
+	.header
+		height 10vh

@@ -1,5 +1,5 @@
 import SavedTimers from '../ui/SavedTimers'
-import { editTimer, deleteTimer, chooseTimer } from '../../actions'
+import { editTimer, deleteTimer, chooseTimer, sortDateAscending, sortDateDescending, sortTimersAZ, sortTimersZA } from '../../actions'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 
@@ -33,6 +33,26 @@ const mapDispatchToProps = dispatch =>
 		push(path) {
 			dispatch(
 				push(path)
+			)
+		},
+		sortDateAscending() {
+			dispatch(
+				sortDateAscending()
+			)
+		},
+		sortDateDescending() {
+			dispatch(
+				sortDateDescending()
+			)
+		},
+		sortTimersZA() {
+			dispatch(
+				sortTimersZA()
+			)
+		},
+		sortTimersAZ() {
+			dispatch(
+				sortTimersAZ()
 			)
 		}
 	})

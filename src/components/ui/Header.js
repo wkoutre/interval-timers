@@ -21,7 +21,7 @@ const Header = (props) => {
 				<span
 					className="header-back-button header-link"
 					onClick={() => props.history.goBack()}>
-						Back
+						&larr;
 				</span>
 				<HeaderLink
 					classname="header-home-button header-link"

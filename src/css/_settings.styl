@@ -1,4 +1,5 @@
 .app-settings
+	margin-top 2vh
 	{$flex-col-wrap}
 	width 97.5%
 	align-items center
@@ -14,22 +15,13 @@
 	color $black4
 
 .settings-label
-	font-size 0.9rem
+	font-size 1rem
 	flex 0 1 40%
 	text-align right
 
 .settings-input
+	{$input}
 	flex 0 1 50%
-	height 30px !important
-	border-radius 2px !important
-	border 2px solid $white !important
-	background-color transparent !important
-	color $pink !important
-	&:focus,
-	&:active
-		color $white !important
-		outline none !important
-		box-shadow 0px 0px 1px 1px $white !important
 
 .settings-description
 	font-size 1.25rem

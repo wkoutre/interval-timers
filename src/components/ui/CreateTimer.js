@@ -31,9 +31,10 @@ class CreateTimer extends React.Component {
 	
 		e.preventDefault();
 
-			const { saveTimer, clearTimerForm, timerName, numIntervals, intervalTime, restTime, restIncrement } = this.props;
+		const { saveTimer, clearTimerForm, timerName, numIntervals, intervalTime, restTime, restIncrement } = this.props;
 
 		const totalTime = timeFuncs.calcTotalTime(numIntervals, intervalTime, restIncrement, restTime);
+		const timeCreated = new Date().getTime();
 
 		const timerObj = {
 			timerName,
@@ -41,7 +42,8 @@ class CreateTimer extends React.Component {
 			intervalTime,
 			restTime,
 			restIncrement,
-			totalTime
+			totalTime,
+			timeCreated
 		}
 
 		saveTimer(timerObj);
@@ -102,10 +104,9 @@ class CreateTimer extends React.Component {
 
 		return (
 			<div className="app-create-timer">
-				<h2>New Timer</h2>
 				<form required className="create-timer-form">
 					<div className="create-timer-form-section">
-						<span className="create-timer-label">Timer Name:* </span>
+						<span className="create-timer-label"> <span className="create-timer-label-text">New Timer Name:*</span> </span>
 						<input
 									className="create-timer-input"
 									required type="text"
@@ -114,7 +115,7 @@ class CreateTimer extends React.Component {
 									onChange={(e) => setTimerName(e.target.value || "")}/>
 					</div>
 					<div className="create-timer-form-section">
-						<span className="create-timer-label">Number of Intervals:* </span>
+						<span className="create-timer-label"><span className="create-timer-label-text">Number of Intervals:*</span> </span>
 						<input
 									className="create-timer-input"
 									required type="number"
@@ -123,7 +124,7 @@ class CreateTimer extends React.Component {
 									onChange={(e) => setNumIntervals(e.target.value || 0)}/>
 					</div>
 					<div className="create-timer-form-section">
-						<span className="create-timer-label">Interval Time:*</span>
+						<span className="create-timer-label"><span className="create-timer-label-text">Interval Time:* (secs) </span></span>
 						<input
 								className="create-timer-input"
 								required type="number"
@@ -132,7 +133,7 @@ class CreateTimer extends React.Component {
 								onChange={(e) => setIntervalTime(parseFloat(e.target.value) || 0)}/>
 					</div>
 					<div className="create-timer-form-section">
-						<span className="create-timer-label">Rest Time:</span>
+						<span className="create-timer-label"> <span className="create-timer-label-text">Rest Time: (secs)</span></span>
 						<input
 								className="create-timer-input"
 								required type="number"
@@ -141,7 +142,8 @@ class CreateTimer extends React.Component {
 								onChange={(e) => setRestTime(e.target.value || 0)}/>
 					</div>
 					<div className="create-timer-form-section">
-						<span className="create-timer-label">Rest Increment Per Set:</span>
+						<span className="create-timer-label"> <span className="create-timer-label-text">Added Rest Per <span className="question-mark">(?)</span>   Set (secs):</span>							
+						</span>
 						<input
 								className="create-timer-input"
 								type="number"
@@ -155,23 +157,27 @@ class CreateTimer extends React.Component {
 							{this.totalTimeCalc()}
 						</span>
 					</div>
-				<button
-					type="submit"
-					className="create-timer-button create-timer-button__add"
-					disabled={this.canSubmit()}
-					onClick={(e) => this.localSaveTimer(e, false)}>SAVE AND ADD ANOTHER</button>
-				<button
-					type="submit"
-					className="create-timer-button create-timer-button__add"
-					disabled={this.canSubmit()}
-					onClick={(e) => this.localSaveTimer(e, true)}>SAVE AND GO TO TIMERS</button>
-				<button
-					className="create-timer-button"
-					onClick={() => this.resetToDefaults()}>SET TO DEFAULTS</button>
-				<button
-					className="create-timer-button"
-					onClick={() => this.props.clearTimerForm()}>CLEAR TIMER</button>
+					<button
+						type="submit"
+						className="create-timer-button create-timer-button__add"
+						disabled={this.canSubmit()}
+						onClick={(e) => this.localSaveTimer(e, true)}>SAVE / GO TO TIMERS
+					</button>
+					<button
+						className="create-timer-button create-timer-button__add"
+						disabled={this.canSubmit()}
+						onClick={(e) => this.localSaveTimer(e, false)}>SAVE / ADD ANOTHER
+					</button>
+					<button
+						className="create-timer-button"
+						onClick={() => this.resetToDefaults()}>SET TO DEFAULTS
+					</button>
+					<button
+						className="create-timer-button"
+						onClick={() => this.props.clearTimerForm()}>CLEAR TIMER
+					</button>
 				</form>
+
 		</div>
 		)
 	}

@@ -1,13 +1,16 @@
 .footer
-	align-self flex-end
-	width 100%
+	// align-self flex-end
+	position fixed
+	bottom 0
+	height 6.5vh
 	font-size 1rem
 	{$flex-row-wrap}
 	justify-content space-between
 	z-index 1
+	width 100%
 
 .footer-item
-	flex 1 1 25%
+	flex 1 1
 	text-align center
 	color $black4
 	background-color $black0
@@ -18,3 +21,7 @@
 		color $white
 		text-decoration none
 		background-color $black3
+
+@media all and (orientation landscape)
+	.footer
+		height 10vh

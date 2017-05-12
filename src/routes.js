@@ -43,20 +43,25 @@ class App extends React.Component {
 		return (
 				<ConnectedRouter history={history}>
 				{!loggedIn ?
-					<Login /> :
-					<div>
+					<div className="react-root">
+						<Login />	
+					</div>
+					 :
+					<div className="react-root">
 						<Header />
-						<Switch>
-							<Redirect exact from="/" to="/home" />
-							<Route path="/error" component={ErrorPage} />
-							<Route path="/home" component={Home} />
-							<Route path="/timers" component={CreateTimer}/>
-							<Route path="/run-timer" component={RunTimer}/>
-							<Route path="/profile" component={Profile}/>
-							<Route path="/settings" component={Settings}/>
-							<Route path="/saved-timers" component={SavedTimers}/>
-							<Route path="/completed-timers" component={CompletedTimers}/>
-						</Switch>
+						<div className="page-content">
+							<Switch>
+								<Redirect exact from="/" to="/home" />
+								<Route path="/error" component={ErrorPage} />
+								<Route path="/home" component={Home} />
+								<Route path="/timers" component={CreateTimer}/>
+								<Route path="/run-timer" component={RunTimer}/>
+								<Route path="/profile" component={Profile}/>
+								<Route path="/settings" component={Settings}/>
+								<Route path="/saved-timers" component={SavedTimers}/>
+								<Route path="/completed-timers" component={CompletedTimers}/>
+							</Switch>	
+						</div>
 						<Footer />
 					</div>
 					}

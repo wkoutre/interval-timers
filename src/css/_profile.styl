@@ -26,13 +26,20 @@
 		padding 10px
 		font-size 1.15rem
 		flex 0 1 100%
-		background-color $black1
+		background-color $black2
 		
 .profile-info-form
-	flex 0 1 80%
+	flex 0 1 97.5%
 	{$flex-row-wrap}
 	align-items center
 	justify-content space-between
+	
+.profile-edit__section
+	flex 0 1 100%
+	{$flex-row-wrap}
+	justify-content space-around
+	align-items center
+	margin 5px 0
 
 .profile-button
 	flex 0 1 75%
@@ -49,14 +56,15 @@
 		box-shadow 0px 0px 1px 1px $white
 	
 .profile-label
-	flex 0 1 20%
+	flex 0 1 25%
 	font-size 0.9rem
 	text-align right
 	color $black4
 	
 .profile-input
-	flex 0 1 70%
+	flex 0 1 65%
 	{$input}
+	height 6vmax !important
 
 .profile-edit-button
 	flex 0 1 75%
@@ -73,17 +81,14 @@
 		box-shadow 0px 0px 1px 1px $white
 		
 .profile-input-toggle
-	flex 0 1 70%
-	// height 30px !important
-	border-radius 2px !important
+	flex 0 1 68.5%
+	height 6vmax !important
 	display flex
 	justify-content flex-start
 
 .visibility-toggle
-	// height 100%
 	flex 0 1 50px
-	// text-align center
-	// padding 5px
+	padding 6px
 	display flex
 	align-items center
 	justify-content center

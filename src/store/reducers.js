@@ -119,8 +119,27 @@ const timers = (state=[], action) => {
 			return state.filter(timers => timers.timerName !== name)
 		case C.SET_INITIAL_STATE:
 			return action.payload.app.user.timerInfo.timers;
+		case C.SORT_TIMERS_DATE_ASCENDING:
+			const ascState = [...state].sort( (a, b) => a.timeCreated > b.timeCreated);
+
+			return ascState;
+		case C.SORT_TIMERS_DATE_DESCENDING:
+			const descState = [...state].sort( (a, b) => a.timeCreated < b.timeCreated);
+
+			return descState;
+		case C.SORT_TIMERS_A_Z:
+			const az = [...state].sort( (a, b) => a.timerName > b.timerName);
+
+			return az;
+
+		case C.SORT_TIMERS_Z_A:
+			const za = [...state].sort( (a, b) => a.timerName < b.timerName);
+
+			return za;
 		default:
 			return state
+
+	SORT_TIMERS_Z_A: "SORT_TIMERS_Z_A"
 	}
 }
 

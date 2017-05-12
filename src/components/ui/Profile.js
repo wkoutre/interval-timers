@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ProfileInput from './ProfileInput'
 import ProfileLabel from './ProfileLabel'
+import * as timeFuncs from '../../timeHelpers'
 import * as colors from '../../css/colors'
 
 class Profile extends React.Component {
@@ -77,16 +78,38 @@ class Profile extends React.Component {
 		this.setState({ visibility: !this.state.visibility })
 	}
 
+	// findAge = (date) => {
+	// 	const year = +date.slice(0, 4)
+	// 	const dateArr = date.split('-');
+	// 	const month = +dateArr[1]
+	// 	const day = +dateArr[2]
+	// 	const present = new Date();
+	// 	const curYear = present.getFullYear();
+	// 	const curMonth = present.getMonth()+1;
+	// 	const curDay = present.getDate();
+	// 	const age = curYear - year - 1;
+
+	// 	if (curMonth == month && curDay >= day)
+	// 		age++;
+	// 	else if (curMonth > month)
+	// 		age++;
+
+	// 	return `${age} years old `
+		
+	// }
+
 	render() {
 
 		const toggleOn = {
 			"border": `2px solid ${colors.green} `,
-			"color": colors.green
+			"color": colors.green,
+			"margin-left": "20px"
 		}
 
 		const toggleOff = {
 			"border": `2px solid ${colors.red} `,
-			"color": colors.red
+			"color": colors.red,
+			"margin-left": 0
 		}
 		const toggle = (
 			<span style={this.state.visibility ? toggleOn : toggleOff} onClick={() => this.handleToggle()} className="visibility-toggle">
@@ -106,7 +129,7 @@ class Profile extends React.Component {
 				<div className="profile-info">
 					<p>{this.props.fullName}</p>
 					<p>{this.props.email}</p>
-					<p>{this.props.birthday}</p>
+					<p>{`${timeFuncs.findAge(this.props.birthday)} years old`}</p>
 					<p>{this.props.location}</p>
 					<p>{this.props.weight} lbs</p>
 					<p>Public profile: {this.props.visibility ? "ON" : "OFF"}</p>
@@ -121,26 +144,32 @@ class Profile extends React.Component {
 					<img src={this.props.photoURL} alt={`${this.props.fullname} profile picture`}/>
 				</div>
 				<form onSubmit={this.saveProfile} className="profile-info-form">
-					<ProfileLabel name="fullName" text="Full Name:" />
-					<ProfileInput value={!this.state.fullName && this.state.touched.fullName === false ? this.props.fullName : this.state.fullName} name="fullName" type="text" handleChange={this.handleChange} />
-
-					<ProfileLabel name="email" text="Email:" />
-					<ProfileInput value={!this.state.email && this.state.touched.email === false ? this.props.email : this.state.email} name="email" type="text" handleChange={this.handleChange} />
-
-					<ProfileLabel name="birthday" text="Birthday:" />
-					<ProfileInput value={!this.state.birthday && this.state.touched.birthday === false ? this.props.birthday : this.state.birthday} name="birthday" type="date" handleChange={this.handleChange} />
-
-					<ProfileLabel name="loc" text="Location:" />
-					<ProfileInput value={!this.state.loc && this.state.touched.loc === false ? this.props.loc : this.state.loc} name="loc" type="text" handleChange={this.handleChange} />
-
-					<ProfileLabel name="weight" text="Weight:" />
-					<ProfileInput value={!this.state.weight && this.state.touched.weight === false ? this.props.weight : this.state.weight} name="weight" type="number" handleChange={this.handleChange} />
-
-					<ProfileLabel name="visibility" text="Public Profile:" />
-					<span className="profile-input-toggle">
-						{toggle}
-					</span>
-					
+					<div className="profile-edit__section">
+						<ProfileLabel name="fullName" text="Full Name:" />
+						<ProfileInput value={!this.state.fullName && this.state.touched.fullName === false ? this.props.fullName : this.state.fullName} name="fullName" type="text" handleChange={this.handleChange} />
+					</div>
+					<div className="profile-edit__section">
+						<ProfileLabel name="email" text="Email:" />
+						<ProfileInput value={!this.state.email && this.state.touched.email === false ? this.props.email : this.state.email} name="email" type="text" handleChange={this.handleChange} />
+					</div>
+					<div className="profile-edit__section">
+						<ProfileLabel name="birthday" text="Birthday:" />
+						<ProfileInput value={!this.state.birthday && this.state.touched.birthday === false ? this.props.birthday : this.state.birthday} name="birthday" type="date" handleChange={this.handleChange} />
+					</div>
+					<div className="profile-edit__section">
+						<ProfileLabel name="loc" text="Location:" />
+						<ProfileInput value={!this.state.loc && this.state.touched.loc === false ? this.props.loc : this.state.loc} name="loc" type="text" handleChange={this.handleChange} />
+					</div>
+					<div className="profile-edit__section">
+						<ProfileLabel name="weight" text="Weight:" />
+						<ProfileInput value={!this.state.weight && this.state.touched.weight === false ? this.props.weight : this.state.weight} name="weight" type="number" handleChange={this.handleChange} />
+					</div>
+					<div className="profile-edit__section">
+						<ProfileLabel name="visibility" text="Public Profile:" />
+						<span className="profile-input-toggle">
+							{toggle}
+						</span>
+					</div>
 				</form>
 				<button className="profile-edit-button" type="submit" onClick={() => this.saveProfile()}>SAVE</button>
 			</div>

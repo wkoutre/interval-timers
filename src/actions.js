@@ -71,7 +71,7 @@ export const setTimerName = (name) =>
 	})
 
 export const saveTimer = (obj) => {
-	const { timerName, numIntervals, intervalTime, restTime, restIncrement, totalTime } = obj;
+	const { timerName, numIntervals, intervalTime, restTime, restIncrement, totalTime, timeCreated } = obj;
 
 	return ({
 		type: C.SAVE_TIMER,
@@ -81,7 +81,8 @@ export const saveTimer = (obj) => {
 			intervalTime,
 			restTime,
 			restIncrement,
-			totalTime
+			totalTime,
+			timeCreated
 		}
 	})
 }
@@ -186,4 +187,24 @@ export const setProfileInfo = (infoObj) =>
 	({
 		type: C.SET_PROFILE_INFO,
 		payload: infoObj
+	})
+
+export const sortDateAscending = () =>
+	({
+		type: C.SORT_TIMERS_DATE_ASCENDING
+	})
+
+export const sortDateDescending = () =>
+	({
+		type: C.SORT_TIMERS_DATE_DESCENDING
+	})
+
+export const sortTimersAZ = () =>
+	({
+		type: C.SORT_TIMERS_A_Z
+	})
+
+export const sortTimersZA = () =>
+	({
+		type: C.SORT_TIMERS_Z_A
 	})

@@ -27,23 +27,27 @@ $black3 = #474646
 $black4 = #a5a5a5
 
 $input =
-	height 30px !important
+	height 8vmax !important
 	border-radius 2px !important
 	border 2px solid $white !important
 	background-color transparent !important
 	color $pink !important
+	margin 0 !important
 	&:focus,
 	&:active
 		color $white !important
 		outline none !important
 		box-shadow 0px 0px 1px 1px $white !important
+		margin 0 !important
+	&::selection
+		background-color white
+		color $black2
 
 $button =
-	align-self flex-end
+	// align-self flex-end
 	color $white
-	font-size 1.25rem
 	border 2px solid $white
-	padding 15px
+	padding 5px
 	background-color transparent
 	align-self flex-end
 	&:active,

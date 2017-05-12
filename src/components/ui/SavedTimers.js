@@ -61,6 +61,7 @@ class SavedTimers extends React.Component {
 	}
 
 	render() {
+		const { timers } = this.props;
 		let timerNames = this.props.timers.map( (obj, i) => {
 			const { numIntervals, restTime, intervalTime, restIncrement, totalTime } = obj;
 			const editBox = <div>EDITING</div>
@@ -73,7 +74,7 @@ class SavedTimers extends React.Component {
 						<span className="saved-timers__info-value saved-timers__info-intervalTime">{intervalTime} min per interval</span>
 						<span className="saved-timers__info-value saved-timers__info-restIncrement">{restIncrement} sec rest incr</span>
 						<span className="saved-timers__info-value saved-timers__info-totalTime">{timeFuncs.msToText(totalTime)}</span>
-						<span className="saved-timers__info-button" onClick={() => this.hideInfo(i)}>&#10006;</span>
+						<span className="saved-timers__hide-info-button" onClick={() => this.hideInfo(i)}>&#10006;</span>
 				</li>
 				)
 			} else {
@@ -82,7 +83,7 @@ class SavedTimers extends React.Component {
 					<span className="saved-timers__timer-name">{obj.timerName}</span>
 					<div className="saved-timers__buttons">
 						<span
-						onClick={() => this.props.localEditTimer(timers[i])}
+						onClick={() => this.localEditTimer(timers[i])}
 						className="saved-timers__edit-timer saved-timers__option">edit</span>
 						<span
 						onClick={() => this.props.deleteTimer(timers[i])}
@@ -105,6 +106,12 @@ class SavedTimers extends React.Component {
 	return (
 		<div className="app-saved-timers">
 			<h2>Saved Timers</h2>
+			<div className="saved-timers__sorting-div">
+				<button className="saved-timers__sort-button" onClick={() => this.props.sortDateAscending()}>old &rarr; new</button>
+				<button className="saved-timers__sort-button" onClick={() => this.props.sortDateDescending()}>new &rarr; old</button>
+				<button className="saved-timers__sort-button" onClick={() => this.props.sortTimersAZ()}>A &rarr; Z</button>
+				<button className="saved-timers__sort-button" onClick={() => this.props.sortTimersZA()}>Z &rarr; A</button>
+			</div>
 			<ul className="saved-timers__ul">
 				{timerNames}
 			</ul>
