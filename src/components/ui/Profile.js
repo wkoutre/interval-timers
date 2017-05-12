@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ProfileInput from './ProfileInput'
 import ProfileLabel from './ProfileLabel'
+import * as colors from '../../css/colors'
 
 class Profile extends React.Component {
 	constructor(props) {
@@ -32,6 +33,8 @@ class Profile extends React.Component {
 	saveProfile = () => {
 		const { fullName, email, birthday, loc: location, weight, visibility } = this.state;
 
+
+
 		const infoObj = {
 			fullName,
 			email,
@@ -59,25 +62,44 @@ class Profile extends React.Component {
 	handleChange = (e, name) => {
 		const val = e.target.value;
 		
-		if (name === 'visibility') {
-				this.setState({
-					visibility: this.state.visibility === "off" ? "on" : "off",
-				})
-		} else {
-			let touched = {...this.state.touched};
-			touched[name] = true;
+		let touched = {...this.state.touched};
+		touched[name] = true;
 
-			this.setState({
-				[name]: val,
-				touched
-			})
-		}
+		this.setState({
+			[name]: val,
+			touched
+		})
+	}
+
+	handleToggle = () => {
+		console.log(`handling toggle`);
+		
+		this.setState({ visibility: !this.state.visibility })
 	}
 
 	render() {
 
+		const toggleOn = {
+			"border": `2px solid ${colors.green} `,
+			"color": colors.green
+		}
+
+		const toggleOff = {
+			"border": `2px solid ${colors.red} `,
+			"color": colors.red
+		}
+		const toggle = (
+			<span style={this.state.visibility ? toggleOn : toggleOff} onClick={() => this.handleToggle()} className="visibility-toggle">
+				{
+					this.state.visibility ?
+					"ON" :
+					"OFF"
+				}
+			</span>
+		)
+
 		const staticProfile = (
-			<div className="app-profile">
+			<div className="app-profile__static">
 				<div className="profile-photo">
 					<img src={this.props.photoURL} alt={`${this.props.fullname} profile picture`}/>
 				</div>
@@ -87,14 +109,14 @@ class Profile extends React.Component {
 					<p>{this.props.birthday}</p>
 					<p>{this.props.location}</p>
 					<p>{this.props.weight} lbs</p>
-					<p>Public profile: {this.props.visibility}</p>
+					<p>Public profile: {this.props.visibility ? "ON" : "OFF"}</p>
 				</div>
-				<button className="btn profile-button" onClick={() => this.editProfile()}>EDIT</button>
+				<button className="profile-button" onClick={() => this.editProfile()}>EDIT</button>
 			</div>
 		)
 
 		const editProfile = (
-			<div className="app-profile">
+			<div className="app-profile__edit">
 				<div className="profile-photo">
 					<img src={this.props.photoURL} alt={`${this.props.fullname} profile picture`}/>
 				</div>
@@ -106,7 +128,7 @@ class Profile extends React.Component {
 					<ProfileInput value={!this.state.email && this.state.touched.email === false ? this.props.email : this.state.email} name="email" type="text" handleChange={this.handleChange} />
 
 					<ProfileLabel name="birthday" text="Birthday:" />
-					<ProfileInput value={!this.state.birthday && this.state.touched.birthday === false ? this.props.birthday : this.state.birthday} name="birthday" type="text" handleChange={this.handleChange} />
+					<ProfileInput value={!this.state.birthday && this.state.touched.birthday === false ? this.props.birthday : this.state.birthday} name="birthday" type="date" handleChange={this.handleChange} />
 
 					<ProfileLabel name="loc" text="Location:" />
 					<ProfileInput value={!this.state.loc && this.state.touched.loc === false ? this.props.loc : this.state.loc} name="loc" type="text" handleChange={this.handleChange} />
@@ -114,15 +136,18 @@ class Profile extends React.Component {
 					<ProfileLabel name="weight" text="Weight:" />
 					<ProfileInput value={!this.state.weight && this.state.touched.weight === false ? this.props.weight : this.state.weight} name="weight" type="number" handleChange={this.handleChange} />
 
-					<ProfileLabel name="visibility" text="Public Profile" />
-					<ProfileInput value={this.state.visibility} name="visibility" type="checkbox" handleChange={this.handleChange} />
+					<ProfileLabel name="visibility" text="Public Profile:" />
+					<span className="profile-input-toggle">
+						{toggle}
+					</span>
+					
 				</form>
-				<button className="btn profile-edit-button" type="submit" onClick={() => this.saveProfile()}>Save</button>
+				<button className="profile-edit-button" type="submit" onClick={() => this.saveProfile()}>SAVE</button>
 			</div>
 		)
 
 		return (
-			<div>
+			<div className="app-profile">
 				{ !this.state.edit ?
 					staticProfile :
 					editProfile

@@ -17,9 +17,9 @@ const Header = (props) => {
 	// const { pathname } = props.history.location.slice(1);
 
 	return (
-			<header className="app-header">
+			<header className="header">
 				<span
-					className="header-home-button header-link"
+					className="header-back-button header-link"
 					onClick={() => props.history.goBack()}>
 						Back
 				</span>

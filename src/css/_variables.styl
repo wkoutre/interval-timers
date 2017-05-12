@@ -1,3 +1,6 @@
+$title = Lato
+$content = 'Open Sans'
+
 $flex-row-wrap =
 	display flex
 	flex-wrap wrap
@@ -10,5 +13,40 @@ $flex-col-wrap =
 $flex-col-no-wrap =
 	display flex
 	flex-direction column
+	
+$blue = #7A8897
+$pink = #AB8B82
+$red = #7A2B1D
+$white = #DBCDC9
+$green = #22633E
 
-$active-color = orange
+$black0 = #090F12
+$black1 = #161616
+$black2 = #282828
+$black3 = #474646
+$black4 = #a5a5a5
+
+$input =
+	height 30px !important
+	border-radius 2px !important
+	border 2px solid $white !important
+	background-color transparent !important
+	color $pink !important
+	&:focus,
+	&:active
+		color $white !important
+		outline none !important
+		box-shadow 0px 0px 1px 1px $white !important
+
+$button =
+	align-self flex-end
+	color $white
+	font-size 1.25rem
+	border 2px solid $white
+	padding 15px
+	background-color transparent
+	align-self flex-end
+	&:active,
+	&:focus
+		outline none !important
+		box-shadow 0px 0px 1px 1px $white

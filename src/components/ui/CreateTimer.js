@@ -27,7 +27,7 @@ class CreateTimer extends React.Component {
 		return `${totalMins} ${this.minuteCalc(totalMins)}, ${totalSeconds} ${this.secondCalc(totalSeconds)}`;
 	}
 
-	localSaveTimer = (e) => {
+	localSaveTimer = (e, goToTimers) => {
 	
 		e.preventDefault();
 
@@ -46,6 +46,7 @@ class CreateTimer extends React.Component {
 
 		saveTimer(timerObj);
 		clearTimerForm();
+		goToTimers && this.props.push('saved-timers')
 	}
 
 	resetToDefaults = () => {
@@ -86,7 +87,7 @@ class CreateTimer extends React.Component {
 
 	canSubmit = () => {
 		const { intervalTime, numIntervals, timerName, timers } = this.props;
-
+		
 		return (
 						!numIntervals ||
 						!intervalTime ||
@@ -100,57 +101,95 @@ class CreateTimer extends React.Component {
 		const { intervalTime, numIntervals, restIncrement, restTime, timerName, timers, setTimerName, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement, defaultIntervalTime, defaultNumIntervals, defaultRestIncrement, defaultRestTime } = this.props;		  
 
 		return (
-			<div>
-				{this.props.timers.length > 0 && <SavedTimers />}
-				<h2>Create New Timer</h2>
-				<form required className="new-timer">
-					<span className="form-label">Timer Name:* </span>
-					<input
-								required type="text"
-								placeholder="timer name"
-								value={timerName}
-								onChange={(e) => setTimerName(e.target.value || "")}/>
-					<span className="form-label">Number of Intervals:* </span>
-					<input
-								required type="number"
-								placeholder="number of intervals"
-								value={numIntervals}
-								onChange={(e) => setNumIntervals(e.target.value || 0)}/>
-					<span>&nbsp;{this.interval()}</span>
-					<span className="form-label">Interval Time:*</span>
-					<input
+			<div className="app-create-timer">
+				<h2>New Timer</h2>
+				<form required className="create-timer-form">
+					<div className="create-timer-form-section">
+						<span className="create-timer-label">Timer Name:* </span>
+						<input
+									className="create-timer-input"
+									required type="text"
+									placeholder="timer name"
+									value={timerName}
+									onChange={(e) => setTimerName(e.target.value || "")}/>
+					</div>
+					<div className="create-timer-form-section">
+						<span className="create-timer-label">Number of Intervals:* </span>
+						<input
+									className="create-timer-input"
+									required type="number"
+									placeholder="number of intervals"
+									value={numIntervals}
+									onChange={(e) => setNumIntervals(e.target.value || 0)}/>
+					</div>
+					<div className="create-timer-form-section">
+						<span className="create-timer-label">Interval Time:*</span>
+						<input
+								className="create-timer-input"
 								required type="number"
 								placeholder="interval time"
 								value={intervalTime}
 								onChange={(e) => setIntervalTime(parseFloat(e.target.value) || 0)}/>
-					<span>&nbsp;{this.minutes()}</span>
-					<span className="form-label">Rest Time:</span>
-					<input
+					</div>
+					<div className="create-timer-form-section">
+						<span className="create-timer-label">Rest Time:</span>
+						<input
+								className="create-timer-input"
 								required type="number"
 								placeholder="rest time"
 								value={restTime}
 								onChange={(e) => setRestTime(e.target.value || 0)}/>
-					<span>&nbsp;{this.restSeconds()}</span>
-					<span className="form-label">Rest Increment Per Set:</span>
-					<input type="number"
+					</div>
+					<div className="create-timer-form-section">
+						<span className="create-timer-label">Rest Increment Per Set:</span>
+						<input
+								className="create-timer-input"
+								type="number"
 								placeholder="rest increment per set"
 								value={restIncrement !== 0 ? restIncrement : ""}
 								onChange={(e) => setRestIncrement(e.target.value || 0)}/>
-				<span>&nbsp;{this.restIncrement()}</span>
+					</div>
+					<div className="create-timer__total-time create-timer-form-section">
+						<h3>Total time: </h3>
+						<span className="total-time-span">
+							{this.totalTimeCalc()}
+						</span>
+					</div>
 				<button
 					type="submit"
-					className="save-timer"
+					className="create-timer-button create-timer-button__add"
 					disabled={this.canSubmit()}
-					onClick={(e) => this.localSaveTimer(e)}>
-						SAVE
-					</button>
+					onClick={(e) => this.localSaveTimer(e, false)}>SAVE AND ADD ANOTHER</button>
+				<button
+					type="submit"
+					className="create-timer-button create-timer-button__add"
+					disabled={this.canSubmit()}
+					onClick={(e) => this.localSaveTimer(e, true)}>SAVE AND GO TO TIMERS</button>
+				<button
+					className="create-timer-button"
+					onClick={() => this.resetToDefaults()}>SET TO DEFAULTS</button>
+				<button
+					className="create-timer-button"
+					onClick={() => this.props.clearTimerForm()}>CLEAR TIMER</button>
 				</form>
-				<button onClick={() => this.resetToDefaults()}>DEFAULTS</button>
-				<button onClick={() => this.props.clearTimerForm()}>CLEAR</button>
-			<div className="total-time"><h2>Total time: </h2>{this.totalTimeCalc()}</div>
 		</div>
 		)
 	}
 }
 
 export default CreateTimer;
+
+// {this.props.timers.length > 0 && <SavedTimers />}
+
+// <span>&nbsp;{this.interval()}</span>
+// <span>&nbsp;{this.minutes()}</span>
+// <span>&nbsp;{this.restSeconds()}</span>
+// <span>&nbsp;{this.restIncrement()}</span>
+
+
+
+
+
+
+
+

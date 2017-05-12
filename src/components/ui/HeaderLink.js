@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
+import * as colors from '../../css/colors'
 
 const HeaderLink = (props) => {
 	let customClass = props.classname;
 
 	const style = {
 		"textDecoration": "none",
-		"color": "blue"
 	}
 
 	const activeStyle = {
-		"textDecoration": "underline",
-		"color": "green"
+		"textDecoration": "none",
+		"color": colors.white,
+		"backgroundColor": colors.black3
 	}
 
 	const currLink = props.to === props.pathname;

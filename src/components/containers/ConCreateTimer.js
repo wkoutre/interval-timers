@@ -2,6 +2,7 @@ import CreateTimer from '../ui/CreateTimer'
 import { clearTimerForm, setTimerName, saveTimer, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement, editTimer, deleteTimer, chooseTimer, setTotalTime } from '../../actions'
 import { connect } from 'react-redux'
 import * as timeFuncs from '../../timeHelpers'
+import { push } from 'connected-react-router'
 
 const mapStateToProps = ({ app }, props) => {
 	const { timerInfo } = app.user;
@@ -80,6 +81,11 @@ const mapDispatchToProps = dispatch =>
 		chooseTimer(props) {
 			dispatch(
 				chooseTimer(props)
+			)
+		},
+		push(path) {
+			dispatch(
+				push(path)
 			)
 		}
 	})

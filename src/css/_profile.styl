@@ -1,23 +1,32 @@
 .app-profile
+	height 80%
+
+.app-profile__edit,
+.app-profile__static
+	height 100%
 	flex 0 1 100%
 	{$flex-row-wrap}
 	justify-content center
 	align-items space-around
-
-.profile-photo > img
-	border-radius 50%
-	width 450px
-
+	
 .profile-photo
-	flex 0 1 50%
+	flex 0 1 80%
+	display flex
+	justify-content center
+	margin-bottom 20px
+ & > img
+	border-radius 25%
+	flex 0 1 125px !important
 		
 .profile-info
-	flex 0 1 45%
+	flex 0 1 80%
 	{$flex-row-wrap}
+	color $white
 	& > p
-		margin 10px
+		padding 10px
 		font-size 1.15rem
-		flex 0 1 75%
+		flex 0 1 100%
+		background-color $black1
 		
 .profile-info-form
 	flex 0 1 80%
@@ -28,15 +37,55 @@
 .profile-button
 	flex 0 1 75%
 	margin-top 15px
+	color $white
+	font-size 1.25rem
+	border 2px solid $white
+	padding 15px
+	background-color transparent
+	align-self flex-end
+	&:active,
+	&:focus
+		outline none !important
+		box-shadow 0px 0px 1px 1px $white
 	
 .profile-label
 	flex 0 1 20%
+	font-size 0.9rem
 	text-align right
+	color $black4
 	
 .profile-input
 	flex 0 1 70%
+	{$input}
 
 .profile-edit-button
 	flex 0 1 75%
 	align-self flex-end
+	color $white
+	font-size 1.25rem
+	border 2px solid $white
+	padding 15px
+	background-color transparent
+	align-self flex-end
+	&:active,
+	&:focus
+		outline none !important
+		box-shadow 0px 0px 1px 1px $white
+		
+.profile-input-toggle
+	flex 0 1 70%
+	height 30px !important
+	border-radius 2px !important
+	display flex
+	justify-content flex-start
+
+.visibility-toggle
+	// height 100%
+	flex 0 1 50px
+	// text-align center
+	// padding 5px
+	display flex
+	align-items center
+	justify-content center
+	transition 0.5s all
 	

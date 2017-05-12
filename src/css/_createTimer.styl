@@ -1,0 +1,68 @@
+.app-create-timer
+	& > h1
+		align-self flex-start
+		color $black4
+	flex 0 1 97.5%
+	{$flex-row-wrap}
+	align-items flex-start
+	justify-content center
+.create-timer-form
+	color $white
+	{$flex-row-wrap}
+	justify-content space-around
+	align-self flex-start
+	margin 0
+
+.create-timer-label
+	flex 0 1 35%
+	font-size 1rem
+	font-family $content
+	display flex
+	align-items center
+	// justify-content flex-end
+	
+.create-timer-input
+	flex 1 1 55%
+	{$input}
+	margin 0 !important
+
+.create-timer-form-section
+	flex 0 1 100%
+	margin 5px
+	{$flex-row-wrap}
+
+.create-timer-button
+	flex 0 1 45%
+	align-self flex-end
+	color $white
+	font-size 0.75rem
+	border 1px solid $white
+	padding 5px
+	background-color transparent
+	align-self flex-end
+	&:active,
+	&:focus
+		outline none !important
+		box-shadow 0px 0px 1px 1px $black3
+	&__add
+		margin-bottom 15px
+
+.create-timer__total-time
+	margin 30px 0
+	align-items center
+	justify-content space-around
+	& > h2
+		flex 0 1 35%
+	&::before
+		content ''
+		width 100%
+		border-top 0.1rem solid $white
+	&::after
+		content ''
+		width 100%
+		border-top 0.1rem solid $white
+
+.total-time-span
+	flex 0 1 50%
+	font-size 1rem
+	color $pink

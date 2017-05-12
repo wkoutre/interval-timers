@@ -6,7 +6,7 @@ import { camelCaseToWords } from '../../helpers/stringHelpers'
 export const Settings = (props) => {
 	const { setDefaultRestTime, setDefaultIntervalTime, setDefaultRestIncrement, setDefaultNumIntervals, defaultRestTime, defaultIntervalTime, defaultNumIntervals, defaultRestIncrement } = props;
 
-	const settings = ['Rest Time', 'Interval Time', 'Number of Intervals', 'Rest Increment', 'Interval End Sound', 'Rest End Sound', 'Timer Complete Sound'];
+	const settings = [['Rest Time', 'seconds'], ['Interval Time', 'minutes'], 'Number of Intervals', ['Rest Increment', 'seconds'], 'Interval End Sound', 'Rest End Sound', 'Timer Complete Sound'];
 
 	const settingValues = [ defaultRestTime, defaultIntervalTime, defaultNumIntervals, defaultRestIncrement ]
 
@@ -14,13 +14,20 @@ export const Settings = (props) => {
 
 	const settingChangers = settings.map( (setName, i) => {
 		// change this once the sound features are implementedDefault
-		const lower = setName.split(' ').map(letter => letter.toLowerCase()).join('-');
+
+		const lower = !Array.isArray(setName) ?
+			setName.split(' ').map(letter => letter.toLowerCase()).join('-') :
+			setName[0].split(' ').map(letter => letter.toLowerCase()).join('-')
 
 		if (i >= 4)
 			return ;
 		return (
 				<div key={lower} className={`settings-div`}>
-					<label className="settings-label" htmlFor={`settings-input-${lower}`}>Default {setName}:</label>
+					<label className="settings-label" htmlFor={`settings-input-${lower}`}>{
+						Array.isArray(setName) ? <span>{setName[0]} ({setName[1]}):</span> :
+						<span>{setName}:</span>
+						}
+						</label>
 					<input
 						type="number"
 						value={settingValues[i] || ""}
@@ -33,7 +40,7 @@ export const Settings = (props) => {
 
 	return (
 		<div className="app-settings">
-			<p className="settings-description">Changes take effect immediately upon input.</p>
+			<p className="settings-description">Changes take effect <span>immediately</span> upon input.</p>
 			{settingChangers}
 		</div>
 	)

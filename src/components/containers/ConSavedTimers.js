@@ -1,6 +1,7 @@
 import SavedTimers from '../ui/SavedTimers'
 import { editTimer, deleteTimer, chooseTimer } from '../../actions'
 import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
 
 const mapStateToProps = ({ app }, props) => {
 	const { timerInfo } = app.user;
@@ -27,6 +28,11 @@ const mapDispatchToProps = dispatch =>
 		chooseTimer(obj) {
 			dispatch(
 				chooseTimer(obj)
+			)
+		},
+		push(path) {
+			dispatch(
+				push(path)
 			)
 		}
 	})

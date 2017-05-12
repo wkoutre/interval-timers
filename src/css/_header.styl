@@ -1,15 +1,25 @@
-.app-header
-	margin-top 10px
+.header
 	display flex
 	flex 0 1 100%
 	justify-content space-around
 	align-self flex-start
+	background-color $black0
+	z-index 1
 
 .header-link
-	// border 2px solid red
-	flex 0 1 (100%/7)
-	font-size 0.9rem
+	flex 1 1 (100%/7)
+	font-size 1rem
 	text-align center
+	color $black4
+	font-family $title
+	padding 10px
+	transition 0.5s all ease
 
 .header-logout-button
-	color red
+	color $white
+	height 100%
+	background-color $red
+	padding 10px
+
+.header-back-button
+	color $white

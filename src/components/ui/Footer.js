@@ -5,14 +5,18 @@ import { Link } from 'react-router-dom';
 
 const Footer = (props) => {
 	return (
-		<footer className="app-footer">
+		<footer className="footer">
 			<Link
 				to="completed-timers"
-				className="footer-item">Completed Timers</Link>
+				className="footer-item footer-completed">Logs</Link>
 			<Link
 			to="timers"
-			className="footer-item"
-			>View Timers</Link>
+			className="footer-item footer-timers"
+			>New Timer</Link>
+			<Link
+			to="saved-timers"
+			className="footer-item footer-timers"
+			>Saved Timers</Link>
 		</footer>
 	)
 }

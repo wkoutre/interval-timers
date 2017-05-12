@@ -2,19 +2,26 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import * as timeFuncs from '../../timeHelpers';
 import Stopwatch from 'timer-stopwatch';
+import * as colors from '../../css/colors'
 
-const SavedTimers = (props) => {
-	// timers is an array of objects
-	const { timers, editTimer, deleteTimer, chooseTimer } = props;
+class SavedTimers extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			timers: new Array(props.timers.length).map(i => i = false),
+			listener: -1
+		}
+	}
 
 	// converting all values from timer to ms to pass into store
 
-	const localEditTimer = (data) => {
-		props.editTimer(data)
-		setTimeout(props.editCreateTimerState, 0);
+	localEditTimer = (data) => {
+		this.props.editTimer(data)
+		setTimeout(this.props.editCreateTimerState, 0);
+		this.props.push('timers')
 	}
 
-	const localChooseTimer = ({ numIntervals, intervalTime, restTime, timerName, restIncrement }) => {
+	localChooseTimer = ({ numIntervals, intervalTime, restTime, timerName, restIncrement }) => {
 		
 		const totalIntervalTime = timeFuncs.minToMs((numIntervals * intervalTime));
 		const totalRestIncrementTime = timeFuncs.secToMs(timeFuncs.addedIncrementTime(restIncrement, numIntervals-1));
@@ -36,39 +43,74 @@ const SavedTimers = (props) => {
 			totalTime
 		}
 
-		return chooseTimer(obj);
+		return this.props.chooseTimer(obj);
 	}
 
-	let timerNames = timers.map( (obj, i) => 
-		(
-			<li key={i}>
-				<span className="saved-timers">{obj.timerName}</span>&nbsp;
-				<span
-					onClick={() => localEditTimer(timers[i])}
-					className="edit-timer">edit</span>
-					&nbsp;
-					<span
-					onClick={() => deleteTimer(timers[i])}
-					className="delete-timer">delete</span>
-					&nbsp;
-					<Link to="/run-timer">
+	showInfo = (i) => {
+		let timers = [...this.state]
+		timers[i] = true;
+
+		this.setState({ timers })
+	}
+
+	hideInfo = (i) => {
+		let timers = [...this.state]
+		timers[i] = false;
+
+		this.setState({ timers })		
+	}
+
+	render() {
+		let timerNames = this.props.timers.map( (obj, i) => {
+			const { numIntervals, restTime, intervalTime, restIncrement, totalTime } = obj;
+			const editBox = <div>EDITING</div>
+
+			if (this.state.timers[i]) {
+				return (
+					<li className="saved-timers__li" key={i} id={i}>
+						<span className="saved-timers__info-value saved-timers__info-numIntervals">{numIntervals} intervals</span>
+						<span className="saved-timers__info-value saved-timers__info-restTime">{restTime} sec rest interval</span>
+						<span className="saved-timers__info-value saved-timers__info-intervalTime">{intervalTime} min per interval</span>
+						<span className="saved-timers__info-value saved-timers__info-restIncrement">{restIncrement} sec rest incr</span>
+						<span className="saved-timers__info-value saved-timers__info-totalTime">{timeFuncs.msToText(totalTime)}</span>
+						<span className="saved-timers__info-button" onClick={() => this.hideInfo(i)}>&#10006;</span>
+				</li>
+				)
+			} else {
+				return (
+				<li className="saved-timers__li" key={i} id={i}>
+					<span className="saved-timers__timer-name">{obj.timerName}</span>
+					<div className="saved-timers__buttons">
 						<span
-							onClick={() => localChooseTimer(timers[i])}
-							className="start-timer">start</span>
-					</Link>
-			</li>
-		)
-	);
+						onClick={() => this.props.localEditTimer(timers[i])}
+						className="saved-timers__edit-timer saved-timers__option">edit</span>
+						<span
+						onClick={() => this.props.deleteTimer(timers[i])}
+						className="saved-timers__delete-timer saved-timers__option">delete</span>
+						<span
+						onClick={() => this.showInfo(i)}
+						className="saved-timers__info saved-timers__option">info</span>
+						<Link
+							to="/run-timer"
+							onClick={() => this.props.ChooseTimer(timers[i])}
+							className="saved-timers__start-timer saved-timers__option">
+							start
+						</Link>
+					</div>
+				</li>
+			)
+		}
+	});
 
 	return (
-		<div className="saved-timers">
+		<div className="app-saved-timers">
 			<h2>Saved Timers</h2>
-			<ul>
+			<ul className="saved-timers__ul">
 				{timerNames}
 			</ul>
-			<div className="line-across"></div>
 		</div>
-	)
+		)
+	}
 }
 
 export default SavedTimers;
