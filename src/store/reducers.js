@@ -70,6 +70,8 @@ const defaultNumIntervals = (state=0, action) => {
 	switch (action.type) {
 		case C.SET_DEFAULT_NUM_INTERVALS:
 			return action.payload;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerInfo.defaults.defaultNumIntervals;
 		default:
 			return state;
 	}
@@ -79,6 +81,8 @@ const defaultIntervalTime = (state=0, action) => {
 	switch (action.type) {
 		case C.SET_DEFAULT_INTERVAL_TIME:
 			return action.payload;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerInfo.defaults.defaultIntervalTime;
 		default:
 			return state;
 	}
@@ -88,6 +92,8 @@ const defaultRestTime = (state=0, action) => {
 	switch (action.type) {
 		case C.SET_DEFAULT_REST_TIME:
 			return action.payload;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerInfo.defaults.defaultRestTime;
 		default:
 			return state;
 	}
@@ -97,6 +103,8 @@ const defaultRestIncrement = (state=0, action) => {
 	switch (action.type) {
 		case C.SET_DEFAULT_REST_INCREMENT:
 			return action.payload;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerInfo.defaults.defaultRestIncrement;
 		default:
 			return state;
 	}
