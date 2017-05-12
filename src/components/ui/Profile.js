@@ -78,26 +78,6 @@ class Profile extends React.Component {
 		this.setState({ visibility: !this.state.visibility })
 	}
 
-	// findAge = (date) => {
-	// 	const year = +date.slice(0, 4)
-	// 	const dateArr = date.split('-');
-	// 	const month = +dateArr[1]
-	// 	const day = +dateArr[2]
-	// 	const present = new Date();
-	// 	const curYear = present.getFullYear();
-	// 	const curMonth = present.getMonth()+1;
-	// 	const curDay = present.getDate();
-	// 	const age = curYear - year - 1;
-
-	// 	if (curMonth == month && curDay >= day)
-	// 		age++;
-	// 	else if (curMonth > month)
-	// 		age++;
-
-	// 	return `${age} years old `
-		
-	// }
-
 	render() {
 
 		const toggleOn = {
