@@ -1,3 +1,115 @@
+.app-completed-timers {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 97.5%;
+          flex: 0 1 97.5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.completed-timers__completed-timers-heading {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  text-align: center;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1;
+          flex: 0 1;
+  margin: 0;
+}
+.app-completed-timers__none-heading-div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.completed-timers__no-timers-heading {
+  text-align: center;
+}
+.completed-timers__no-timers-link {
+  color: #7a8897;
+  border-bottom: 2px dotted #7a8897;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1;
+          flex: 0 1;
+  -webkit-text-decoration-color: #7a8897;
+          text-decoration-color: #7a8897;
+}
+.completed-timers__timer-ul {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 65px;
+          flex: 0 1 65px;
+  width: 75%;
+  margin: 10px 0;
+  border: 2px solid #dbcdc9;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 10px;
+}
+.completed-timers__timer-name {
+  color: #7a8897;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 80%;
+          flex: 0 1 80%;
+  text-align: center;
+  font-size: 1.5rem;
+}
+.completed-timers__timer-date {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 50%;
+          flex: 0 1 50%;
+  color: #dbcdc9;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+.completed-timers__remove-button {
+  color: #dbcdc9;
+  border: 2px solid #dbcdc9;
+  padding: 2px;
+  background-color: transparent;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 20%;
+          flex: 0 1 20%;
+  color: #7a2b1d;
+  border: 1px solid #7a2b1d;
+  padding: 5px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+.completed-timers__remove-button:active,
+.completed-timers__remove-button:focus {
+  outline: none !important;
+  box-shadow: 0px 0px 1px 1px #dbcdc9;
+}
 .app-create-timer {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 97.5%;
@@ -5,8 +117,11 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 10px;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
@@ -14,13 +129,20 @@
       -ms-flex-pack: center;
           justify-content: center;
 }
-.app-create-timer > h1 {
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-  color: #a5a5a5;
+.create-timer-heading {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  text-align: center;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 8%;
+          flex: 0 1 8%;
 }
 .create-timer-form {
   color: #dbcdc9;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 90%;
+          flex: 0 1 90%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -60,7 +182,7 @@
   -webkit-box-flex: 0;
       -ms-flex: 0 1 55%;
           flex: 0 1 55%;
-  height: 8vmax !important;
+  height: 6vmax !important;
   border-radius: 2px !important;
   border: 2px solid #dbcdc9 !important;
   background-color: transparent !important;
@@ -102,7 +224,7 @@
           flex: 0 1 47.5%;
   color: #dbcdc9;
   border: 2px solid #dbcdc9;
-  padding: 5px;
+  padding: 2px;
   background-color: transparent;
   -ms-flex-item-align: end;
       align-self: flex-end;
@@ -149,7 +271,6 @@
 .footer {
   position: fixed;
   bottom: 0;
-  height: 6.5vh;
   font-size: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -169,8 +290,17 @@
   text-align: center;
   color: #a5a5a5;
   background-color: #090f12;
-  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   transition: 0.5s all ease;
+  height: 5vh;
 }
 .footer-item:active,
 .footer-item:focus {
@@ -179,8 +309,8 @@
   background-color: #474646;
 }
 @media all and (orientation: landscape) {
-  .footer {
-    height: 10vh;
+  .footer-item {
+    height: 6.5vh;
   }
 }
 .header {
@@ -192,11 +322,13 @@
   width: 100%;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -ms-flex-item-align: start;
       align-self: flex-start;
   background-color: #090f12;
   z-index: 1;
-  height: 7.5vh;
 }
 .header-link {
   -webkit-box-flex: 1;
@@ -205,7 +337,6 @@
   font-size: 1rem;
   color: #a5a5a5;
   font-family: Lato;
-  padding: 10px;
   transition: 0.5s all ease;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -216,19 +347,19 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  height: 5vh;
+}
+@media all and (orientation: landscape) {
+  .header-link {
+    height: 7.5vh;
+  }
 }
 .header-logout-button {
   color: #dbcdc9;
   background-color: #7a2b1d;
-  padding: 10px;
 }
 .header-back-button {
   color: #dbcdc9;
-}
-@media all and (orientation: landscape) {
-  .header {
-    height: 10vh;
-  }
 }
 .app-login {
   -ms-flex-item-align: center;
@@ -288,6 +419,7 @@
   -webkit-box-align: space-around;
       -ms-flex-align: space-around;
           align-items: space-around;
+  margin: 10px 0;
 }
 .profile-photo {
   -webkit-box-flex: 0;
@@ -388,7 +520,7 @@ img {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 65%;
           flex: 0 1 65%;
-  height: 8vmax !important;
+  height: 6vmax !important;
   border-radius: 2px !important;
   border: 2px solid #dbcdc9 !important;
   background-color: transparent !important;
@@ -411,7 +543,7 @@ img {
   background-color: #fff;
   color: #282828;
 }
-.profile-edit-button {
+.profile-save-button {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 75%;
           flex: 0 1 75%;
@@ -424,8 +556,8 @@ img {
   background-color: transparent;
   align-self: flex-end;
 }
-.profile-edit-button:active,
-.profile-edit-button:focus {
+.profile-save-button:active,
+.profile-save-button:focus {
   outline: none !important;
   box-shadow: 0px 0px 1px 1px #dbcdc9;
 }
@@ -460,10 +592,12 @@ img {
 .app-saved-timers {
   -ms-flex-item-align: start;
       align-self: flex-start;
+  height: 100%;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 97.5%;
           flex: 0 1 97.5%;
   color: #dbcdc9;
+  overflow-y: hidden;
 }
 .app-saved-timers > h2 {
   -webkit-box-flex: 0;
@@ -481,7 +615,7 @@ img {
   margin: 0;
   padding: 0;
   overflow-y: auto;
-  height: 95%;
+  height: 85%;
 $
   align-items: space-between;
   -webkit-box-pack: center;
@@ -588,14 +722,14 @@ $
 .saved-timers__sort-button {
   color: #dbcdc9;
   border: 2px solid #dbcdc9;
-  padding: 5px;
+  padding: 2px;
   background-color: transparent;
   -ms-flex-item-align: end;
       align-self: flex-end;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 22.5%;
           flex: 0 1 22.5%;
-  font-size: 0.65rem;
+  font-size: 1rem;
 }
 .saved-timers__sort-button:active,
 .saved-timers__sort-button:focus {
@@ -603,7 +737,7 @@ $
   box-shadow: 0px 0px 1px 1px #dbcdc9;
 }
 .app-settings {
-  margin-top: 2vh;
+  margin-top: 4vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -611,8 +745,6 @@ $
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
   width: 97.5%;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -641,14 +773,14 @@ $
   color: #a5a5a5;
 }
 .settings-label {
-  font-size: 1rem;
+  font-size: 1.25rem;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 40%;
           flex: 0 1 40%;
   text-align: right;
 }
 .settings-input {
-  height: 8vmax !important;
+  height: 6vmax !important;
   border-radius: 2px !important;
   border: 2px solid #dbcdc9 !important;
   background-color: transparent !important;
@@ -674,8 +806,7 @@ $
   color: #282828;
 }
 .settings-description {
-  font-size: 1.25rem;
-  width: 70%;
+  font-size: 1.5rem;
   margin-bottom: 25px;
   color: #dbcdc9;
   text-align: center;
@@ -685,9 +816,9 @@ $
   color: #ab8b82;
 }
 @import url("https://fonts.googleapis.com/css?family=Lato|Open+Sans");
-@media all and (max-width: 568px) {
+@media all and (max-width: 736px) {
   html {
-    font-size: 12px;
+    font-size: 16px;
   }
 }
 @media all and (max-width: 667px) {
@@ -695,9 +826,9 @@ $
     font-size: 14px;
   }
 }
-@media all and (max-width: 736px) {
+@media all and (max-width: 568px) {
   html {
-    font-size: 16px;
+    font-size: 12px;
   }
 }
 body {
@@ -726,6 +857,7 @@ h3 {
   margin: 0;
 }
 .page-content {
+  position: fixed;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -733,26 +865,24 @@ h3 {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  position: fixed;
-  top: 7.5vh;
-  bottom: 6.5vh;
+  top: 5vh;
+  bottom: 5vh;
   overflow-y: auto;
 }
 @media all and (orientation: landscape) {
   .page-content {
-    top: 10vh;
-    bottom: 10vh;
+    top: 7.5vh;
+    bottom: 6.5vh;
   }
+}
+ul {
+  list-style: none;
 }
 .react-root {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   height: 100vh;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 .new-timer {
   display: -webkit-box;

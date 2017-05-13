@@ -1,7 +1,9 @@
 .app-saved-timers
 	align-self flex-start
+	height 100%
 	flex 0 1 97.5%
 	color $white
+	overflow-y hidden
 	& > h2
 		flex 0 1 75%
 		text-align center
@@ -13,7 +15,7 @@
 	margin 0
 	padding 0
 	overflow-y auto
-	height 95%
+	height 85%
 	${flex-row-wrap}
 	align-items space-between
 	justify-content center
@@ -89,4 +91,4 @@
 .saved-timers__sort-button
 	{$button}
 	flex 0 1 22.5%
-	font-size 0.65rem
+	font-size 1rem

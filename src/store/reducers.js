@@ -280,17 +280,24 @@ const photoURL = (state="", action) => {
 	}
 }
 
-const completedTimers = (state={}, action) => {
+const completedTimers = (state=[], action) => {
 	switch (action.type) {
 		case C.ADD_COMPLETED_TIMER:
-			return {
+
+			console.log(`reducerAddingCompletedTimer`, action);
+			const { dateString, ms, timerName } = action;
+
+			return [
 				...state,
-				[action.dateKey]: [action.timerName, action.totalString]
-			}
+				{
+					ms: action.ms,
+					timerName: action.timerName,
+					dateString: action.dateString
+				}
+			]
 		case C.REMOVE_COMPLETED_TIMER:
-			const newState = {...state}
-			delete newState[action.key];
-			return newState;
+			let newState = state.slice(0, action.index).concat(state.slice(action.index+1));
+			return newState
 		default:
 			return state;
 	}

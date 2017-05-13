@@ -151,7 +151,7 @@ class Profile extends React.Component {
 						</span>
 					</div>
 				</form>
-				<button className="profile-edit-button" type="submit" onClick={() => this.saveProfile()}>SAVE</button>
+				<button className="profile-save-button" type="submit" onClick={() => this.saveProfile()}>SAVE</button>
 			</div>
 		)
 

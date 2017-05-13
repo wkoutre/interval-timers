@@ -167,20 +167,25 @@ export const setInitialState = (uidState) => {
 	})
 }
 
-export const addCompletedTimer = ({ timerName, dateKey, totalString }) => {
+export const addCompletedTimer = ({ dateString, ms, timerName }) => {
+	console.groupCollapsed('After Dispatching addCompletedTimer ');
+			console.log(`ms`, ms);
+			console.log(`timerName`, timerName);
+			console.log(`dateString`, dateString);
+		console.groupEnd('After Dispatching addCompletedTimer ');
+	
 	return ({
-		
 		type: C.ADD_COMPLETED_TIMER,
 		timerName,
-		dateKey,
-		totalString
+		ms,
+		dateString
 	})
 }
 	
-export const removeCompletedTimer = (key) =>
+export const removeCompletedTimer = (index) =>
 	({
 		type: C.REMOVE_COMPLETED_TIMER,
-		key
+		index
 	})
 
 export const setProfileInfo = (infoObj) =>

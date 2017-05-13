@@ -43,7 +43,8 @@ class SavedTimers extends React.Component {
 			totalTime
 		}
 
-		return this.props.chooseTimer(obj);
+		this.props.push('run-timer')
+		this.props.chooseTimer(obj);
 	}
 
 	showInfo = (i) => {
@@ -91,12 +92,11 @@ class SavedTimers extends React.Component {
 						<span
 						onClick={() => this.showInfo(i)}
 						className="saved-timers__info saved-timers__option">info</span>
-						<Link
-							to="/run-timer"
-							onClick={() => this.props.ChooseTimer(timers[i])}
+						<span
+							onClick={() => this.localChooseTimer(timers[i])}
 							className="saved-timers__start-timer saved-timers__option">
 							start
-						</Link>
+						</span>
 					</div>
 				</li>
 			)
@@ -121,3 +121,10 @@ class SavedTimers extends React.Component {
 }
 
 export default SavedTimers;
+
+// <Link
+// 	to="/run-timer"
+// 	onClick={() => this.props.ChooseTimer(timers[i])}
+// 	className="saved-timers__start-timer saved-timers__option">
+// 	start
+// </Link>

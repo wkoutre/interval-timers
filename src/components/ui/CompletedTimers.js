@@ -1,33 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const CompletedTimers = (props) => {
 	const { completedTimers } = props;
 
-	const timerList = Object.keys(completedTimers).map( (key, i) => {
-		const timerName = completedTimers[key][0];
-		const date = completedTimers[key][1];
+	const timerList = completedTimers.map( (timerObj, i) => {
+		const { timerName, ms, dateString } = timerObj
 		return (
-			<div 
-				className="completedTimer"
-				key={`i-${key}`}>
-				<ul>
-					<li>{date}</li>
-					<li>{timerName}</li>
-					<button onClick={() => props.removeCompletedTimer(key)}>remove</button>
+			
+				<ul key={ms} className="completed-timers__timer-ul">
+					<li className="completed-timers__timer-name completed-timers__timer-li">{timerName}</li>
+					<li className="completed-timers__timer-date completed-timers__timer-li">{dateString}</li>
+					<button className="completed-timers__remove-button" onClick={() => props.removeCompletedTimer(i)}>remove</button>
 				</ul>
-			</div>
 			)
 		});
 
 	return timerList.length > 0 ?
 		(
-			<div>
-			Completed Timers:
+			<div className="app-completed-timers">
+			<h1 className="completed-timers__completed-timers-heading">Completed Timers:</h1>
 				{timerList}
 			</div>	
 		) :
-		<h2>No completed timers. Get some work done!</h2>
+			<div className="app-completed-timers__none-heading-div">
+				<h1 className="completed-timers__no-timers-heading">No completed timers.</h1>
+				<h1 className = "completed-timers__no-timers-heading"> <Link className="completed-timers__no-timers-link" to='saved-timers'>Get some work done!</Link> </h1>
+			</div>
+		
 }
 
 export default CompletedTimers;
+
+			// <div 
+			// 	className="completed-timers__timer-div"
+			// 	key={`i-${key}`}>
+			// 	<ul className="completed-timers__timer-ul">
+			// 		<li className="completed-timers__timer-name completed-timers__timer-li">{timerName}</li>
+			// 		<li className="completed-timers__timer-date completed-timers__timer-li">{date}</li>
+			// 		<button className="completed-timers__remove-button" onClick={() => props.removeCompletedTimer(key)}>remove</button>
+			// 	</ul>
+			// </div>
+			// )

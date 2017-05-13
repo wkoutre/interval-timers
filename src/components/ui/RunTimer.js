@@ -68,9 +68,17 @@ class RunTimer extends React.Component {
 
 		const totalString = dateString + ' ' + timeString;
 		const { timerName } = this.props;
-		const dateKey = (`${year}${month}${day}-${timeString}`)
+
+		const copyTimerName = timerName.slice(0)
+		const ms = date.getTime();
+
+		console.groupCollapsed('Before Dispatching addCompletedTimer ');
+			console.log(`ms`, ms);
+			console.log(`timerName`, timerName);
+			console.log(`dateString`, dateString);
+		console.groupEnd('Before Dispatching addCompletedTimer ');
 		
-		this.props.addCompletedTimer({ timerName, dateKey, totalString});
+		this.props.addCompletedTimer({ dateString, ms, timerName });
 	}
 
 	changeInterval = () => {

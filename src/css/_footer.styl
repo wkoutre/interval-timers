@@ -2,7 +2,7 @@
 	// align-self flex-end
 	position fixed
 	bottom 0
-	height 6.5vh
+	// height 6.5vh
 	font-size 1rem
 	{$flex-row-wrap}
 	justify-content space-between
@@ -14,14 +14,15 @@
 	text-align center
 	color $black4
 	background-color $black0
-	padding 10px
+	display flex
+	align-items center
+	justify-content center
 	transition 0.5s all ease
 	&:active,
 	&:focus
 		color $white
 		text-decoration none
 		background-color $black3
-
-@media all and (orientation landscape)
-	.footer
-		height 10vh
+	height 5vh
+	@media all and (orientation landscape)
+		height 6.5vh

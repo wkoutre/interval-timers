@@ -4,10 +4,10 @@
 	display flex
 	width 100%
 	justify-content space-around
+	align-items center
 	align-self flex-start
 	background-color $black0
 	z-index 1
-	height 7.5vh
 
 .header-link
 	flex 1 1 10%
@@ -15,21 +15,19 @@
 	// text-align center
 	color $black4
 	font-family $title
-	padding 10px
 	transition 0.5s all ease
 	display flex
 	align-items center
 	justify-content center
+	height 5vh
+	@media all and (orientation landscape)
+		height 7.5vh
 
 .header-logout-button
 	color $white
 	// height 100%
 	background-color $red
-	padding 10px
+	// padding 10px
 
 .header-back-button
 	color $white
-
-@media all and (orientation landscape)
-	.header
-		height 10vh

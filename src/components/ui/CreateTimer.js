@@ -104,6 +104,7 @@ class CreateTimer extends React.Component {
 
 		return (
 			<div className="app-create-timer">
+				<h1 className="create-timer-heading">New Timer</h1>
 				<form required className="create-timer-form">
 					<div className="create-timer-form-section">
 						<span className="create-timer-label"> <span className="create-timer-label-text">New Timer Name:*</span> </span>
@@ -124,7 +125,7 @@ class CreateTimer extends React.Component {
 									onChange={(e) => setNumIntervals(e.target.value || 0)}/>
 					</div>
 					<div className="create-timer-form-section">
-						<span className="create-timer-label"><span className="create-timer-label-text">Interval Time:* (secs) </span></span>
+						<span className="create-timer-label"><span className="create-timer-label-text">Interval Time:* (mins) </span></span>
 						<input
 								className="create-timer-input"
 								required type="number"
