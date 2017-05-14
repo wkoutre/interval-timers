@@ -18,7 +18,7 @@ class SavedTimers extends React.Component {
 	localEditTimer = (data) => {
 		this.props.editTimer(data)
 		setTimeout(this.props.editCreateTimerState, 0);
-		this.props.push('timers')
+		this.props.push('create-timer')
 	}
 
 	localChooseTimer = ({ numIntervals, intervalTime, restTime, timerName, restIncrement }) => {
@@ -130,7 +130,7 @@ class SavedTimers extends React.Component {
 	return (
 		<div className="app-saved-timers">
 			<div className="saved-timers__header">
-				<h2>Saved Timers</h2>
+				<h1>Saved Timers</h1>
 				<input
 					placeholder="search timers..."
 					type="text"
@@ -138,8 +138,6 @@ class SavedTimers extends React.Component {
 					onChange={(e) => this.handleSearch(e)}
 					ref={ (e) => { this.searchVal = e; }}
 					/>
-			</div>
-			<div className="saved-timers__sorting-div">
 				<button className="saved-timers__sort-button" onClick={() => this.props.sortDateAscending()}>old &rarr; new</button>
 				<button className="saved-timers__sort-button" onClick={() => this.props.sortDateDescending()}>new &rarr; old</button>
 				<button className="saved-timers__sort-button" onClick={() => this.props.sortTimersAZ()}>A &rarr; Z</button>

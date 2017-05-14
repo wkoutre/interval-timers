@@ -54,7 +54,7 @@ class App extends React.Component {
 								<Redirect exact from="/" to="/home" />
 								<Route path="/error" component={ErrorPage} />
 								<Route path="/home" component={Home} />
-								<Route path="/timers" component={CreateTimer}/>
+								<Route path="/create-timer" component={CreateTimer}/>
 								<Route path="/run-timer" component={RunTimer}/>
 								<Route path="/profile" component={Profile}/>
 								<Route path="/settings" component={Settings}/>

@@ -3,17 +3,43 @@
 
 @import url('https://fonts.googleapis.com/css?family=Lato|Open+Sans');
 
+@media all and (max-width 1024px)
+	html
+		font-size 22px
+		*
+			line-height 2rem !important
+	@media all and (orientation landscape)
+		html
+			font-size 18px
+
 @media all and (max-width 736px)
 	html
-		font-size 16px
+		font-size 18px
+		*
+			line-height 2rem !important
+	@media all and (orientation landscape)
+		html
+			font-size 16px
 
 @media all and (max-width 667px)
 	html
-		font-size 14px
+		font-size 16px
+		*
+			line-height 2rem !important
+	@media all and (orientation landscape)
+		html
+			font-size 14px
 
 @media all and (max-width 568px)
 	html
 		font-size 12px
+		*
+			line-height 2rem !important
+	@media all and (orientation landscape)
+		html
+			font-size 10px
+			
+
 
 body {
 	background-color $black1
@@ -30,17 +56,31 @@ h1
 	font-family $title
 	color $white
 	margin 0
+	line-height 2.25rem !important
 	
 h2
 	font-size 1.75rem !important
 	font-family $title
 	color $white
 	margin 0
+	line-height 2.25rem !important
 	
 h3
 	font-size 1.5rem !important
 	font-family $title
+	color $white
 	margin 0
+	line-height 2.25rem !important
+
+h4
+	font-size 1.25rem !important
+	font-family $title
+	color $white
+	margin 0
+	line-height 2.25rem !important
+	
+[class$="heading"]
+	margin 5px 0
 	
 .page-content
 	position fixed
@@ -48,11 +88,11 @@ h3
 	// flex 0 1 100%
 	width 100%
 	justify-content center
-	top 5vh
+	top $header-height
 	bottom 5vh
-	overflow-y auto
+	// overflow-y auto
 	@media all and (orientation landscape)
-		top 7.5vh
+		top $header-height-landscape
 		bottom 6.5vh
 	
 ul

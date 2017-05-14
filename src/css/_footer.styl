@@ -3,7 +3,7 @@
 	position fixed
 	bottom 0
 	// height 6.5vh
-	font-size 1.5rem
+	font-size 2rem
 	{$flex-row-wrap}
 	justify-content space-between
 	z-index 1
@@ -27,6 +27,10 @@
 	@media all and (orientation landscape)
 		height 6.5vh
 
-.svg
-	background url(./icons/home.svg)
-	background-size 100px 80px
+
+.footer-image
+	flex 0 1 25% !important
+	// max-width 25%
+	max-height 50%
+	@media all and (orientation landscape)
+		flex 0 1 17.5% !important

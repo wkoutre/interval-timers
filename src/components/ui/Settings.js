@@ -40,7 +40,7 @@ export const Settings = (props) => {
 
 	return (
 		<div className="app-settings">
-			<p className="settings-description">Changes take effect <span>immediately</span> upon input.</p>
+			<h1 className="settings-heading">Changes take effect <span>immediately</span> upon input.</h1>
 			{settingChangers}
 		</div>
 	)

@@ -1,28 +1,53 @@
 .app-saved-timers
 	align-self flex-start
 	height 100%
+	{$flex-col}
 	flex 0 1 97.5%
 	color $white
 	overflow-y hidden
 
 .saved-timers__header
-	{$flex-col}
+	flex 0 1 20%
+	@media all and (orientation landscape)
+		flex 0 1 25%
+	{$flex-row-wrap}
 	align-items center
-	& > h2
-		flex 0 1 75%
+	justify-content space-around
+	& > h1
+		flex 0 1 100%
 		text-align center
 
 .saved-timers__search
 	{$input}
-	height 4vmax !important
+	flex 0 1 75%
+	height 2vmax !important
+	// margin 5px 0 !important
+	padding 1.5vh !important
+	@media all and (orientation landscape)
+		flex 0 1 20%
+		margin 10px 0 !important
+		
+.saved-timers__sort-button
+	{$button}
+	flex 0 1 22.5%
+	font-size 1rem
+	padding 0
+	border 1px solid $white
+	align-self center
+	// margin 5px 0 !important
+	@media all and (orientation landscape)
+		flex 0 1 15%
+		margin 10px 0 !important
 
 .saved-timers__ul
-	flex 0 1 100%
+	flex 1
 	list-style none
 	margin 0
 	padding 0
 	overflow-y auto
-	max-height 75%
+	// max-height 80%
+	// @media all and (orientation landscape)
+	// 	max-height 75%
 	{$flex-row-wrap}
 	align-items flex-start
 	justify-content center
@@ -87,14 +112,4 @@
 .saved-timers__info-totalTime
 	font-weight bold
 	color $green
-	
-.saved-timers__sorting-div
-	display flex
-	align-items center
-	justify-content space-around
-	margin 10px 0
 
-.saved-timers__sort-button
-	{$button}
-	flex 0 1 22.5%
-	font-size 1rem

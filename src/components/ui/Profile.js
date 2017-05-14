@@ -82,14 +82,12 @@ class Profile extends React.Component {
 
 		const toggleOn = {
 			"border": `2px solid ${colors.green} `,
-			"color": colors.green,
-			"margin-left": "20px"
+			"color": colors.green
 		}
 
 		const toggleOff = {
 			"border": `2px solid ${colors.red} `,
-			"color": colors.red,
-			"margin-left": 0
+			"color": colors.red
 		}
 		const toggle = (
 			<span style={this.state.visibility ? toggleOn : toggleOff} onClick={() => this.handleToggle()} className="visibility-toggle">
@@ -146,9 +144,7 @@ class Profile extends React.Component {
 					</div>
 					<div className="profile-edit__section">
 						<ProfileLabel name="visibility" text="Public Profile:" />
-						<span className="profile-input-toggle">
-							{toggle}
-						</span>
+						{toggle}
 					</div>
 				</form>
 				<button className="profile-save-button" type="submit" onClick={() => this.saveProfile()}>SAVE</button>

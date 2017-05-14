@@ -21,7 +21,9 @@ const CompletedTimers = (props) => {
 		(
 			<div className="app-completed-timers">
 			<h1 className="completed-timers__completed-timers-heading">Completed Timers:</h1>
+			<div className="completed-timers__div">
 				{timerList}
+			</div>
 			</div>	
 		) :
 			<div className="app-completed-timers__none-heading-div">

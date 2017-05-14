@@ -1,45 +1,41 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import base from '../Base'
-import { store } from '../../store/store'
 import HeaderLink from '../containers/ConHeaderLink'
+import ConfirmLogout from '../containers/ConConfirmLogout'
 
-const Header = (props) => {
-
-	const localLogOut = () => {
-
-		const confirmed = confirm('Are you sure you want to logout?')
-		if (confirmed) {
-			console.log('local logout');
-			console.log(base.getAuth());
-			base.auth().signOut();
-			props.logout()
+class Header extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isLoggingOut: false
 		}
 	}
 
-	// const { pathname } = props.history.location.slice(1);
+	localLogOut = () => {
+		const isLoggingOut = true;
 
-	return (
+		this.setState({ isLoggingOut });
+	}
+
+	cancelLogout = () => {
+		this.setState({ isLoggingOut: false })
+	}
+
+	render() {
+		return (
 			<header className="header">
-				<HeaderLink
-					classname="header-profile-button header-link"
-					to="profile">
-						Profile
-				</HeaderLink>
-				<HeaderLink
-					classname="header-settings-button header-link"
-					to="settings">
-						Settings
-				</HeaderLink>
-				<Link 
+				<h4 
 					className="header-logout-button header-link"
-					onClick={() => localLogOut()}
-					to='/'>
+					onClick={() => this.localLogOut()}>
 						Logout
-				</Link>
+				</h4>
+				{ this.state.isLoggingOut && <ConfirmLogout cancelLogout={this.cancelLogout}/> }
 			</header>
 		)
+	}
 }
+
 
 export default Header;
 
