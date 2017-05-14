@@ -251,7 +251,7 @@
           flex: 0 1 55%;
   height: 6vmax !important;
   border-radius: 2px !important;
-  border: 2px solid #dbcdc9 !important;
+  border: 1px solid #dbcdc9 !important;
   background-color: transparent !important;
   color: #ab8b82 !important;
   margin: 0 !important;
@@ -493,6 +493,15 @@
   text-align: center;
   color: #a5a5a5;
 }
+.app-profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
 .app-profile__edit,
 .app-profile__static {
   -webkit-box-flex: 0;
@@ -509,7 +518,8 @@
   -webkit-box-align: space-around;
       -ms-flex-align: space-around;
           align-items: space-around;
-  margin: 10px 0;
+  overflow-y: auto;
+  padding: 10px 0;
 }
 .profile-photo {
   -webkit-box-flex: 0;
@@ -584,14 +594,19 @@ img {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 75%;
           flex: 0 1 75%;
-  margin-top: 15px;
   color: #dbcdc9;
-  font-size: 1.25rem;
   border: 2px solid #dbcdc9;
-  padding: 15px;
+  padding: 2px;
   background-color: transparent;
   -ms-flex-item-align: end;
       align-self: flex-end;
+  margin-top: 15px;
+  align-self: flex-end;
+}
+.profile-button:active,
+.profile-button:focus {
+  outline: none !important;
+  box-shadow: 0px 0px 1px 1px #dbcdc9;
 }
 .profile-button:active,
 .profile-button:focus {
@@ -612,7 +627,7 @@ img {
           flex: 0 1 65%;
   height: 6vmax !important;
   border-radius: 2px !important;
-  border: 2px solid #dbcdc9 !important;
+  border: 1px solid #dbcdc9 !important;
   background-color: transparent !important;
   color: #ab8b82 !important;
   margin: 0 !important;
@@ -637,14 +652,17 @@ img {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 75%;
           flex: 0 1 75%;
+  color: #dbcdc9;
+  border: 2px solid #dbcdc9;
+  padding: 2px;
+  background-color: transparent;
   -ms-flex-item-align: end;
       align-self: flex-end;
-  color: #dbcdc9;
-  font-size: 1.25rem;
-  border: 2px solid #dbcdc9;
-  padding: 15px;
-  background-color: transparent;
-  align-self: flex-end;
+}
+.profile-save-button:active,
+.profile-save-button:focus {
+  outline: none !important;
+  box-shadow: 0px 0px 1px 1px #dbcdc9;
 }
 .profile-save-button:active,
 .profile-save-button:focus {
@@ -716,7 +734,7 @@ img {
 .saved-timers__search {
   height: 6vmax !important;
   border-radius: 2px !important;
-  border: 2px solid #dbcdc9 !important;
+  border: 1px solid #dbcdc9 !important;
   background-color: transparent !important;
   color: #ab8b82 !important;
   margin: 0 !important;
@@ -761,7 +779,8 @@ img {
           flex: 0 1 22.5%;
   font-size: 1rem;
   padding: 0;
-  border: 1px solid #dbcdc9;
+  border: 0;
+  border-bottom: 1px solid #dbcdc9;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
@@ -926,7 +945,7 @@ img {
 .settings-input {
   height: 6vmax !important;
   border-radius: 2px !important;
-  border: 2px solid #dbcdc9 !important;
+  border: 1px solid #dbcdc9 !important;
   background-color: transparent !important;
   color: #ab8b82 !important;
   margin: 0 !important;
