@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import HeaderLink from '../containers/ConHeaderLink'
-import SVG from 'react-inlinesvg'
-import home from './../../css/icons/home.svg'
+// import SVG from 'react-inlinesvg'
+// import home from './../../css/icons/home.svg'
 
 const Footer = (props) => {
 	return (

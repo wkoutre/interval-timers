@@ -1,12 +1,12 @@
 import Footer from '../ui/Footer'
 import { connect } from 'react-redux'
+import { history } from '../../store/store'
 
-// const mapStateToProps = ({ app }, props) => {
-// 	const { loggedIn } = app
-// 	return {
-// 		loggedIn
-// 	}
-// }
+const mapStateToProps = ({ app }, props) => {
+	return {
+		history
+	}
+}
 
 // const mapDispatchToProps = dispatch =>
 // 	({
@@ -17,4 +17,4 @@ import { connect } from 'react-redux'
 // 		}
 // 	})
 
-export default connect()(Footer);
+export default connect(mapStateToProps)(Footer);

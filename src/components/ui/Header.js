@@ -5,11 +5,16 @@ import { store } from '../../store/store'
 import HeaderLink from '../containers/ConHeaderLink'
 
 const Header = (props) => {
+
 	const localLogOut = () => {
-		console.log('local logout');
-		console.log(base.getAuth());
-		base.auth().signOut();
-		props.logout()
+
+		const confirmed = confirm('Are you sure you want to logout?')
+		if (confirmed) {
+			console.log('local logout');
+			console.log(base.getAuth());
+			base.auth().signOut();
+			props.logout()
+		}
 	}
 
 	// const { pathname } = props.history.location.slice(1);
