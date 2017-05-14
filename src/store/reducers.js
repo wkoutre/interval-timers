@@ -136,18 +136,28 @@ const timers = (state=[], action) => {
 
 			return descState;
 		case C.SORT_TIMERS_A_Z:
-			const az = [...state].sort( (a, b) => a.timerName > b.timerName);
+			const az = [...state].sort( (a, b) => {
+
+				const aUpper = a.timerName.split('').map(i => i.toUpperCase()).join(''); 
+				const bUpper = b.timerName.split('').map(i => i.toUpperCase()).join('');
+				
+				return aUpper > bUpper;
+			})
 
 			return az;
 
 		case C.SORT_TIMERS_Z_A:
-			const za = [...state].sort( (a, b) => a.timerName < b.timerName);
+			const za = [...state].sort( (a, b) => {
+
+				const aUpper = a.timerName.split('').map(i => i.toUpperCase()).join(''); 
+				const bUpper = b.timerName.split('').map(i => i.toUpperCase()).join('');
+
+				return aUpper < bUpper;
+			})
 
 			return za;
 		default:
 			return state
-
-	SORT_TIMERS_Z_A: "SORT_TIMERS_Z_A"
 	}
 }
 

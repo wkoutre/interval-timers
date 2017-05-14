@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import * as timeFuncs from '../../timeHelpers';
+import * as stringFuncs from '../../helpers/stringHelpers'
 import Stopwatch from 'timer-stopwatch';
 import * as colors from '../../css/colors'
 
@@ -8,8 +9,7 @@ class SavedTimers extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			timers: new Array(props.timers.length).map(i => i = false),
-			listener: -1
+			timers: new Array(props.timers.length).map(i => i = false)
 		}
 	}
 
@@ -48,17 +48,39 @@ class SavedTimers extends React.Component {
 	}
 
 	showInfo = (i) => {
-		let timers = [...this.state]
+		let timers = [...this.state.timers]
 		timers[i] = true;
 
 		this.setState({ timers })
 	}
 
 	hideInfo = (i) => {
-		let timers = [...this.state]
+		let timers = [...this.state.timers]
 		timers[i] = false;
 
 		this.setState({ timers })		
+	}
+
+	handleSearch = (e) => {
+		e.preventDefault();
+
+		const val = e.target.value;
+		const timerLis = document.getElementsByClassName('saved-timers__li');
+
+		// timerLis.forEach(li => console.log(li.value));
+		for (let i = 0; i < timerLis.length; i++) {
+			const li = timerLis[i];
+			const timerName = stringFuncs.wordToLowerCase(timerLis[i].firstChild.innerHTML);
+			const searchValue = stringFuncs.wordToLowerCase(val)
+			
+			if (timerName.indexOf(searchValue) === -1) {
+				timerLis[i].style.display = 'none'
+			} else {
+				timerLis[i].style.display = 'initial'
+			}
+		}
+		
+		
 	}
 
 	render() {
@@ -103,9 +125,20 @@ class SavedTimers extends React.Component {
 		}
 	});
 
+
+
 	return (
 		<div className="app-saved-timers">
-			<h2>Saved Timers</h2>
+			<div className="saved-timers__header">
+				<h2>Saved Timers</h2>
+				<input
+					placeholder="search timers..."
+					type="text"
+					className="saved-timers__search"
+					onChange={(e) => this.handleSearch(e)}
+					ref={ (e) => { this.searchVal = e; }}
+					/>
+			</div>
 			<div className="saved-timers__sorting-div">
 				<button className="saved-timers__sort-button" onClick={() => this.props.sortDateAscending()}>old &rarr; new</button>
 				<button className="saved-timers__sort-button" onClick={() => this.props.sortDateDescending()}>new &rarr; old</button>

@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types';
 import base from '../Base'
 import { store } from '../../store/store'
-import { push } from 'connected-react-router'
 import HeaderLink from '../containers/ConHeaderLink'
 
 const Header = (props) => {
@@ -18,17 +16,6 @@ const Header = (props) => {
 
 	return (
 			<header className="header">
-				<span
-					className="header-back-button header-link"
-					onClick={() => props.history.goBack()}>
-						&larr;
-				</span>
-				<HeaderLink
-					classname="header-home-button header-link"
-					to="home"
-					activeClassName="active-header">
-						Home
-				</HeaderLink>
 				<HeaderLink
 					classname="header-profile-button header-link"
 					to="profile">

@@ -30,3 +30,11 @@ export const camelCaseToWords = camel => {
 
 	return changed;
 }
+
+export const wordToLowerCase = (word) => {
+	return word.split('').map(l => l = l.toLowerCase()).join('');
+}
+
+export const wordToUpperCase = (word) => {
+	return word.split('').map(l => l = l.toUpperCase()).join('');
+}
