@@ -19,16 +19,86 @@ class RunTimer extends React.Component {
 			active: "interval",
 			timeElapsed: 0,
 			timeRemaining: props.totalTime - props.restTime,
-			running: false
+			running: false,
+			can: ""
 		}
+	}
+
+
+		// ctx.fillStyle = colors.green
+		// ctx.fillRect(0,0,1000,fillHeight)
+
+		// // fill can from % of time complete to bottom with black
+		// ctx.font="50px Times"
+		// ctx.fillStyle = colors.black1
+		// ctx.fillRect(0,fillHeight,1000,canHeight)
+
+		// // write text over the colors onto the can
+		// ctx.fillStyle = colors.white
+		// ctx.textAlign="center"
+		// ctx.fillText("GO", canWidth/2, canHeight/2);
+
+	componentDidMount() {
+		const can = document.getElementById('timer-circle');
+		const canHeight = can.height;				
+		const canWidth = can.width;
+		const ctx = can.getContext('2d');
+
+		this.setState({
+			can,
+			canHeight,
+			canWidth,
+			ctx
+		})
+
+		const fillIt = () => {
+			this.fillCanvasColor(colors.black1, 0, 0, canHeight)	
+			this.fillCanvasText({
+				text: 'START',
+				align: 'center',
+				fontSize: "30px",
+				font: "Calibri",
+				canWidth: canWidth,
+				canHeight: canHeight+(canHeight/10)
+			});
+		}
+
+		setTimeout(fillIt, 1);
 	}
 
 	componentWillUnmount() {
 		this.props.clearTimerForm();
 	}
 
+	fillCanvasText = (obj) => {
+		// text, width=this.state.canWidth, height=this.state.canHeight, fontSize="30px", font="Lato")
+		const { ctx, canHeight, canWidth } = this.state;
+		ctx.font=`${obj.fontSize} ${obj.font}`;
+
+		ctx.fillStyle = colors.white;
+		if (obj.align) {
+			ctx.textAlign=obj.align;
+		}
+		
+		ctx.fillText(obj.text, obj.canWidth/2, obj.canHeight/2);
+	}
+
+	fillCanvasColor = (color, x=0, y=0, height) => {
+		const { ctx, canWidth } = this.state;
+
+		ctx.fillStyle = color;
+		ctx.fillRect(x, y, canWidth, height)
+	}
+
+	clearCanvas = () => {
+		const { ctx, canHeight, canWidth } = this.state;
+
+		ctx.clearRect(0,0, canWidth, canHeight)
+	}
+
 	resetTimers = () => {
 		const { intervalTime, restIncrement, restTime, totalTime } = this.props;
+		const { canWidth, canHeight } = this.state;
 
 		this.stopTimer();
 		this.setState({
@@ -45,19 +115,35 @@ class RunTimer extends React.Component {
 			running: false
 		})
 
-		const canvas = document.getElementById('timer-circle');
-		const canvasHeight = canvas.height;				
-		const ctx = canvas.getContext('2d');
+		this.clearCanvas();
+		this.fillCanvasText({
+			text: 'Touch to Start',
+			align: 'center',
+			fontSize: "30px",
+			font: "Calibri",
+			canWidth: canWidth,
+			canHeight: canHeight+(canHeight/10)
+		});
 
-		ctx.clearRect(0,0,1000,canvasHeight)
 		console.log('timer has been reset');
-		
 	}
 
 	timerDoneTrigger = () => {
+
+		const { canWidth, canHeight } = this.state;
+
 		console.log('Timer is done!');
 		// this.resetTimers();
 		this.setState({ numIntervals: this.state.numIntervals+1 })
+
+		setTimeout( () => this.fillCanvasText({
+			text: 'COMPLETE!',
+			fontSize: "30px",
+			font: "Calibri",
+			align: "center",
+			canWidth: canWidth,
+			canHeight: canHeight+(canHeight/10)
+		}), 1);
 
 		const date = new Date();
 		const weekDay = date.getDay();
@@ -87,39 +173,104 @@ class RunTimer extends React.Component {
 
 	changeInterval = () => {
 		
+		const { can, canHeight, canWidth, ctx, completedIntervals  } = this.state;		
+		const { numIntervals } = this.props;
 		const intervalMs = this.state.intervalMs - 25;
-		const canvas = document.getElementById('timer-circle');
-		const canvasHeight = canvas.height;				
-		const ctx = canvas.getContext('2d');
+		const fillHeight = (1- (this.state.intervalMs / this.props.intervalTime)) * canHeight;				
 
-		const fillHeight = (1- (this.state.intervalMs / this.props.intervalTime)) * canvasHeight;				
+		// fill can from the top with % of timer complete
+		this.fillCanvasColor(colors.green, 0, 0, canHeight)
 
-		ctx.fillStyle = colors.green
-		ctx.fillRect(0,0,1000,fillHeight)
+		// fill can from % of time complete to bottom with black
+		ctx.font="50px Times"
+		this.fillCanvasColor(colors.black1, 0, fillHeight, canHeight)	
+
+		// write text over the colors onto the can
+		this.fillCanvasText({
+			text: 'WORK',
+			align: 'center',
+			fontSize: "30px",
+			font: "Calibri",
+			canWidth: canWidth,
+			canHeight: canHeight/1.5
+		});
+
+		this.fillCanvasText({
+			text: `${completedIntervals}  / ${numIntervals} `,
+			fontSize: "25px",
+			font: "Calibri",
+			align: "center",
+			canWidth: canWidth,
+			canHeight: canHeight*1.1
+		});
+
+		this.fillCanvasText({
+			text: `${timeFuncs.msToText(intervalMs)}`,
+			fontSize: "25px",
+			font: "Calibri",
+			align: "center",
+			canWidth: canWidth,
+			canHeight: canHeight*1.5
+		});
+
+		// this.fillCanvasText("HAHA", "center", canWidth/2, canHeight)
+		// ctx.fillStyle = colors.white
+		// ctx.textAlign="center"
+		// ctx.fillText("GO", canWidth/2, canHeight/2);
 
 		this.setState({ intervalMs })
 
 		if ( intervalMs <= 0 ) {
 			this.state.totalTimer.ms > 0 && console.log("changing interval");
 			
-		 	this.setState({
-		 		intervalMs: this.props.intervalTime,
+			this.setState({
+				intervalMs: this.props.intervalTime,
 				active: "rest"
-		 	})
-			ctx.clearRect(0,0,1000,canvasHeight)
+			})
+			ctx.clearRect(0,0,1000,canHeight)
 		}
 	}
 
 	changeRest = () => {
+		const { numIntervals } = this.props;
+		const { can, canWidth, canHeight, ctx } = this.state;
 		const restMs = this.state.restMs - 25;
-		const canvas = document.getElementById('timer-circle');
-		const canvasHeight = canvas.height;				
-		const ctx = canvas.getContext('2d');
-		const fillHeight = (1- (this.state.restMs / this.props.restTime)) * canvasHeight;				
+		const fillHeight = (1- (this.state.restMs / this.props.restTime)) * canHeight;
 		let { completedIntervals } = this.state;
 
-		ctx.fillStyle = colors.red
-		ctx.fillRect(0,0,1000,fillHeight)
+		this.fillCanvasColor(colors.red, 0, 0, fillHeight)
+		this.fillCanvasColor(colors.black1, 0, fillHeight, canHeight)
+		this.fillCanvasText({
+			text: 'REST',
+			align: 'center',
+			fontSize: "30px",
+			font: "Calibri",
+			canWidth: canWidth,
+			canHeight: canHeight/1.5
+		});
+
+		this.fillCanvasText({
+			text: `${completedIntervals}  / ${numIntervals} `,
+			fontSize: "25px",
+			font: "Calibri",
+			align: "center",
+			canWidth: canWidth,
+			canHeight: canHeight*1.1
+		});
+
+		this.fillCanvasText({
+			text: `${timeFuncs.msToText(restMs)}`,
+			fontSize: "25px",
+			font: "Calibri",
+			align: "center",
+			canWidth: canWidth,
+			canHeight: canHeight*1.5
+		});
+
+		// ctx.fillStyle = colors.red
+		// ctx.fillRect(0,0,1000,fillHeight)
+		// ctx.fillStyle = colors.black1
+		// ctx.fillRect(0,fillHeight,1000,canHeight)
 
 		this.setState({ restMs })
 		if (this.state.restMs <= 0) {
@@ -129,7 +280,7 @@ class RunTimer extends React.Component {
 				completedIntervals: completedIntervals + 1
 			 })
 			console.log("changing rest");
-			ctx.clearRect(0,0,1000,canvasHeight)
+			ctx.clearRect(0,0,1000,canHeight)
 		}
 	}
 
@@ -140,6 +291,19 @@ class RunTimer extends React.Component {
 
 			if (completedIntervals === 0) {
 				this.setState({ completedIntervals: completedIntervals + 1 })
+
+			// const can = document.getElementById('timer-circle');
+			// const canHeight = can.height;				
+			// const ctx = can.getContext('2d');
+
+			// ctx.fillStyle = colors.red
+			// ctx.fillRect(0,0,1000,canHeight)
+			// const canWidth = can.width;
+
+			// ctx.font="50px Times"
+			// ctx.textAlign="center"
+			// ctx.fillText("GO", canWidth/2, canHeight/2)
+
 			}
 
 			console.log('running Total Timer');
@@ -148,8 +312,8 @@ class RunTimer extends React.Component {
 			this.state.totalTimer.start()
 
 			const totalId = setInterval( () => {
-				const timeElapsed = this.state.timeElapsed + 25;
-				const timeRemaining = totalTime - timeElapsed - restTime;
+			const timeElapsed = this.state.timeElapsed + 25;
+			const timeRemaining = totalTime - timeElapsed - restTime;
 
 				// console.groupCollapsed('setInterval Timer');
 				// 	console.log(`totalTime`, totalTime);
@@ -178,10 +342,32 @@ class RunTimer extends React.Component {
 		this.setState({ running: false })	
 	}
 
-	// timerCircleStyle = {
-	// 	"flex": "0 1 30%"
-	// 	"width": "60%"
+	pixelRatio = () => {
+		const ctx = document.createElement("canvas").getContext("2d"),
+			dpr = window.devicePixelRatio || 1,
+			bsr = ctx.webkitBackingStorePixelRatio ||
+					ctx.mozBackingStorePixelRatio ||
+					ctx.msBackingStorePixelRatio ||
+					ctx.oBackingStorePixelRatio ||
+					ctx.backingStorePixelRatio || 1;
 
+		return (dpr / bsr);
+	}
+
+	// createHiDPIcan = ( w, h, ratio ) => {
+
+	// 	if (!ratio)
+	// 		ratio = this.pixelRatio();
+	// 	const can = document.createElement('can');
+	// 	can.width = w * ratio;
+	// 	can.height = h * ratio;
+	// 	can.style.width = w + "px";
+	// 	can.style.height = h + "px";
+	// 	can.classList.add('run-timer__timer-circle');
+	// 	can.setAttribute('id', 'timer-circle');
+	// 	can.getContext("2d").setTransform(ratio, 0, 0, ratio, 0, 0);
+
+	// 	return can;
 	// }
 
 	render() {
@@ -193,8 +379,12 @@ class RunTimer extends React.Component {
 		numIntervals,
 		incrementIntervals } = this.props;
 
+		const canvasW = 150 * this.pixelRatio();
+
 		const { completedIntervals, intervalMs, restMs, timeElapsed, totalTimer, active, timeRemaining } = this.state;
 		const { msToText } = timeFuncs;
+
+		// const can = this.createHiDPIcan(200, 200);
 
 		return (
 			<div className="app-run-timer">
@@ -207,23 +397,17 @@ class RunTimer extends React.Component {
 						{restIncrement !== 0 && <li>Rest Increment: {msToText(restIncrement)}</li>}
 					</ul>
 				</div>
-				<div  className="run-timer__buttons-div">
-					<button className="run-timer__button run-timer__start" onClick={() => this.runTimer()}>Start</button>
-					<button className="run-timer__button run-timer__stop" onClick={() => this.stopTimer()}>Stop</button>
+				<canvas
+					width={canvasW}
+					className="run-timer__timer-circle"
+					id="timer-circle"
+					onClick={() => !this.state.running ? this.runTimer() : this.stopTimer()}
+				></canvas>
+				<div className="run-timer__timer-data">
+					<p className="run-timer__timer-data-label">Time Elapsed: {msToText(timeElapsed - 1000)}</p>
+					<p className="run-timer__timer-data-label">Time Remaining: {msToText(this.state.timeRemaining)}</p>
 					<button className="run-timer__button run-timer__reset" onClick={() => this.resetTimers()}>Reset</button>
 				</div>
-				<div className="run-timer__timer">
-					<p>Interval {completedIntervals} / {numIntervals}</p>
-					{this.state.totalTimer.ms > 0 ?
-						<p>Time Remaining in {active}: {active === "interval" ? msToText(intervalMs) : msToText(restMs)} </p> :
-						<p>You're done!</p>
-					}
-					<p>Total Time Elapsed: {msToText(timeElapsed - 1000)}</p>
-					<p>Total Time Remaining: {msToText(this.state.timeRemaining)}</p>
-				</div>
-				<canvas style={this.timerCircleStyle} id="timer-circle" className="run-timer__timer-circle">
-
-				</canvas>
 			</div>
 		)
 	}

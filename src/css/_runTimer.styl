@@ -1,62 +1,98 @@
 .app-run-timer
-	{$flex-col}
+	@media all and (orientation portrait)
+		{$flex-col}
 	flex 0 1 97.5%
 	align-items center
-	// justify-content space-around
+	justify-content space-around
+	overflow-y auto
+	@media all and (orientation landscape)
+		{$flex-row-wrap}
 
 .run-timer__timer-totals
 	{$flex-row-wrap}
 	justify-content center
+	align-items flex-start
 	color $white
-	// flex 1
+	flex 0 1 25%
+	@media all and (orientation landscape)
+		flex 0 1 100%
 	& > h1
 		flex 0 1 80%
 		text-align center
-		margin 15px 0
+		align-self flex-start
+		// margin-top 15px
 	
 .run-timer__timer-totals-ul
 	margin 0
 	padding 0
-	flex 0 1 85%
+	flex 0 1 100%
 	{$flex-row-wrap}
-	justify-content center
-	& > li
-		padding 10px
-		font-size 1.15rem
+	justify-content space-around
+	align-self center
+	@media all and (orientation landscape)
 		flex 0 1 100%
+		justify-content space-around
+			
+	& > li
+		padding 2.5px
+		font-size 1.15rem
+		flex 0 1 30%
 		background-color $black2
 		margin 5px 0
 		{$flex-row-wrap}
 		align-items center
+		@media all and (orientation landscape)
+			flex 0 1 30%
 		// justify-content value
 
 .timer-totals__label
 	font-weight bold
 	color $blue
-	flex 0 1 50%
-	text-align right
-	margin-right 10px
+	flex 0 1 100%
+	text-align center
+	// @media all and (orientation landscape)
+	// 	margin 0
+	// 	text-align center
 	
 .timer-totals__value
-	flex 0.5 1 40%
-
-.run-timer__buttons-div
-	{$flex-row-wrap}
-	margin 10px 0
-	// flex 1
-	width 100%
-	align-self center
-	justify-content space-around
-
+	flex 0 1 100%
+	text-align center
+		
 .run-timer__button
 	{$button}
 	flex 0 1 30%
 
-.run-timer__timer
-	color $white
-
 .run-timer__timer-circle
-	flex 0 1 30%
-	border 2px solid $white
+	flex 0 1 40%
+	max-width 80%
+	// margin 2vh
+	border 5px solid $white
 	border-radius 50%
-	width 60%
+	// width 60%
+	@media all and (orientation landscape)
+		height 60%
+
+.run-timer__timer-data
+	flex 0 1 20%
+	// border 1px solid red
+	color $white
+	{$flex-row-wrap}
+	align-items center
+	justify-content center
+	width 85%
+	& > *
+		flex 0 1 100%
+		text-align center
+		align-self center
+	@media all and (orientation landscape)
+		flex 0 1 40%
+		height 50%
+
+.run-timer__timer-data-label
+	padding 2.5px
+	font-size 1.15rem
+	flex 0 1 100%
+	background-color $black2
+	margin 0
+	// {$flex-row-wrap}
+	// align-items center
