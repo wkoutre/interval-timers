@@ -1,6 +1,6 @@
 export const msToHours = (ms) => msToMinutes(ms) / 60;
 export const msToMinutes = (ms) => msToSeconds(ms) / 60;
-export const msToSeconds = (ms) => ms / 1000;
+export const msToSeconds = (ms) => Math.ceil(ms / 1000);
 export const secToMs = (sec) => sec * 1000;
 export const minToMs = (min) => min * 60000;
 export const twoPlacedFloat = (str) => parseFloat(str).toFixed(2);
@@ -38,6 +38,9 @@ export const secondsToText = (seconds) => {
 }
 
 export const msToText = (ms) => {
+	
+	if (ms < 0)
+		ms = 0;
 	const secs = Math.floor((msToSeconds(ms)) % 60);
 	const mins = Math.floor(msToMinutes(ms));
 

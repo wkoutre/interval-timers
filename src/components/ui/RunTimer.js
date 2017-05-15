@@ -1,6 +1,7 @@
 import React from 'react';
 import Stopwatch from 'timer-stopwatch';
 import * as timeFuncs from '../../timeHelpers'
+import * as colors from '../../css/colors'
 
 class RunTimer extends React.Component {
 	constructor(props) {
@@ -10,10 +11,10 @@ class RunTimer extends React.Component {
 		// everything in state is in milliseconds
 		this.state = {
 			completedIntervals: 0,
-			totalTimer: new Stopwatch(totalTime),
+			totalTimer: new Stopwatch(totalTime - restTime),
 			totalId: 0,
-			intervalSecs: intervalTime,
-			restSecs: restTime,
+			intervalMs: intervalTime,
+			restMs: restTime,
 			newBreak: totalTime - intervalTime,
 			active: "interval",
 			timeElapsed: 0,
@@ -26,34 +27,37 @@ class RunTimer extends React.Component {
 		this.props.clearTimerForm();
 	}
 
-	timerIsComplete = () => {
-		return this.state.completedIntervals === this.props.numIntervals;
-	}
-
 	resetTimers = () => {
 		const { intervalTime, restIncrement, restTime, totalTime } = this.props;
 
 		this.stopTimer();
 		this.setState({
 			completedIntervals: 0,
-			totalTimer: new Stopwatch(totalTime),
+			totalTimer: new Stopwatch(totalTime - restTime),
 			totalId: 0,
 			id: 0,
-			intervalSecs: intervalTime,
-			restSecs: restTime,
+			intervalMs: intervalTime,
+			restMs: restTime,
 			newBreak: totalTime - intervalTime,
 			active: "interval",
 			timeRemaining: totalTime - restTime,
 			timeElapsed: 0,
 			running: false
 		})
+
+		const canvas = document.getElementById('timer-circle');
+		const canvasHeight = canvas.height;				
+		const ctx = canvas.getContext('2d');
+
+		ctx.clearRect(0,0,1000,canvasHeight)
 		console.log('timer has been reset');
 		
 	}
 
 	timerDoneTrigger = () => {
 		console.log('Timer is done!');
-		this.stopTimer();
+		// this.resetTimers();
+		this.setState({ numIntervals: this.state.numIntervals+1 })
 
 		const date = new Date();
 		const weekDay = date.getDay();
@@ -82,82 +86,103 @@ class RunTimer extends React.Component {
 	}
 
 	changeInterval = () => {
-		if (!this.timerIsComplete()) {
-			console.log("changing interval");
-			const intervalSecs = this.state.intervalSecs - 1000;
-			this.setState({ intervalSecs })
+		
+		const intervalMs = this.state.intervalMs - 25;
+		const canvas = document.getElementById('timer-circle');
+		const canvasHeight = canvas.height;				
+		const ctx = canvas.getContext('2d');
 
-			if (intervalSecs <= 0) {
-				this.setState({
-					intervalSecs: this.props.intervalTime,
-					active: "rest",
-					completedIntervals: this.state.completedIntervals + 1
-				 })
-			}
-		} else {
-			this.timerDoneTrigger()
+		const fillHeight = (1- (this.state.intervalMs / this.props.intervalTime)) * canvasHeight;				
+
+		ctx.fillStyle = colors.green
+		ctx.fillRect(0,0,1000,fillHeight)
+
+		this.setState({ intervalMs })
+
+		if ( intervalMs <= 0 ) {
+			this.state.totalTimer.ms > 0 && console.log("changing interval");
+			
+		 	this.setState({
+		 		intervalMs: this.props.intervalTime,
+				active: "rest"
+		 	})
+			ctx.clearRect(0,0,1000,canvasHeight)
 		}
 	}
 
 	changeRest = () => {
-		console.log("changing rest");
-		const restSecs = this.state.restSecs - 1000;
-		this.setState({ restSecs })
+		const restMs = this.state.restMs - 25;
+		const canvas = document.getElementById('timer-circle');
+		const canvasHeight = canvas.height;				
+		const ctx = canvas.getContext('2d');
+		const fillHeight = (1- (this.state.restMs / this.props.restTime)) * canvasHeight;				
+		let { completedIntervals } = this.state;
 
-		if (this.state.restSecs === 0) {
+		ctx.fillStyle = colors.red
+		ctx.fillRect(0,0,1000,fillHeight)
+
+		this.setState({ restMs })
+		if (this.state.restMs <= 0) {
 			this.setState({
-				restSecs: this.props.restTime + (this.props.restIncrement * this.state.completedIntervals),
-				active: "interval"
+				restMs: this.props.restTime + (this.props.restIncrement * this.state.completedIntervals),
+				active: "interval",
+				completedIntervals: completedIntervals + 1
 			 })
+			console.log("changing rest");
+			ctx.clearRect(0,0,1000,canvasHeight)
 		}
 	}
 
 	runTimer = () => {
-		const { totalTimer, restSecs, intervalSecs } = this.state;
+		if (!this.state.running) {
+			const { totalTimer, restMs, intervalMs, completedIntervals } = this.state;
 			const { totalTime, restTime, intervalTime, restIncrement } = this.props;
 
-		if (this.timerIsComplete()) {
-			alert('Timer is done. Click OK to reset it!', this.resetTimers());
-			return ;
-		} else if (!this.state.running) {
+			if (completedIntervals === 0) {
+				this.setState({ completedIntervals: completedIntervals + 1 })
+			}
+
 			console.log('running Total Timer');
-			totalTimer.onDone(this.timerDoneTrigger)
-			totalTimer.start();
-			
+
+			this.state.totalTimer.onDone(this.timerDoneTrigger)
+			this.state.totalTimer.start()
+
 			const totalId = setInterval( () => {
-				const { active } = this.state;
-				const timeElapsed = this.state.timeElapsed + 1000;
-				
+				const timeElapsed = this.state.timeElapsed + 25;
 				const timeRemaining = totalTime - timeElapsed - restTime;
-				console.log(`totalTime`, totalTime);
-				console.log(`timeElapsed`, timeElapsed);
-				console.log(`timeRemaining`, timeRemaining);
 
-				if (this.state.timeRemaining > 1000) {
-					this.setState({ timeRemaining, timeElapsed })	
-				}
+				// console.groupCollapsed('setInterval Timer');
+				// 	console.log(`totalTime`, totalTime);
+				// 	console.log(`timeElapsed`, timeElapsed);
+				// 	console.log(`timeRemaining`, timeRemaining);	
+				// console.groupEnd('setInterval Timer');	
 
-				if (this.state.active === 'interval') {
-					this.changeInterval();
-				} else {
-					this.changeRest();
+				if (this.state.timeRemaining > 0) {
+					this.setState({ timeRemaining, timeElapsed });
+					if (this.state.active === 'interval') {
+						this.changeInterval();
+					} else if (this.state.active === 'rest') {
+						this.changeRest();
+					}
 				}
-			}, 1000)
+			}, 25)
 
 			this.setState({ totalId, running: !this.state.running })
 		}
 	}
 
 	stopTimer = () => {
-		if (this.state.running) {
-			console.log('stopping timer');
-		
-			const { totalId, totalTimer } = this.state;
-			totalTimer.stop()
-			clearInterval(totalId);
-			this.setState({ running: false })	
-		}
+		const { totalId, totalTimer } = this.state;
+		totalTimer.stop()
+		clearInterval(totalId);
+		this.setState({ running: false })	
 	}
+
+	// timerCircleStyle = {
+	// 	"flex": "0 1 30%"
+	// 	"width": "60%"
+
+	// }
 
 	render() {
 		const { timerName,
@@ -168,35 +193,37 @@ class RunTimer extends React.Component {
 		numIntervals,
 		incrementIntervals } = this.props;
 
-		const { completedIntervals, intervalSecs, restSecs, timeElapsed, totalTimer, active, timeRemaining } = this.state;
+		const { completedIntervals, intervalMs, restMs, timeElapsed, totalTimer, active, timeRemaining } = this.state;
 		const { msToText } = timeFuncs;
 
 		return (
-			<div>
-				<h1>{timerName}</h1>
-				<div className="timer-totals">
-					<h2>Timer Totals</h2>
-					<ul>
-						<li>Total Intervals: {numIntervals} intervals</li>
-						<li>Interval Time: {msToText(intervalTime)}</li>						
-						<li>Rest Time: {msToText(restTime)}</li>
+			<div className="app-run-timer">
+				<div className="run-timer__timer-totals">
+					<h1>{timerName}</h1>
+					<ul className="run-timer__timer-totals-ul">
+						<li><span className="timer-totals__label">Total Intervals:</span> <span className="timer-totals__value">{numIntervals} intervals</span></li>
+						<li><span className="timer-totals__label">Interval Time:</span> <span className="timer-totals__value">{msToText(intervalTime)}</span></li>						
+						<li><span className="timer-totals__label">Rest Time:</span> <span className="timer-totals__value">{msToText(restTime)}</span></li>
 						{restIncrement !== 0 && <li>Rest Increment: {msToText(restIncrement)}</li>}
 					</ul>
 				</div>
-				<div className="timer">
-					<button onClick={() => this.runTimer()}>Start</button>
-					<button onClick={() => this.stopTimer()}>Stop</button>
-					<button onClick={() => this.resetTimers()}>Reset</button>
+				<div  className="run-timer__buttons-div">
+					<button className="run-timer__button run-timer__start" onClick={() => this.runTimer()}>Start</button>
+					<button className="run-timer__button run-timer__stop" onClick={() => this.stopTimer()}>Stop</button>
+					<button className="run-timer__button run-timer__reset" onClick={() => this.resetTimers()}>Reset</button>
 				</div>
-				<div>
-				<p>Completed Intervals: {completedIntervals} / {numIntervals}</p>
-				{!this.timerIsComplete() ?
-					<p>Time Remaining in {active}: {active === "interval" ? msToText(intervalSecs) : msToText(restSecs)} </p> :
-					<p>You're done!</p>
-				}
-				<p>Total Time Elapsed: {msToText(timeElapsed)}</p>
-				<p>Total time remaining: {msToText(timeRemaining)}</p>
+				<div className="run-timer__timer">
+					<p>Interval {completedIntervals} / {numIntervals}</p>
+					{this.state.totalTimer.ms > 0 ?
+						<p>Time Remaining in {active}: {active === "interval" ? msToText(intervalMs) : msToText(restMs)} </p> :
+						<p>You're done!</p>
+					}
+					<p>Total Time Elapsed: {msToText(timeElapsed - 1000)}</p>
+					<p>Total Time Remaining: {msToText(this.state.timeRemaining)}</p>
 				</div>
+				<canvas style={this.timerCircleStyle} id="timer-circle" className="run-timer__timer-circle">
+
+				</canvas>
 			</div>
 		)
 	}

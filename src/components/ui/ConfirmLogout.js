@@ -12,19 +12,22 @@ const ConfirmLogout = (props) => {
 		
 		base.auth().signOut();
 		props.logout()
+		props.push('/')
 	}
 
 	return (
-		<div className="app-confirm-logout">
-			<h3 className="confirm-logout__heading" >Are you sure you want to logout?</h3>
-			<button 
-				className="confirm-logout__yes confirm-logout__button"
-				onClick={() => localLogout()}>
-				Yes</button>
-			<button
-				className="confirm-logout__no confirm-logout__button"
-				onClick={() => props.cancelLogout()}>No
-			</button>
+		<div className="confirm-logout__overlay">
+			<div className="app-confirm-logout">
+				<h3 className="confirm-logout__heading" >Are you sure you want to logout?</h3>
+				<button 
+					className="confirm-logout__yes confirm-logout__button"
+					onClick={() => localLogout()}>
+					Yes</button>
+				<button
+					className="confirm-logout__no confirm-logout__button"
+					onClick={() => props.cancelLogout()}>No
+				</button>
+			</div>
 		</div>
 	)
 }

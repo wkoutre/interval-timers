@@ -1,20 +1,22 @@
 .app-confirm-logout
 	position fixed
-	left 0
-	right 0
+	left 5%
+	right 5%
 	top 25vh
-	height 20vh
-	// margin 0 auto
-	background-color $black4
-	border 5px solid $red
+	height 20vmax
+	margin 0 auto
+	background-color $black0
+	border 3px solid $red
 	{$flex-row-wrap}
 	align-items center
 	justify-content space-around
+	z-index 1001
+	opacity 1 !important
 	
 .confirm-logout__heading
 	flex 0 1 95%
 	text-align center
-	color $black1 !important
+	color $white
 
 .confirm-logout__button
 	{$button}
@@ -28,3 +30,12 @@
 .confirm-logout__no
 	border-color $red
 	color $red
+
+.confirm-logout__overlay
+	position fixed
+	top 0
+	// left 0
+	height 100vh
+	z-index 1000
+	width 100vw
+	background-color rgba(112, 112, 112, 0.8)
