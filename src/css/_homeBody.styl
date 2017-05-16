@@ -1,3 +1,28 @@
 .app-home
+	flex 0 1 97.5%
 	{$flex-row-wrap}
+	justify-content space-around
 	
+.home__recent-timers,
+.home__favorite-timers
+	color $white
+	text-align center
+	flex 0 1 100%
+	{$flex-row-wrap}
+	& > h1
+		flex 0 1 100%
+
+.home__recent-timers-ul,
+.home__favorite-timers-ul
+	flex 0 1 100%
+	margin 0
+	padding 0
+	{$flex-row-wrap}
+	align-items center
+
+.home__recent-timers-li,
+.home__favorite-timers-li
+	flex 0 1 95%
+	color $white
+	border 1px solid red
+

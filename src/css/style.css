@@ -450,11 +450,59 @@
   color: #dbcdc9;
 }
 .app-home {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 97.5%;
+          flex: 0 1 97.5%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+.home__recent-timers,
+.home__favorite-timers {
+  color: #dbcdc9;
+  text-align: center;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 100%;
+          flex: 0 1 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.home__recent-timers > h1,
+.home__favorite-timers > h1 {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 100%;
+          flex: 0 1 100%;
+}
+.home__recent-timers-ul,
+.home__favorite-timers-ul {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 100%;
+          flex: 0 1 100%;
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.home__recent-timers-li,
+.home__favorite-timers-li {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 95%;
+          flex: 0 1 95%;
+  color: #dbcdc9;
+  border: 1px solid #f00;
 }
 .app-login {
   -ms-flex-item-align: center;

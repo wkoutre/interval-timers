@@ -1,20 +1,33 @@
 import HomeBody from '../ui/HomeBody'
 import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
+import { chooseTimer } from '../../actions'
 
 const mapStateToProps = ({ app }, props) => {
-	const { completedTimers } = app.user.timerInfo
+	const { completedTimers, timers } = app.user.timerInfo
 	return {
-		completedTimers
+		completedTimers,
+		timers
 	}
 }
 
-// const mapDispatchToProps = dispatch =>
-// 	({
-// 		logout() {
-// 			dispatch(
-// 				logout()
-// 			)
-// 		}
-// 	})
+const mapDispatchToProps = dispatch =>
+	({
+		chooseTimer(obj) {
+			dispatch(
+				chooseTimer(obj)
+			)
+		},
+		push(path) {
+			dispatch(
+				push(path)
+			)
+		},
+		chooseTimer(obj) {
+			dispatch(
+				chooseTimer(obj)
+			)
+		}
+	})
 
-export default connect(mapStateToProps)(HomeBody)
+export default connect(mapStateToProps, mapDispatchToProps)(HomeBody);

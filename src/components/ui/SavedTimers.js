@@ -4,6 +4,7 @@ import * as timeFuncs from '../../timeHelpers';
 import * as stringFuncs from '../../helpers/stringHelpers'
 import Stopwatch from 'timer-stopwatch';
 import * as colors from '../../css/colors'
+import TimerLi from './TimerLi'
 
 class SavedTimers extends React.Component {
 	constructor(props) {
@@ -78,9 +79,7 @@ class SavedTimers extends React.Component {
 			} else {
 				timerLis[i].style.display = 'initial'
 			}
-		}
-		
-		
+		}	
 	}
 
 	render() {
