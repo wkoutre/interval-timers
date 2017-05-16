@@ -7,7 +7,7 @@
     "start": "webpack-dev-server",
     "styles": "./node_modules/.bin/stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
     "styles:watch": "./node_modules/.bin/stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css",
-    "build": "webpack --config webpack.dist.config.js"
+    "build": "webpack --config ./webpack.config.js --progress --colors"
   },
   "repository": {
     "type": "git",
