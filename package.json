@@ -4,9 +4,10 @@
   "description": "A full-featured workout app and custom timer written in React-Redux",
   "main": "./dist",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server",
+    "start": "webpack-dev-server",
     "styles": "./node_modules/.bin/stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
-    "styles:watch": "./node_modules/.bin/stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css"
+    "styles:watch": "./node_modules/.bin/stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css",
+    "build": "webpack --config webpack.dist.config.js"
   },
   "repository": {
     "type": "git",
