@@ -10,7 +10,8 @@ class SavedTimers extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			timers: new Array(props.timers.length).map(i => i = false)
+			timers: new Array(props.timers.length).map(i => i = false),
+			favoriteNames: props.favorites.reduce( (a, b) => a.concat(b[0].timerName), [])
 		}
 	}
 
@@ -48,6 +49,18 @@ class SavedTimers extends React.Component {
 		this.props.chooseTimer(obj);
 	}
 
+	handleFavorite = (e, timerObj, index) => {
+
+		if (e.target.style.color !== 'gold') {
+			e.target.style.color = "gold"
+			console.log(`indexHERE`, index);	
+			this.props.setFavorite({index, timerObj});	
+		} else {
+			e.target.style.color = colors.white;
+			this.props.removeFavorite(timerObj.timerName);	
+		}		
+	}
+
 	showInfo = (i) => {
 		let timers = [...this.state.timers]
 		timers[i] = true;
@@ -77,7 +90,7 @@ class SavedTimers extends React.Component {
 			if (timerName.indexOf(searchValue) === -1) {
 				timerLis[i].style.display = 'none'
 			} else {
-				timerLis[i].style.display = 'initial'
+				timerLis[i].style.display = 'flex'
 			}
 		}	
 	}
@@ -100,9 +113,15 @@ class SavedTimers extends React.Component {
 				</li>
 				)
 			} else {
+				
 				return (
 				<li className="saved-timers__li" key={i} id={i}>
-					<span className="saved-timers__timer-name">{obj.timerName}</span>
+					<span className="saved-timers__timer-name">{obj.timerName}
+					<br/>
+						<span onClick={(e) => this.handleFavorite(e, timers[i], i)} className="saved-timers__fav-button"
+							style={this.state.favoriteNames.indexOf(obj.timerName) > -1 ? {"color": "gold"} : {"color": "white"} }>&#9733;</span>
+					</span>
+					
 					<div className="saved-timers__buttons">
 						<span
 						onClick={() => this.localEditTimer(timers[i])}

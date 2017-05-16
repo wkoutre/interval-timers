@@ -4,6 +4,12 @@ $content = 'Open Sans'
 $header-height = 4vh
 $header-height-landscape = 5vh
 
+$flex-center-everything =
+	display flex
+	flex-wrap wrap
+	align-items center
+	justify-content center
+
 $flex-row-wrap =
 	display flex
 	flex-wrap wrap
@@ -19,7 +25,9 @@ $flex-col =
 	
 $blue = #7A8897
 $pink = #AB8B82
-$red = #7A2B1D
+
+$red = #b7402c
+$red0 = #7A2B1D
 $white = #DBCDC9
 $green = #22633E
 
@@ -36,6 +44,7 @@ $input =
 	background-color transparent !important
 	color $pink !important
 	margin 0 !important
+	font-size 1rem !important
 	&:focus,
 	&:active
 		color $white !important
@@ -50,9 +59,10 @@ $button =
 	// align-self flex-end
 	color $white
 	border 2px solid $white
-	padding 2px
+	padding 2vmin
 	background-color transparent
-	align-self flex-end
+	font-size 1.25rem
+	font-family $title
 	&:active,
 	&:focus
 		outline none !important

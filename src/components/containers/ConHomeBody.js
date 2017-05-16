@@ -4,10 +4,11 @@ import { push } from 'connected-react-router'
 import { chooseTimer } from '../../actions'
 
 const mapStateToProps = ({ app }, props) => {
-	const { completedTimers, timers } = app.user.timerInfo
+	const { completedTimers, timers, favorites } = app.user.timerInfo
 	return {
 		completedTimers,
-		timers
+		timers,
+		favorites
 	}
 }
 

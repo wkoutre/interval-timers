@@ -28,20 +28,11 @@ const debouncer = createDebounce(config)
 const createMiddleware = composeEnhancers(applyMiddleware(historyMiddleware, debouncer, syncingMiddleware))
 const store = createMiddleware(createStore)(connectRouter(history)(mainReducer), initialState)
 
-
-// const store = createStore(
-// 	connectRouter(history)(mainReducer),
-// 	initialState,
-// 	composeEnhancers(
-// 		applyMiddleware(
-// 			historyMiddleware, syncingMiddleware
-// 		)
-// 	)
-// );
+console.log('Store LOADED');
 
 module.exports = {
 	store,
 	history
 }
 
-console.log('Store LOADED');
+

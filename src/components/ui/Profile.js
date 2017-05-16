@@ -34,8 +34,6 @@ class Profile extends React.Component {
 	saveProfile = () => {
 		const { fullName, email, birthday, loc: location, weight, visibility } = this.state;
 
-
-
 		const infoObj = {
 			fullName,
 			email,
@@ -48,6 +46,14 @@ class Profile extends React.Component {
 		this.props.setProfileInfo(infoObj);
 		this.setState({ edit: false })
 		this.unTouch();
+	}
+
+	canSubmit = () => {
+		const { fullName, email, weight } = this.state;
+
+		// console.log(fullName !== "" && email !== "" && weight !== "");
+		
+		return fullName !== "" && email !== "" && weight !== "";
 	}
 
 	unTouch = () => {
@@ -112,7 +118,7 @@ class Profile extends React.Component {
 					<p>{this.props.weight} lbs</p>
 					<p>Public profile: {this.props.visibility ? "ON" : "OFF"}</p>
 				</div>
-				<button className="profile-button" onClick={() => this.editProfile()}>EDIT</button>
+				<button className="profile-edit-button" onClick={() => this.editProfile()}>EDIT</button>
 			</div>
 		)
 
@@ -121,14 +127,14 @@ class Profile extends React.Component {
 				<div className="profile-photo">
 					<img src={this.props.photoURL} alt={`${this.props.fullname} profile picture`}/>
 				</div>
-				<form onSubmit={this.saveProfile} className="profile-info-form">
+				<form onSubmit={() => this.saveProfile()} className="profile-info-form">
 					<div className="profile-edit__section">
-						<ProfileLabel name="fullName" text="Full Name:" />
+						<ProfileLabel required={true} name="fullName" text="Full Name:" />
 						<ProfileInput value={!this.state.fullName && this.state.touched.fullName === false ? this.props.fullName : this.state.fullName} name="fullName" type="text" handleChange={this.handleChange} />
 					</div>
 					<div className="profile-edit__section">
 						<ProfileLabel name="email" text="Email:" />
-						<ProfileInput value={!this.state.email && this.state.touched.email === false ? this.props.email : this.state.email} name="email" type="text" handleChange={this.handleChange} />
+						<ProfileInput required={true} value={!this.state.email && this.state.touched.email === false ? this.props.email : this.state.email} name="email" type="text" handleChange={this.handleChange} />
 					</div>
 					<div className="profile-edit__section">
 						<ProfileLabel name="birthday" text="Birthday:" />
@@ -139,15 +145,15 @@ class Profile extends React.Component {
 						<ProfileInput value={!this.state.loc && this.state.touched.loc === false ? this.props.loc : this.state.loc} name="loc" type="text" handleChange={this.handleChange} />
 					</div>
 					<div className="profile-edit__section">
-						<ProfileLabel name="weight" text="Weight:" />
+						<ProfileLabel required={true} name="weight" text="Weight:" />
 						<ProfileInput value={!this.state.weight && this.state.touched.weight === false ? this.props.weight : this.state.weight} name="weight" type="number" handleChange={this.handleChange} />
 					</div>
 					<div className="profile-edit__section">
 						<ProfileLabel name="visibility" text="Public Profile:" />
 						{toggle}
 					</div>
+					<button disabled={!this.canSubmit()} className="profile-save-button" type="submit" onClick={() => this.saveProfile()}>SAVE</button>
 				</form>
-				<button className="profile-save-button" type="submit" onClick={() => this.saveProfile()}>SAVE</button>
 			</div>
 		)
 

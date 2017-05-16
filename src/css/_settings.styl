@@ -2,21 +2,21 @@
 	{$flex-col}
 	width 97.5%
 	align-items center
-	// justify-content center
+	justify-content flex-start
 	
 .settings-div
-	width 90%
-	flex 0 1 10%
-	margin 15px
+	width 100%
+	flex 0.25 1
 	{$flex-row-wrap}
 	justify-content space-between
 	align-items center
 	color $black4
 
 .settings-label
-	font-size 1.25rem
+	font-size 1.5rem
 	flex 0 1 40%
 	text-align right
+	margin 0 !important
 
 .settings-input
 	{$input}
@@ -28,5 +28,6 @@
 	color $white
 	text-align center
 	line-height 2.5rem
-	& > span
-		color $pink
+	margin-top 5vh !important
+	// & > span
+	// 	color $pink

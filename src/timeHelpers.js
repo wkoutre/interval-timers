@@ -44,7 +44,14 @@ export const msToText = (ms) => {
 	const secs = Math.floor((msToSeconds(ms)) % 60);
 	const mins = Math.floor(msToMinutes(ms));
 
-	return `${mins} min, ${secs} secs`
+	const secText = secs !== 1 ? 'secs' : 'sec'
+	const minToMs = mins !== 1 ? 'mins' : 'min'
+
+	if (mins === 0) {
+		return `${secs} ${secText} `
+	}
+
+	return `${mins} ${minText} , ${secs} ${secText} `;
 }
 
 export const timeToStr = (hour, minute) => {
@@ -79,4 +86,16 @@ export const findAge = (dateFromInput) => {
 		age++;
 
 	return age;
+}
+
+export const intervalText = numIntervals => {
+	const intervalText = numIntervals !== 1 ? 'intervals' : 'interval'
+
+	return `${numIntervals} ${intervalText} `
+}
+
+export const restIncrementText = restIncrement => {
+	const restIncrementText = restIncrement !== 1 ? 'secs' : 'sec'
+
+	return `${restIncrement} ${restIncrementText} `
 }

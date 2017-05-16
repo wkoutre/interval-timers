@@ -19,8 +19,9 @@
 	margin 0
 
 .create-timer-label
-	flex 0 1 30%
-	font-size 0.9rem
+	flex 1 1 30%
+	margin-right 2vw
+	font-size 1.15rem
 	font-family $content
 	display flex
 	align-items center
@@ -43,6 +44,7 @@
 	margin 5px
 	{$flex-row-wrap}
 	justify-content space-around
+	align-items center
 
 .create-timer-button
 	flex 0 1 47.5%
@@ -69,3 +71,51 @@
 	flex 0 1 50%
 	font-size 1rem
 	color $pink
+	
+.rest-increment-explanation-overlay
+	position fixed
+	top 0
+	left 0
+	height 100vh
+	z-index 1000
+	width 100vw
+	background-color rgba(112, 112, 112, 0.8)
+
+.rest-increment-explanation
+	position fixed
+	left 10%
+	right 10%
+	top 15vh
+	padding 15px
+	// height 20vmax
+	margin 0 auto
+	background-color $black2
+	border 3px solid $red
+	{$flex-row-wrap}
+	align-items center
+	justify-content center
+	z-index 1001
+	opacity 1 !important
+	& > *
+		flex 0 1 95%
+		{$flex-row-wrap}
+		justify-content center
+		text-align left
+		
+.rest-increment-explanation-example
+	{$flex-row-wrap}
+	align-items center
+	justify-content cebnter
+	& > h2
+		flex 0 1 100%
+		text-align center
+		margin-bottom 5px
+	// & > ul
+	// 	padding 0
+	// 	margin 0
+	
+.close-explanation
+	flex 0 1 20%
+	padding 2.5px
+	border 1px solid $white !important
+	text-align center !important

@@ -13,29 +13,28 @@
 	
 .profile-photo
 	flex 0 1 80%
-	display flex
+	{$flex-center-everything}
 	justify-content center
-	margin-bottom 20px
- & > img
-	border-radius 25%
-	flex 0 1 125px !important
-		
+	& > img
+		border-radius 5px
+	@media all and (orientation landscape)
+		margin-bottom 2vmin
 .profile-info
 	flex 0 1 80%
 	{$flex-row-wrap}
 	color $white
 	align-items center
 	& > p
-		padding 10px
+		padding 2vmin
 		font-size 1.15rem
 		flex 0 1 100%
-		background-color $black2
+		background-color $black1
 		
 .profile-info-form
 	flex 0 1 97.5%
 	{$flex-row-wrap}
 	align-items center
-	justify-content space-between
+	justify-content center
 	
 .profile-edit__section
 	flex 0 1 100%
@@ -44,16 +43,11 @@
 	align-items center
 	margin 5px 0
 
-.profile-button
+.profile-edit-button
 	flex 0 1 75%
 	{$button}
-	margin-top 15px
-	// color $white
-	// font-size 1.25rem
-	// border 2px solid $white
-	// padding 10px
-	// background-color transparent
-	align-self flex-end
+	padding 0
+	margin-top 15px !important
 	&:active,
 	&:focus
 		outline none !important
@@ -61,7 +55,7 @@
 	
 .profile-label
 	flex 0 1 25%
-	font-size 0.9rem
+	font-size 1rem
 	text-align right
 	color $black4
 	
@@ -73,14 +67,7 @@
 .profile-save-button
 	flex 0 1 75%
 	{$button}
-	
-	// align-self flex-end
-	// color $white
-	// font-size 1.25rem
-	// border 2px solid $white
-	// padding 10px
-	// background-color transparent
-	// align-self flex-end
+	margin-top 10px
 	&:active,
 	&:focus
 		outline none !important

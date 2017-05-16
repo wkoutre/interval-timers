@@ -15,11 +15,12 @@
 	color $white
 	flex 0 1 25%
 	@media all and (orientation landscape)
+		height 25%
 		flex 0 1 100%
-	& > h1
-		flex 0 1 80%
-		text-align center
-		align-self flex-start
+		& > h1
+			flex 0 1 80%
+			text-align center
+			align-self flex-start
 		// margin-top 15px
 	
 .run-timer__timer-totals-ul
@@ -65,12 +66,11 @@
 .run-timer__timer-circle
 	flex 0 1 40%
 	max-width 80%
-	// margin 2vh
 	border 5px solid $white
 	border-radius 50%
-	// width 60%
 	@media all and (orientation landscape)
-		height 60%
+		height 50%
+		max-width 40%
 
 .run-timer__timer-data
 	flex 0 1 20%
@@ -85,8 +85,9 @@
 		text-align center
 		align-self center
 	@media all and (orientation landscape)
+		align-items space-around
 		flex 0 1 40%
-		height 50%
+		min-height 40%
 
 .run-timer__timer-data-label
 	padding 2.5px

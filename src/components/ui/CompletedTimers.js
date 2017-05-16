@@ -7,8 +7,10 @@ const CompletedTimers = (props) => {
 
 	const timerList = completedTimers.map( (timerObj, i) => {
 		const { timerName, ms, dateString } = timerObj
+
+		console.log(`timerName`, timerName);
+		
 		return (
-			
 				<ul key={ms} className="completed-timers__timer-ul">
 					<li className="completed-timers__timer-name completed-timers__timer-li">{timerName}</li>
 					<li className="completed-timers__timer-date completed-timers__timer-li">{dateString}</li>
@@ -16,6 +18,9 @@ const CompletedTimers = (props) => {
 				</ul>
 			)
 		});
+
+	console.log(`timerList`, timerList);
+	
 
 	return timerList.length > 0 ?
 		(

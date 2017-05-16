@@ -136,6 +136,7 @@ class RunTimer extends React.Component {
 		// this.resetTimers();
 		this.setState({ numIntervals: this.state.numIntervals+1 })
 
+		this.clearCanvas();
 		setTimeout( () => this.fillCanvasText({
 			text: 'COMPLETE!',
 			fontSize: "30px",
@@ -379,7 +380,11 @@ class RunTimer extends React.Component {
 		numIntervals,
 		incrementIntervals } = this.props;
 
-		const canvasW = 150 * this.pixelRatio();
+		const w = window.innerWidth
+		const canvasW = (w/3) * this.pixelRatio();
+
+		console.log(`canvasW`, canvasW);
+		
 
 		const { completedIntervals, intervalMs, restMs, timeElapsed, totalTimer, active, timeRemaining } = this.state;
 		const { msToText } = timeFuncs;

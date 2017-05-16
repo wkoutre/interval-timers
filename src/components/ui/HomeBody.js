@@ -15,11 +15,18 @@ class HomeBody extends React.Component {
 	}
 
 	componentDidMount() {
-		let lastThree = [];
+		let lastThree = [],
+			names = [];
 		const { completedTimers } = this.props;
 
-		for (let i = 0, c = completedTimers.length - 1; i < 3; i++, c--) {
-			completedTimers[c] && lastThree.push(completedTimers[c])
+		for (let i = 0; i < completedTimers.length; i++) {
+			if (names.indexOf(completedTimers[i].timerName) === -1) {
+				lastThree.push(completedTimers[i]);
+				names.push(completedTimers[i].timerName)
+			}
+			
+			if (lastThree.length >= 3)
+				break;
 		}
 
 		let recents = lastThree.reduce( (a, b) => {
@@ -64,13 +71,13 @@ class HomeBody extends React.Component {
 
 		return (
 			<li className="home__recent-timers-li" key={i} id={i}>
-				<span className="home__recent-timers-span saved-timers__info-numIntervals">{timerName}</span>
-				<span className="home__recent-timers-span saved-timers__info-numIntervals">{numIntervals} intervals</span>
-				<span className="home__recent-timers-span saved-timers__info-restTime">{restTime} sec rest interval</span>
-				<span className="home__recent-timers-span saved-timers__info-intervalTime">{intervalTime} min per interval</span>
-				<span className="home__recent-timers-span saved-timers__info-restIncrement">{restIncrement} sec rest incr</span>
-				<span className="home__recent-timers-span saved-timers__info-totalTime">{timeFuncs.msToText(totalTime)}</span>
-				<span className="home__recent-timers-span" onClick={() => this.hideInfo(i)}>&#10006;</span>
+				<span className="home__recent-timers-info home__recent-timers-info-timerName">{timerName}</span>
+				<span className="home__recent-timers-info home__recent-timers-info-numIntervals">{timeFuncs.intervalText(numIntervals)}</span>
+				<span className="home__recent-timers-info home__recent-timers-info-restTime">{restTime} sec rest interval</span>
+				<span className="home__recent-timers-info home__recent-timers-info-intervalTime">{timeFuncs.msToText(timeFuncs.minToMs(intervalTime))} per interval</span>
+				<span className="home__recent-timers-info home__recent-timers-info-restIncrement">{restIncrement} sec rest incr</span>
+				<span className="home__recent-timers-info home__recent-timers-info-totalTime">{timeFuncs.msToText(totalTime)}</span>
+				<span className="home__recent-timers-hide-info" onClick={() => this.hideInfo(i)}>&#10006;</span>
 			</li>
 		)
 	}
@@ -83,14 +90,14 @@ class HomeBody extends React.Component {
 		} else {
 			return (
 				<li className="home__recent-timers-li" key={i} id={i}>
-					<span>{timer.timerName}</span>
+					<span className="home__recent-timers-timer-name">{timer.timerName}</span>
 					<span
 						onClick={() => this.showInfo(i)}
-						className="saved-timers__info saved-timers__option">info
+						className="home__recent-timers-info-button">info
 					</span>
 					<span
 						onClick={() => this.localChooseTimer(timers[i])}
-						className="saved-timers__start-timer saved-timers__option">
+						className="home__recent-timers-start-button">
 						start
 					</span>
 				</li>
@@ -117,13 +124,25 @@ class HomeBody extends React.Component {
 		// lastThree = lastThree.map(this.listInfo);
 		const lastThree = this.state.lastThree.map(this.recentTimers);
 
+		const favoriteTimers = this.props.favorites.map( (timerObj, i) => {
+			const { timers } = this.props;
 
-
+			return (
+				<li className="home__favorite-timers-li">
+					<span className="home__favorite-timers-timer-name">{timerObj[0].timerName}</span>
+					<span
+						onClick={() => this.localChooseTimer(timers[timerObj[1]])}
+						className="home__recent-timers-start-button">
+						start
+					</span>
+				</li>		
+			)
+		})
 
 		return (
 			<div className="app-home">
 				<div className="home__recent-timers">
-					<h1>Recent Timers</h1>
+					<h1>Recently Used</h1>
 					<ul className="home__recent-timers-ul">
 						{lastThree}
 					</ul>
@@ -131,9 +150,7 @@ class HomeBody extends React.Component {
 				<div className="home__favorite-timers">
 					<h1>Favorites</h1>
 					<ul className="home__favorite-timers-ul">
-						<li className="home__favorite-timers-li">Favorite 1</li>
-						<li className="home__favorite-timers-li">Favorite 2</li>
-						<li className="home__favorite-timers-li">Favorite 3</li>
+						{favoriteTimers}
 					</ul>
 				</div>
 			</div>

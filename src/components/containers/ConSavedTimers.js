@@ -1,15 +1,17 @@
 import SavedTimers from '../ui/SavedTimers'
-import { editTimer, deleteTimer, chooseTimer, sortDateAscending, sortDateDescending, sortTimersAZ, sortTimersZA } from '../../actions'
+import { editTimer, deleteTimer, chooseTimer, sortDateAscending, sortDateDescending, sortTimersAZ, sortTimersZA, setFavorite, removeFavorite } from '../../actions'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 
 const mapStateToProps = ({ app }, props) => {
 	const { timerInfo } = app.user;
-	const { timers } = timerInfo;
+	const { timers, favorites } = timerInfo;
+
 
 	return {
-		timers
-	};
+		timers,
+		favorites
+	}
 }
 	
 
@@ -54,7 +56,18 @@ const mapDispatchToProps = dispatch =>
 			dispatch(
 				sortTimersAZ()
 			)
+		},
+		setFavorite(timerObj) {
+			dispatch(
+				setFavorite(timerObj)
+			)
+		},
+		removeFavorite(timerName) {
+			dispatch(
+				removeFavorite(timerName)
+			)
 		}
 	})
+	
 
 export default connect(mapStateToProps, mapDispatchToProps)(SavedTimers);

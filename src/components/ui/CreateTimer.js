@@ -6,6 +6,9 @@ import * as timeFuncs from '../../timeHelpers'
 class CreateTimer extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			showExplanation: false
+		}
 	}
 
 	totalTimeCalc = () => {
@@ -99,8 +102,35 @@ class CreateTimer extends React.Component {
 					)
 	}
 
+	toggleExplanation = () => {
+		let { showExplanation } = this.state;
+
+		showExplanation = !showExplanation;
+
+		this.setState({ showExplanation })
+	}
+
 	render() {
-		const { intervalTime, numIntervals, restIncrement, restTime, timerName, timers, setTimerName, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement, defaultIntervalTime, defaultNumIntervals, defaultRestIncrement, defaultRestTime } = this.props;		  
+		const { intervalTime, numIntervals, restIncrement, restTime, timerName, timers, setTimerName, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement, defaultIntervalTime, defaultNumIntervals, defaultRestIncrement, defaultRestTime } = this.props;
+
+		const explanation = (
+			<div className="rest-increment-explanation-overlay">
+				<div className="rest-increment-explanation">
+					<p className="rest-increment-explanation-text">After each interval, the amount of seconds entered here will be added to the rest time.</p>
+					<p className="rest-increment-explanation-example">
+						<h2>Example</h2>
+						<span>The timer has 5 intervals set with a 10 second rest and 2 second rest increment.
+							<ul>
+								<li>Rest after interval 1: 10 seconds</li>
+								<li>Rest after interval 2: 12 seconds</li>
+								<li>Rest after interval 3: 14 seconds</li>
+							</ul>
+						</span>
+					</p>
+					<span className="close-explanation" onClick={() => this.toggleExplanation()}>CLOSE</span>
+				</div>
+			</div>
+		)
 
 		return (
 			<div className="app-create-timer">
@@ -143,7 +173,16 @@ class CreateTimer extends React.Component {
 								onChange={(e) => setRestTime(e.target.value || 0)}/>
 					</div>
 					<div className="create-timer-form-section">
-						<span className="create-timer-label"> <span className="create-timer-label-text">Added Rest Per <span className="question-mark">(?)</span>   Set (secs):</span>							
+						<span className="create-timer-label"> <span className="create-timer-label-text">Added Rest Per Set (secs)
+						:&nbsp;
+						{ 
+							this.state.showExplanation ?
+								explanation :
+								<span className="question-mark"
+											onClick={() => this.toggleExplanation()}>(?)
+								</span>
+						}
+						</span>							
 						</span>
 						<input
 								className="create-timer-input"

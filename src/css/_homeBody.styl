@@ -1,28 +1,109 @@
 .app-home
-	flex 0 1 97.5%
-	{$flex-row-wrap}
-	justify-content space-around
-	
+	height 100%
+	@media all and (orientation landscape)
+		flex 0 1 97.5%
+		{$flex-row-wrap}
+		justify-content space-around
+	@media all and (orientation portrait)
+		{$flex-col}
+
 .home__recent-timers,
 .home__favorite-timers
 	color $white
-	text-align center
-	flex 0 1 100%
-	{$flex-row-wrap}
+	{$flex-col}
+	align-items center
+	justify-content flex-start
 	& > h1
-		flex 0 1 100%
-
+		width 100%
+		text-align center
+		margin 15px !important
+	// @media all and (orientation portrait)
+	// 	flex 1
+		
+	@media all and (orientation landscape)
+		flex 0 1 47.5%
+		text-align center
+	
 .home__recent-timers-ul,
 .home__favorite-timers-ul
-	flex 0 1 100%
+	flex 1
 	margin 0
 	padding 0
 	{$flex-row-wrap}
-	align-items center
+	align-items flex-start
+	justify-content center
+	overflow-y auto
+	width 97.5%
+	// @media all and (orientation landscape)
+	// 	flex 0 1 100%
+	// @media all and (orientation portrait)
+	// 	flex 0 1 97.5%
 
 .home__recent-timers-li,
 .home__favorite-timers-li
-	flex 0 1 95%
+	flex 1
+	// min-height 35%
+	position relative
 	color $white
-	border 1px solid red
+	margin 2.5px 0
+	padding 4vmin
+	background-color $black1
+	justify-content center
+	{$flex-row-wrap}
+	flex 0 1 100%
+	align-items center
+	& > span
+		flex 0 1 45%
 
+.home__recent-timers-timer-name,
+.home__recent-timers-info-timerName
+	flex 0 1 100% !important
+	text-align center
+	font-weight bold
+	color $blue
+	font-size 1.5rem
+	margin-bottom 3vmin	
+	
+.home__recent-timers-info
+	flex 0 30%
+
+.home__recent-timers-hide-info
+	padding 1px
+	background-color transparent
+	position absolute
+	right 5px
+	bottom 5px
+	font-size 1.5rem
+	color $red
+
+.home__recent-timers-info-totalTime
+	font-weight bold
+	font-size 1.5rem
+
+.home__favorite-timers-li
+	{$flex-row-wrap}
+	align-items center
+	// justify-content space-around
+	& > *
+		flex 0 1 40%
+	
+.home__favorite-timers-timer-name
+	text-align center
+	font-weight bold
+	color $blue
+	font-size 1.5rem
+
+.home__recent-timers-start-button,
+.home__recent-timers-info-button
+	padding 2px
+	text-align center
+	font-size 1rem
+
+.home__recent-timers-info-button
+	margin-right 10px
+	border 1px solid $white
+	color $white
+	
+.home__recent-timers-start-button
+	border 1px solid $green
+	color $green

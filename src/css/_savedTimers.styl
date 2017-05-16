@@ -7,15 +7,14 @@
 	overflow-y hidden
 
 .saved-timers__header
-	flex 0 1 20%
-	@media all and (orientation landscape)
-		flex 0 1 25%
+	// flex 1
 	{$flex-row-wrap}
-	align-items center
+	align-items flex-start
 	justify-content space-around
 	& > h1
 		flex 0 1 100%
 		text-align center
+		margin 10px
 
 .saved-timers__search
 	{$input}
@@ -23,9 +22,11 @@
 	height 2vmax !important
 	// margin 5px 0 !important
 	padding 1.5vh !important
+	margin 10px !important
 	@media all and (orientation landscape)
 		flex 0 1 20%
-		margin 10px 0 !important
+	&:focus
+		margin 10px !important
 		
 .saved-timers__sort-button
 	{$button}
@@ -38,7 +39,7 @@
 	// margin 5px 0 !important
 	@media all and (orientation landscape)
 		flex 0 1 15%
-		margin 10px 0 !important
+		// margin 10px 0 !important
 
 .saved-timers__ul
 	flex 1
@@ -62,14 +63,17 @@
 	
 .saved-timers__timer-name
 	font-size 1.25rem
-	flex 0 1 35%
+	flex 1 1 40%
 	text-align center
 	align-self center
 	
 .saved-timers__option
 	margin 5px
-	flex 0 1 40%
+	flex 0 1 42.5%
 	text-align center
+	font-size 1rem
+	@media all and (orientation landscape)
+		flex 0 1 45%
 
 .saved-timers__buttons
 	flex 0 1 60%
@@ -88,6 +92,8 @@
 .saved-timers__info
 	color $white
 	border 1px solid $white
+	{$flex-center-everything}
+	
 
 .saved-timers__edit-timer
 	color $blue
@@ -96,6 +102,8 @@
 .saved-timers__info-value,
 .saved-timers__hide-info-button
 	flex 0 1 40%
+	font-size 1rem
+	margin 2px
 
 .saved-timers__hide-info-button
 	// border 1px solid $blue
@@ -109,5 +117,5 @@
 
 .saved-timers__info-totalTime
 	font-weight bold
+	font-size 1.5rem
 	color $green
-

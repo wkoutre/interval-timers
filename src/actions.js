@@ -213,3 +213,19 @@ export const sortTimersZA = () =>
 	({
 		type: C.SORT_TIMERS_Z_A
 	})
+
+export const setFavorite = ({index, timerObj}) => {
+	
+	return ({
+		type: C.SET_FAVORITE,
+		timerObj,
+		index
+	})
+}
+	
+
+export const removeFavorite = (timerName) =>
+	({
+		type: C.REMOVE_FAVORITE,
+		timerName
+	})

@@ -115,8 +115,8 @@ const timers = (state=[], action) => {
 	switch (action.type) {
 		case C.SAVE_TIMER:
 			return [
-			...state,
-			action.payload
+			action.payload,
+			...state
 			];
 		case C.EDIT_TIMER:
 			const { timerName } = action.payload;
@@ -293,21 +293,22 @@ const photoURL = (state="", action) => {
 const completedTimers = (state=[], action) => {
 	switch (action.type) {
 		case C.ADD_COMPLETED_TIMER:
-
 			console.log(`reducerAddingCompletedTimer`, action);
 			const { dateString, ms, timerName } = action;
 
 			return [
-				...state,
 				{
 					ms: action.ms,
 					timerName: action.timerName,
 					dateString: action.dateString
-				}
+				},
+				...state
 			]
 		case C.REMOVE_COMPLETED_TIMER:
 			let newState = state.slice(0, action.index).concat(state.slice(action.index+1));
 			return newState
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerInfo.timers;
 		default:
 			return state;
 	}
@@ -357,10 +358,32 @@ const visibility = (state="", action) => {
 	}
 }
 
+const favorites = (state=[], action) => {
+	switch(action.type) {
+		case C.SET_FAVORITE:
+			return [
+				[action.timerObj, action.index],
+				...state
+			]
+		case C.REMOVE_FAVORITE:
+			return state.filter(obj => {
+				console.log(`obj[0]`, obj[0]);
+				return obj[0].timerName !== action.timerName
+			} )
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerInfo.favorites;
+		default:
+			return state;
+	}
+}
+
 const rootReducer = (state, action) => {
 	switch (action.type) {
 		case C.LOGOUT:
 			return mainReducer(undefined, action);
+		case C.SET_INITIAL_STATE:
+			console.log(`setting mainReducer`, action.payload);		
+			return mainReducer(action.payload.app)
 		default:
 			return state;
 	}
@@ -368,6 +391,58 @@ const rootReducer = (state, action) => {
 
 
 /**/
+
+// const mainReducer = (state={}, action) => {
+// 	switch(action.type) {
+// 		case (C.SET_INITIAL_STATE):
+// 			return action.payload;
+// 		default:
+// 			console.log(`returning saved`);
+			
+// 			const saved = combineReducers({
+// 								app: combineReducers({
+// 									loggedIn,
+// 									user: combineReducers({
+// 										details: combineReducers({
+// 											fullName,
+// 											email,
+// 											photoURL,
+// 											uid,
+// 											birthday,
+// 											location,
+// 											visibility,
+// 											weight
+// 										}),
+// 										timerInfo: combineReducers({
+// 											defaults: combineReducers({
+// 												defaultNumIntervals,
+// 												defaultIntervalTime,
+// 												defaultRestTime,
+// 												defaultRestIncrement
+// 											}),
+// 											timerProps: combineReducers({
+// 												numIntervals,
+// 												intervalTime,
+// 												restTime,
+// 												restIncrement,
+// 												timerName
+// 											}),
+// 											timers,
+// 											completedTimers,
+// 											favorites
+// 										}),
+// 										currentTimer: combineReducers({
+// 											timerData,
+// 											timerSwitch,
+// 											completedIntervals
+// 										})	
+// 									})
+// 								})
+// 							});
+
+// 			return saved;
+// 		}
+// 	}
 
 const mainReducer = combineReducers({
 	app: combineReducers({
@@ -399,6 +474,7 @@ const mainReducer = combineReducers({
 				}),
 				timers,
 				completedTimers,
+				favorites
 			}),
 			currentTimer: combineReducers({
 				timerData,

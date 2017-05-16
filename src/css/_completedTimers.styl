@@ -9,7 +9,7 @@
 	align-self center
 	text-align center
 	flex 0 1
-	margin-bottom 10px
+	margin 2vmin 0 !important
 
 .app-completed-timers__none-heading-div
 	flex 1 1 100%
@@ -31,16 +31,20 @@
 	width 100%
 	overflow-y auto
 	align-items center
+	justify-content center
 
 .completed-timers__timer-ul
 	// min-height 12.5vh
 	flex 1 1 100%
-	margin 2.5px 0
+	margin 2.5px
 	width 85%
-	border 1px solid $white
+	border 2px solid $black3
 	{$flex-row-wrap}
 	justify-content space-around
-	padding 10px
+	align-items space-around
+	padding 3vmin
+	@media all and (orientation landscape)
+		flex 1 1 40%
 	
 .completed-timers__timer-name
 	color $blue
@@ -48,18 +52,20 @@
 	flex 1 1 80%
 	text-align center
 	font-size 1.5rem
+	margin-bottom 2.5vmin
 	
 .completed-timers__timer-date
 	flex 0 1 50%
 	color $white
 	align-self center
 	margin-top 7.5px
+	font-size 1.25rem
 
 .completed-timers__remove-button
 	{$button}
 	flex 0 1 30%
 	color $red
 	border 1px solid $red
-	padding 1px
+	padding 1vmin
 	align-self center
 	margin-top 7.5px
