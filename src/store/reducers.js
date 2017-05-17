@@ -295,7 +295,6 @@ const completedTimers = (state=[], action) => {
 		case C.ADD_COMPLETED_TIMER:
 			console.log(`reducerAddingCompletedTimer`, action);
 			const { dateString, ms, timerName } = action;
-
 			return [
 				{
 					ms: action.ms,
@@ -308,7 +307,7 @@ const completedTimers = (state=[], action) => {
 			let newState = state.slice(0, action.index).concat(state.slice(action.index+1));
 			return newState
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.timers;
+			return action.payload.app.user.timerInfo.completedTimers;
 		default:
 			return state;
 	}

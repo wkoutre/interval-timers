@@ -1,6 +1,6 @@
-export const msToHours = (ms) => msToMinutes(ms) / 60;
-export const msToMinutes = (ms) => msToSeconds(ms) / 60;
 export const msToSeconds = (ms) => Math.ceil(ms / 1000);
+export const msToMinutes = (ms) => msToSeconds(ms) / 60;
+export const msToHours = (ms) => msToMinutes(ms) / 60;
 export const secToMs = (sec) => sec * 1000;
 export const minToMs = (min) => min * 60000;
 export const twoPlacedFloat = (str) => parseFloat(str).toFixed(2);
@@ -45,7 +45,7 @@ export const msToText = (ms) => {
 	const mins = Math.floor(msToMinutes(ms));
 
 	const secText = secs !== 1 ? 'secs' : 'sec'
-	const minToMs = mins !== 1 ? 'mins' : 'min'
+	const minText = mins !== 1 ? 'mins' : 'min'
 
 	if (mins === 0) {
 		return `${secs} ${secText} `
@@ -80,7 +80,7 @@ export const findAge = (dateFromInput) => {
 	const curDay = present.getDate();
 	let age = curYear - year - 1;
 	
-	if (curMonth == month && curDay >= day)
+	if (curMonth === month && curDay >= day)
 		age++;
 	else if (curMonth > month)
 		age++;

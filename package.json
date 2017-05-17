@@ -4,7 +4,7 @@
   "description": "A full-featured workout app and custom timer written in React-Redux",
   "main": "./dist",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --config webpack.dev.config.js",
     "styles": "./node_modules/.bin/stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
     "styles:watch": "./node_modules/.bin/stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css",
     "build": "webpack --config ./webpack.prod.config.js --progress --colors"

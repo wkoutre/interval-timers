@@ -37,15 +37,24 @@ class App extends React.Component {
 	// 	}
 	// }
 
+	LocalLogin = () => {
+		return (
+			<div className="react-root">
+				<Login />
+			</div>
+		)
+	}
+
 	render() {
 		
 	const { loggedIn } = this.props;
 		return (
 				<ConnectedRouter history={history}>
 				{!loggedIn ?
-					<div className="react-root">
-						<Login />	
-					</div>
+					<Switch>
+						<Route path="/error" component={ErrorPage} />
+						<Route exact path="/" component={this.LocalLogin} />
+					</Switch>
 					 :
 					<div className="react-root">
 						<Header />

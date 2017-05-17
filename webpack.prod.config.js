@@ -2,28 +2,33 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
-  devtool: 'source-map',
-
-  entry: [
-    './src/index.js'
-  ],
-
+	devtool: 'source-map',
+	entry: [
+		'./src/index.js'
+	],
+	target: 'web',
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'bundle.js',
-    publicPath: '/public/'
+    path: __dirname + '/dist',
+    publicPath: '/',
+    filename: 'bundle.js'
   },
+	output: {
+		path: path.join(__dirname, 'public'),
+		filename: 'bundle.js',
+		publicPath: '/public/'
+	},
 
-  plugins: [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    })
-  ],
+	plugins: [
+		new webpack.optimize.DedupePlugin(),
+		new webpack.DefinePlugin({
+			'process.env': {
+				'NODE_ENV': JSON.stringify('production'),
+				'API_HOST': 'https://workout-interval-timer.herokuapp.com'
+			}
+		})
+	],
 
-  module: {
+	module: {
 		loaders: [
 			{
 				test: /\.js$/,

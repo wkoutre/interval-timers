@@ -5,9 +5,6 @@ import { connect } from 'react-redux'
 const mapStateToProps = ({ app }, props) => {
 	const { completedTimers } = app.user.timerInfo;
 
-	console.log(`completedTimers`, completedTimers);
-	
-
 	return {
 		completedTimers
 	}

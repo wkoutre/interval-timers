@@ -1,32 +1,33 @@
 import C from '../constants'
 import _ from 'lodash'
+import base from '../components/Base'
 
-const storeFromServer = store => next => action => {
+// const storeFromServer = store => next => action => {
 
-	if (!store.getState().app.user.uid && localStorage['workout-timer-uid'] !== undefined) {
-		const userRef = base.database().ref(`users/${localStorage['workout-timer-uid']}`);
+// 	if (!store.getState().app.user.uid && localStorage['workout-timer-uid'] !== undefined) {
+// 		const userRef = base.database().ref(`users/${localStorage['workout-timer-uid']}`);
 
-		console.log('outside the promise');
+// 		console.log('outside the promise');
 
-		userRef.once('value')
-			.then(snapshot => {
+// 		userRef.once('value')
+// 			.then(snapshot => {
 				
-				const data = snapshot.val();
-				const state = JSON.parse(data.store);				
+// 				const data = snapshot.val();
+// 				const state = JSON.parse(data.store);				
 
-				// store.state = 
-				console.groupCollapsed('Setting initial state')
-				console.info('oldState:', store.getState());
-				console.info('state from server:', state);
-				console.groupEnd('Setting initial state');
+// 				// store.state = 
+// 				console.groupCollapsed('Setting initial state')
+// 				console.info('oldState:', store.getState());
+// 				console.info('state from server:', state);
+// 				console.groupEnd('Setting initial state');
 
-				setInitialState(state);
-			})
-			.catch(err => console.error(err))
-	}
+// 				setInitialState(state);
+// 			})
+// 			.catch(err => console.error(err))
+// 	}
 
-	return next(action);
-}
+// 	return next(action);
+// }
 
 export const checkLoginMiddleware = store => next => action => {
 	if (!store.getState().app.loggedIn && history.location.pathname !== '/') {

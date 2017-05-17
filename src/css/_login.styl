@@ -23,13 +23,74 @@
 
 .login-create-account
 	color $blue
-	text-decoration underline
 	&:hover
 		text-decoration underline
 		cursor pointer
 
+.login-manual
+	color $red
+	
 .login-p
-	font-size 1rem
-	width 60%
+	font-size 1.5rem
+	width 80%
 	text-align center
 	color $black4
+	
+.login-account__overlay
+	position fixed
+	top 0
+	// left 0
+	height 100vh
+	z-index 1000
+	width 100vw
+	background-color rgba(112, 112, 112, 0.8)
+
+.login-create-account__form
+	position fixed
+	left 5%
+	right 5%
+	top 15vh
+	// height 20vmax
+	margin 0 auto
+	background-color $black1
+	border 3px solid $green
+	{$flex-row-wrap}
+	align-items center
+	justify-content space-around
+	z-index 1001
+	padding 15px
+	& > h1
+		flex 0 1 100%
+		text-align center
+		margin 2vh
+		
+.login-create-account__label
+	flex 0.25 1 20%
+	text-align right
+	color $white
+	margin-bottom 1.5vh !important
+	
+.login-create-account__input
+	{$input}
+	// padding 2px
+	margin-bottom 1.5vh !important
+	flex 0.25 1 60%
+	&:focus
+		margin-bottom 1.5vh !important
+
+.login-create-account__button
+	{$button}
+	flex 0 1 75%
+
+#password-visibility
+	text-decoration underline
+	font-size 1rem
+
+.login-hide-form
+	padding 1px
+	background-color transparent
+	position absolute
+	right 5px
+	bottom 5px
+	font-size 1.5rem
+	color $red

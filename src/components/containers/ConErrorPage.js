@@ -8,4 +8,4 @@ const mapStateToProps = ({ app }, props) => {
 	};
 }
 	
-export default connect(mapStateToProps)(ErrorPage);
+export default connect()(ErrorPage);

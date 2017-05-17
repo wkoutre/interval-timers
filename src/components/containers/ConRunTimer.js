@@ -6,9 +6,9 @@ import { connect } from 'react-redux'
 const mapStateToProps = ({ app }, props) => {
 	const { timerName, restIncrement, restTime, intervalTime, numIntervals, totalTime } = app.user.currentTimer.timerData;
 
-	const { completedIntervals } = app.user.currentTimer;
+	// const { completedIntervals, setIntervalTimer } = app.user.currentTimer;
 
-	const { setIntervalTimer } = app.user.currentTimer
+	// const {  } = app.user.currentTimer
 
 	return {
 		timerName,
@@ -22,9 +22,9 @@ const mapStateToProps = ({ app }, props) => {
 	
 const mapDispatchToProps = (dispatch) =>
 	({
-		chooseTimer() {
+		chooseTimer(timerObj) {
 			dispatch(
-				chooseTimer(currentTimerObj)
+				chooseTimer(timerObj)
 			)
 		},
 		clearTimerForm() {
