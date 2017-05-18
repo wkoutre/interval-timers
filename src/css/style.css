@@ -643,6 +643,7 @@
 }
 .home__recent-timers-ul,
 .home__favorite-timers-ul {
+  position: relative;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;

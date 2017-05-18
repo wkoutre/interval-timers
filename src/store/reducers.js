@@ -368,9 +368,13 @@ const favorites = (state=[], action) => {
 			return state.filter(obj => {
 				console.log(`obj[0]`, obj[0]);
 				return obj[0].timerName !== action.timerName
-			} )
+			})
 		case C.SET_INITIAL_STATE:
 			return action.payload.app.user.timerInfo.favorites;
+		case C.DELETE_TIMER:
+			const { timerName: name } = action.payload;
+			
+			return state.filter(arr => arr[0].timerName !== name)
 		default:
 			return state;
 	}
