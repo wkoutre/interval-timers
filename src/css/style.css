@@ -797,7 +797,7 @@
   width: 100vw;
   background-color: rgba(112,112,112,0.8);
 }
-.login-create-account__form {
+.login-manual-account__form {
   position: fixed;
   left: 5%;
   right: 5%;
@@ -818,7 +818,7 @@
   z-index: 1001;
   padding: 15px;
 }
-.login-create-account__form > h1 {
+.login-manual-account__form > h1 {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 100%;
           flex: 0 1 100%;
@@ -834,7 +834,7 @@
   color: #dbcdc9;
   margin-bottom: 1.5vh !important;
 }
-.login-create-account__input {
+.login-manual-account__input {
   height: 6vmax !important;
   border-radius: 2px !important;
   border: 1px solid #dbcdc9 !important;
@@ -847,25 +847,26 @@
       -ms-flex: 0.25 1 60%;
           flex: 0.25 1 60%;
 }
-.login-create-account__input:focus,
-.login-create-account__input:active {
+.login-manual-account__input:focus,
+.login-manual-account__input:active {
   color: #dbcdc9 !important;
   outline: none !important;
   box-shadow: 0px 0px 1px 1px #dbcdc9 !important;
   margin: 0 !important;
 }
-.login-create-account__input::-moz-selection {
+.login-manual-account__input::-moz-selection {
   background-color: #fff;
   color: #282828;
 }
-.login-create-account__input::selection {
+.login-manual-account__input::selection {
   background-color: #fff;
   color: #282828;
 }
-.login-create-account__input:focus {
+.login-manual-account__input:focus {
   margin-bottom: 1.5vh !important;
 }
-.login-create-account__button {
+.login-manual-account__button {
+  margin-top: 25px;
   color: #dbcdc9;
   border: 2px solid #dbcdc9;
   padding: 2vmin;
@@ -876,8 +877,8 @@
       -ms-flex: 0 1 75%;
           flex: 0 1 75%;
 }
-.login-create-account__button:active,
-.login-create-account__button:focus {
+.login-manual-account__button:active,
+.login-manual-account__button:focus {
   outline: none !important;
   box-shadow: 0px 0px 1px 1px #dbcdc9;
 }

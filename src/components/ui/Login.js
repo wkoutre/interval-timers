@@ -198,15 +198,15 @@ class Login extends React.Component {
 	render() {
 		const accountForm = (
 					<div className="login-account__overlay">
-						<form onSubmit={(e) => this.handleSubmit(e)} className="login-create-account__form">
+						<form onSubmit={(e) => this.handleSubmit(e)} className="login-manual-account__form">
 							<h1>Create Account</h1>
 							<label className="login-create-account__label" htmlFor="userName">Full Name</label>
-							<input required className="login-create-account__input" value={this.state.userName} onChange={e => this.handleChange(e)} name="userName" type="text" placeholder="full name"/>
+							<input required className="login-manual-account__input" value={this.state.userName} onChange={e => this.handleChange(e)} name="userName" type="text" placeholder="full name"/>
 							<label className="login-create-account__label" htmlFor="userEmail">Email</label>
-							<input required className="login-create-account__input" value={this.state.userEmail} onChange={e => this.handleChange(e)} name="userEmail" type="email" placeholder="email"/>
+							<input required className="login-manual-account__input" value={this.state.userEmail} onChange={e => this.handleChange(e)} name="userEmail" type="email" placeholder="email"/>
 							<label className="login-create-account__label" htmlFor="userPassword">Password<br/><span onClick={() => this.togglePasswordVisibility()} id="password-visibility">Show/Hide</span></label>
-							<input required id="login-create-account__password" className="login-create-account__input"  value={this.state.userPassword} onChange={e => this.handleChange(e)} name="userPassword" type="password" placeholder="password"/>
-							<button onSubmit={(e) => this.handleSubmit(e)}className="login-create-account__button">Submit</button>
+							<input required id="login-create-account__password" className="login-manual-account__input"  value={this.state.userPassword} onChange={e => this.handleChange(e)} name="userPassword" type="password" placeholder="password"/>
+							<button onSubmit={(e) => this.handleSubmit(e)}className="login-manual-account__button">Submit</button>
 							<span onClick={() => this.toggleCreateAccount(true)} className="login-hide-form">CLOSE</span>
 						</form>
 
@@ -215,13 +215,13 @@ class Login extends React.Component {
 
 		const manualForm = (
 					<div className="login-account__overlay">
-						<form onSubmit={(e) => this.handleSubmit(e)} className="login-create-account__form">
+						<form onSubmit={(e) => this.handleSubmit(e)} className="login-manual-account__form">
 							<h1>Login</h1>
 							<label className="login-create-account__label" htmlFor="userEmail">Email</label>
-							<input required className="login-create-account__input" value={this.state.userEmail} onChange={e => this.handleChange(e)} name="userEmail" type="email" placeholder="email"/>
+							<input required className="login-manual-account__input" value={this.state.userEmail} onChange={e => this.handleChange(e)} name="userEmail" type="email" placeholder="email"/>
 							<label className="login-create-account__label" htmlFor="userPassword">Password<br/><span onClick={() => this.togglePasswordVisibility()} id="password-visibility">Show/Hide</span></label>
-							<input required id="login-existing-password" className="login-create-account__input"  value={this.state.userPassword} onChange={e => this.handleChange(e)} name="userPassword" type="password" placeholder="password"/>
-							<button onSubmit={(e) => this.handleSubmit(e)}className="login-create-account__button">Login</button>
+							<input required id="login-existing-password" className="login-manual-account__input"  value={this.state.userPassword} onChange={e => this.handleChange(e)} name="userPassword" type="password" placeholder="password"/>
+							<button onSubmit={(e) => this.handleSubmit(e)}className="login-manual-account__button">Login</button>
 							<span onClick={() => this.toggleManualLogin(true)} className="login-hide-form">CLOSE</span>
 						</form>
 					</div>
