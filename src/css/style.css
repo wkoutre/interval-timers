@@ -25,6 +25,7 @@
   margin: 2vmin 0 !important;
 }
 .app-completed-timers__none-heading-div {
+  height: 100%;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 100%;
           flex: 1 1 100%;
@@ -701,6 +702,14 @@
   color: #7a8897;
   font-size: 1.5rem;
   margin-bottom: 3vmin;
+}
+.home__favorite-timers-timer-text {
+  color: #a5a5a5;
+  font-size: 1.35rem;
+}
+.home__favorite-timers-timer-name-link {
+  color: #dbcdc9;
+  border-bottom: 1px dotted #dbcdc9;
 }
 .home__recent-timers-info {
   -webkit-box-flex: 0;
@@ -1505,6 +1514,37 @@
   font-weight: bold;
   font-size: 1.5rem;
   color: #22633e;
+}
+.saved-timers__no-timers {
+  margin-top: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  background-color: #161616;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 100%;
+          flex: 0 1 100%;
+  padding: 50px;
+}
+.saved-timers__no-timers > * {
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 100%;
+          flex: 0 1 100%;
+}
+.saved-timers__no-timers > h1 {
+  color: #b7402c;
+  margin-bottom: 15px;
+}
+.saved-timers__no-timers > a {
+  font-size: 1.5rem;
+  text-decoration: underline;
+  color: #7a8897 !important;
 }
 .app-settings {
   display: -webkit-box;

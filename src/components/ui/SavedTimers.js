@@ -53,7 +53,6 @@ class SavedTimers extends React.Component {
 
 		if (e.target.style.color !== 'gold') {
 			e.target.style.color = "gold"
-			console.log(`indexHERE`, index);	
 			this.props.setFavorite({index, timerObj});	
 		} else {
 			e.target.style.color = colors.white;
@@ -162,7 +161,14 @@ class SavedTimers extends React.Component {
 				<button className="saved-timers__sort-button" onClick={() => this.props.sortTimersZA()}>Z &rarr; A</button>
 			</div>
 			<ul className="saved-timers__ul">
-				{timerNames}
+				{
+					timerNames.length > 0 ?
+						timerNames :
+						<div className="saved-timers__no-timers">
+							<h1>No Timers</h1>
+							<Link to=""></Link>
+						</div>
+					}
 			</ul>
 		</div>
 		)

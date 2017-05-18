@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import base from '../Base'
 import * as timeFuncs from '../../timeHelpers'
+import { Link } from 'react-router-dom'
 
 class Home extends React.Component {
 
@@ -17,10 +18,11 @@ class Home extends React.Component {
 	componentDidMount() {
 		let lastThree = [],
 			names = [];
-		const { completedTimers } = this.props;
+		const { completedTimers, timers } = this.props;
 
 		for (let i = 0; i < completedTimers.length; i++) {
-			if (names.indexOf(completedTimers[i].timerName) === -1) {
+			const completedName = completedTimers[i].timerName;
+			if (names.indexOf(completedName) === -1 && timers.filter(obj => obj.timerName === completedName).length > 0) {
 				lastThree.push(completedTimers[i]);
 				names.push(completedTimers[i].timerName)
 			}
@@ -144,13 +146,32 @@ class Home extends React.Component {
 				<div className="home__recent-timers">
 					<h1>Recents</h1>
 					<ul className="home__recent-timers-ul">
-						{lastThree}
+						{lastThree.length > 0 ?
+							lastThree :
+							<li className="home__recent-timers-li">
+								<span className="home__recent-timers-timer-name">Nothing Completed Recently</span>
+									<br/>
+									<span className="home__favorite-timers-timer-text">Click the + to get started
+								</span>
+							</li>
+						}
 					</ul>
 				</div>
 				<div className="home__favorite-timers">
 					<h1>Favorites</h1>
 					<ul className="home__favorite-timers-ul">
-						{favoriteTimers}
+						{favoriteTimers.length > 0 ?
+							favoriteTimers :
+							<li className="home__favorite-timers-li">
+								<span className="home__favorite-timers-timer-name">No Favorites<br/>
+
+								<span className="home__favorite-timers-timer-text">
+									Star timers on the
+								<Link to='/saved-timers'><span className="home__favorite-timers-timer-text home__favorite-timers-timer-name-link"> Saved Timers </span></Link>
+								 page to add a favorite!
+								</span></span>
+							</li>
+						}
 					</ul>
 				</div>
 			</div>
