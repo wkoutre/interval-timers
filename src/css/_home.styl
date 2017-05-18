@@ -1,7 +1,12 @@
 .app-home
 	// {$flex-row-wrap}
-	display flex
+	max-height 100%
+	// overflow-y hidden
+	{$flex-row-wrap}
+	// {$flex-col}
 	flex 0 1 97.5%
+	justify-content center
+	align-items flex-start
 	overflow-y auto
 	@media all and (orientation landscape)
 		justify-content space-around
@@ -9,56 +14,52 @@
 .home__recent-timers,
 .home__favorite-timers
 	color $white
-	{$flex-row-wrap}
-	align-items flex-start
+	// height 100%
+	flex 0 1 49%
+	@media all and (orientation portrait)
+		flex 0 1 97.5%
+	{$flex-col}
+	align-items center
 	justify-content center
-	// flex 0 1 97.5%
-	flex 0 1 47.5%
 	text-align center
+	// overflow-y auto
 	& > h1
-		flex 0 1 100%
+		width 100%
+		flex 1
 		text-align center
-		margin 15px !important
+		margin 15px 0 !important
 	// @media all and (orientation portrait)
 	// 	flex 1
 		
 	// @media all and (orientation landscape)
 	// 	flex 0 1 47.5%
 	// 	text-align center
-	
 .home__recent-timers-ul,
 .home__favorite-timers-ul
 	flex 1
+	width 100%
 	margin 0
 	padding 0
+	overflow-y auto
 	{$flex-row-wrap}
-	align-items flex-start
+	align-items center
 	justify-content center
-	// overflow-y auto
-	flex 0 1 100%
-	// @media all and (orientation landscape)
-	// 	flex 0 1 100%
-	// @media all and (orientation portrait)
-	// 	flex 0 1 97.5%
 
 .home__recent-timers-li,
 .home__favorite-timers-li
-	flex 1
-	// min-height 35%
-	position relative
+	flex 0 1 100%
 	color $white
-	margin 2.5px 0
+	margin 2vmin 0
 	padding 4vmin
 	background-color $black1
 	justify-content center
 	{$flex-row-wrap}
-	flex 0 1 100%
 	align-items center
 	& > span
 		flex 1 1 25%
 		
-.home__recent-timers-li
-	margin-right 10px
+// .home__recent-timers-li
+// 	margin-right 10px
 
 .home__recent-timers-timer-name,
 .home__recent-timers-info-timerName,
@@ -72,6 +73,7 @@
 	
 .home__recent-timers-info
 	flex 0 30%
+	align-self flex-start
 
 .home__recent-timers-hide-info
 	padding 1px
@@ -84,7 +86,9 @@
 
 .home__recent-timers-info-totalTime
 	font-weight bold
+	margin-top 5px
 	font-size 1.5rem
+	color $green
 
 .home__favorite-timers-li
 	{$flex-row-wrap}

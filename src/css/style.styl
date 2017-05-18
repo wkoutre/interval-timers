@@ -47,6 +47,7 @@ body {
 	margin 0
 	padding 0
 	font-family $content
+	// overflow hidden
 }
 
 h1
@@ -80,18 +81,24 @@ h4
 [class$="heading"]
 	margin 5px 0
 	
+[class^="app-"]
+	max-height 100%
+	overflow-y auto
+	
 .page-content
 	position fixed
+	// {$flex-col}
 	display flex
-	// flex 0 1 100%
+	// overflow hidden
 	width 100%
 	justify-content center
+	align-items flex-start
 	top $header-height
-	bottom 5vh
+	bottom $footer-height
 	// overflow-y auto
 	@media all and (orientation landscape)
 		top $header-height-landscape
-		bottom 6.5vh
+		bottom $footer-height-landscape
 	// &:last-child
 	// 	margin-bottom 20px !important
 	
@@ -105,12 +112,13 @@ label
 
 .react-root
 	height 100vh
+	// {$flex-row-wrap}
 
-.new-timer
-	{$flex-row-wrap}
-	// border 1px solid red
-	& > input
-		flex 0 1 50%
+// .new-timer
+// 	{$flex-row-wrap}
+// 	// border 1px solid red
+// 	& > input
+// 		flex 0 1 50%
 		
 .form-label
 	flex 0 1 25%
@@ -145,4 +153,4 @@ label
 // 	border-bottom 2px dotted $blue
 
 // input:focus
-// 	outline none !important
+// 	outline none !importanthidden

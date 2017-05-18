@@ -109,7 +109,7 @@ class SavedTimers extends React.Component {
 						<span className="saved-timers__info-value saved-timers__info-intervalTime">{intervalTime} min per interval</span>
 						<span className="saved-timers__info-value saved-timers__info-restIncrement">{restIncrement} sec rest incr</span>
 						<span className="saved-timers__info-value saved-timers__info-totalTime">{timeFuncs.msToText(totalTime)}</span>
-						<span className="saved-timers__hide-info-button" onClick={() => this.hideInfo(i)}>CLOSE</span>
+						<span className="saved-timers__hide-info-button" onClick={() => this.hideInfo(i)}>x</span>
 				</li>
 				)
 			} else {

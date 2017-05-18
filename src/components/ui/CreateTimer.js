@@ -127,7 +127,7 @@ class CreateTimer extends React.Component {
 							</ul>
 						</span>
 					</p>
-					<span className="close-explanation" onClick={() => this.toggleExplanation()}>CLOSE</span>
+					<span className="close-explanation" onClick={() => this.toggleExplanation()}>x</span>
 				</div>
 			</div>
 		)
@@ -143,6 +143,7 @@ class CreateTimer extends React.Component {
 									required type="text"
 									placeholder="timer name"
 									value={timerName}
+									maxLength="40"
 									onChange={(e) => setTimerName(e.target.value || "")}/>
 					</div>
 					<div className="create-timer-form-section">

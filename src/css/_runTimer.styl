@@ -3,6 +3,7 @@
 	flex 0 1 97.5%
 	align-items center
 	justify-content space-around
+	height 100%
 	overflow-y auto
 
 .run-timer__timer-totals
@@ -11,12 +12,13 @@
 	align-items flex-start
 	color $white
 	flex 0 1 100%
+	& > h1
+		flex 0 1 80%
+		text-align center
+		align-self flex-start
 	@media all and (orientation landscape)
 		height 25%
-		& > h1
-			flex 0 1 80%
-			text-align center
-			align-self flex-start
+		
 		// margin-top 15px
 	
 .run-timer__timer-totals-ul
@@ -26,10 +28,9 @@
 	{$flex-row-wrap}
 	justify-content space-around
 	align-self center
-			
 	& > li
 		padding 2.5px
-		font-size 1.15rem
+		font-size 1.25rem
 		flex 0 1 30%
 		background-color $black2
 		margin 5px 0
@@ -58,6 +59,7 @@
 
 .run-timer__timer-circle
 	flex 0 1 40%
+	height 50%
 	// max-width 80%
 	border 5px solid $white
 	border-radius 50%
@@ -72,7 +74,6 @@
 	{$flex-row-wrap}
 	align-items center
 	justify-content center
-	width 85%
 	& > *
 		flex 0 1 100%
 		text-align center
@@ -83,10 +84,11 @@
 		min-height 40%
 
 .run-timer__timer-data-label
-	padding 2.5px
+	background-color $black0
+	margin-bottom 10px !important
+	padding 5px
 	font-size 1.15rem
 	flex 0 1 100%
-	background-color $black2
 	margin 0
 	// {$flex-row-wrap}
 	// align-items center

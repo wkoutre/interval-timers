@@ -148,7 +148,7 @@ class RunTimer extends React.Component {
 
 		console.log('Timer is done!');
 		// this.resetTimers();
-		this.setState({ numIntervals: this.state.numIntervals+1 })
+		this.setState({ numIntervals: this.state.numIntervals+1, timeElapsed: this.state.timeElapsed + 1000 })
 
 		this.clearCanvas();
 		setTimeout( () => this.fillCanvasText({
@@ -383,7 +383,7 @@ class RunTimer extends React.Component {
 		incrementIntervals } = this.props;
 
 		const w = window.innerWidth
-		const canvasW = (w/3) * this.pixelRatio();
+		// const canvasW = (w/3) * this.pixelRatio();
 
 		// console.log(`canvasW`, canvasW);
 
@@ -404,7 +404,7 @@ class RunTimer extends React.Component {
 					</ul>
 				</div>
 				<canvas
-					width={canvasW}
+					
 					className="run-timer__timer-circle"
 					id="timer-circle"
 					onClick={() => !this.state.running && completedIntervals !== this.props.numIntervals ? this.runTimer() : this.stopTimer()}

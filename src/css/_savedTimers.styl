@@ -1,16 +1,19 @@
 .app-saved-timers
 	align-self flex-start
-	height 100%
 	{$flex-col}
+	// {$flex-row-wrap}
 	flex 0 1 97.5%
 	color $white
-	overflow-y hidden
+	overflow hidden
+	justify-content flex-start
+	max-height 100%
 
 .saved-timers__header
 	// flex 1
 	{$flex-row-wrap}
 	align-items flex-start
 	justify-content space-around
+	flex none
 	& > h1
 		flex 0 1 100%
 		text-align center
@@ -42,7 +45,7 @@
 		// margin 10px 0 !important
 
 .saved-timers__ul
-	flex 1
+	flex 0 1 100%
 	list-style none
 	margin 0
 	padding 0
