@@ -1,5 +1,6 @@
 .app-home
-	{$flex-row-wrap}
+	// {$flex-row-wrap}
+	display flex
 	flex 0 1 97.5%
 	overflow-y auto
 	@media all and (orientation landscape)
@@ -11,7 +12,9 @@
 	{$flex-row-wrap}
 	align-items flex-start
 	justify-content center
-	flex 0 1 97.5%
+	// flex 0 1 97.5%
+	flex 0 1 47.5%
+	text-align center
 	& > h1
 		flex 0 1 100%
 		text-align center
@@ -19,9 +22,9 @@
 	// @media all and (orientation portrait)
 	// 	flex 1
 		
-	@media all and (orientation landscape)
-		flex 0 1 47.5%
-		text-align center
+	// @media all and (orientation landscape)
+	// 	flex 0 1 47.5%
+	// 	text-align center
 	
 .home__recent-timers-ul,
 .home__favorite-timers-ul
@@ -52,10 +55,14 @@
 	flex 0 1 100%
 	align-items center
 	& > span
-		flex 0 1 45%
+		flex 1 1 25%
+		
+.home__recent-timers-li
+	margin-right 10px
 
 .home__recent-timers-timer-name,
-.home__recent-timers-info-timerName
+.home__recent-timers-info-timerName,
+.home__favorite-timers-timer-name
 	flex 0 1 100% !important
 	text-align center
 	font-weight bold
@@ -85,12 +92,6 @@
 	// justify-content space-around
 	& > *
 		flex 0 1 40%
-	
-.home__favorite-timers-timer-name
-	text-align center
-	font-weight bold
-	color $blue
-	font-size 1.5rem
 
 .home__recent-timers-start-button,
 .home__recent-timers-info-button

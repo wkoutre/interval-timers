@@ -577,8 +577,6 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 97.5%;
           flex: 0 1 97.5%;
@@ -605,8 +603,9 @@
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-flex: 0;
-      -ms-flex: 0 1 97.5%;
-          flex: 0 1 97.5%;
+      -ms-flex: 0 1 47.5%;
+          flex: 0 1 47.5%;
+  text-align: center;
 }
 .home__recent-timers > h1,
 .home__favorite-timers > h1 {
@@ -615,15 +614,6 @@
           flex: 0 1 100%;
   text-align: center;
   margin: 15px !important;
-}
-@media all and (orientation: landscape) {
-  .home__recent-timers,
-  .home__favorite-timers {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 47.5%;
-            flex: 0 1 47.5%;
-    text-align: center;
-  }
 }
 .home__recent-timers-ul,
 .home__favorite-timers-ul {
@@ -674,12 +664,16 @@
 }
 .home__recent-timers-li > span,
 .home__favorite-timers-li > span {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 45%;
-          flex: 0 1 45%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 25%;
+          flex: 1 1 25%;
+}
+.home__recent-timers-li {
+  margin-right: 10px;
 }
 .home__recent-timers-timer-name,
-.home__recent-timers-info-timerName {
+.home__recent-timers-info-timerName,
+.home__favorite-timers-timer-name {
   -webkit-box-flex: 0 !important;
       -ms-flex: 0 1 100% !important;
           flex: 0 1 100% !important;
@@ -721,12 +715,6 @@
   -webkit-box-flex: 0;
       -ms-flex: 0 1 40%;
           flex: 0 1 40%;
-}
-.home__favorite-timers-timer-name {
-  text-align: center;
-  font-weight: bold;
-  color: #7a8897;
-  font-size: 1.5rem;
 }
 .home__recent-timers-start-button,
 .home__recent-timers-info-button {
@@ -1393,6 +1381,9 @@
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;

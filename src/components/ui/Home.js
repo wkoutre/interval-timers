@@ -142,7 +142,7 @@ class Home extends React.Component {
 		return (
 			<div className="app-home">
 				<div className="home__recent-timers">
-					<h1>Recently Used</h1>
+					<h1>Recents</h1>
 					<ul className="home__recent-timers-ul">
 						{lastThree}
 					</ul>
