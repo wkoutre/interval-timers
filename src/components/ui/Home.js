@@ -77,7 +77,7 @@ class Home extends React.Component {
 				<span className="home__recent-timers-info home__recent-timers-info-intervalTime">{timeFuncs.msToText(timeFuncs.minToMs(intervalTime))} per interval</span>
 				<span className="home__recent-timers-info home__recent-timers-info-restIncrement">{restIncrement} sec rest incr</span>
 				<span className="home__recent-timers-info home__recent-timers-info-totalTime">{timeFuncs.msToText(totalTime)}</span>
-				<span className="home__recent-timers-hide-info" onClick={() => this.hideInfo(i)}>&#10006;</span>
+				<span className="home__recent-timers-hide-info" onClick={() => this.hideInfo(i)}>CLOSE</span>
 			</li>
 		)
 	}

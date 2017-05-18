@@ -18,6 +18,15 @@ class Login extends React.Component {
 			userPassword: ""
  		}
 	}
+
+	clearState = () => {
+		const userName = "",
+					userEmail = "",
+					userPassword = ""
+
+		this.setState({ userEmail, userPassword, userName})
+	}
+
 	authenticate = (provider) => {
 		provider === 'facebook' ?
 			base.authWithOAuthPopup(provider, this.authHandler, {
@@ -26,14 +35,18 @@ class Login extends React.Component {
 			base.authWithOAuthPopup(provider, this.authHandler);
 	}
 
-	toggleCreateAccount = () => {
+	toggleCreateAccount = (bool=false) => {
 		const manualAccount = !this.state.manualAccount;
 		this.setState({ manualAccount })
+		if (bool)
+			this.clearState();
 	}
 
-	toggleManualLogin = () => {
+	toggleManualLogin = (bool=false) => {
 		const manualLogin = !this.state.manualLogin;
 		this.setState({ manualLogin })
+		if (bool)
+			this.clearState();
 	}
 
 	togglePasswordVisibility = () => {
@@ -194,7 +207,7 @@ class Login extends React.Component {
 							<label className="login-create-account__label" htmlFor="userPassword">Password<br/><span onClick={() => this.togglePasswordVisibility()} id="password-visibility">Show/Hide</span></label>
 							<input required id="login-create-account__password" className="login-create-account__input"  value={this.state.userPassword} onChange={e => this.handleChange(e)} name="userPassword" type="password" placeholder="password"/>
 							<button onSubmit={(e) => this.handleSubmit(e)}className="login-create-account__button">Submit</button>
-							<span onClick={() => this.toggleCreateAccount()} className="login-hide-form">&#10006;</span>
+							<span onClick={() => this.toggleCreateAccount(true)} className="login-hide-form">CLOSE</span>
 						</form>
 
 					</div>
@@ -209,7 +222,7 @@ class Login extends React.Component {
 							<label className="login-create-account__label" htmlFor="userPassword">Password<br/><span onClick={() => this.togglePasswordVisibility()} id="password-visibility">Show/Hide</span></label>
 							<input required id="login-existing-password" className="login-create-account__input"  value={this.state.userPassword} onChange={e => this.handleChange(e)} name="userPassword" type="password" placeholder="password"/>
 							<button onSubmit={(e) => this.handleSubmit(e)}className="login-create-account__button">Login</button>
-							<span onClick={() => this.toggleManualLogin()} className="login-hide-form">&#10006;</span>
+							<span onClick={() => this.toggleManualLogin(true)} className="login-hide-form">CLOSE</span>
 						</form>
 					</div>
 			)
