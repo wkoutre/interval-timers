@@ -66,13 +66,27 @@ class RunTimer extends React.Component {
 		setTimeout(fillIt, 1);
 	}
 
+	getCanInfo = () => {
+		const can = document.getElementById('timer-circle');
+		const canHeight = can.height;				
+		const canWidth = can.width;
+		const ctx = can.getContext('2d');
+
+		return({
+			can,
+			canHeight,
+			canWidth,
+			ctx
+		})
+	}
+
 	componentWillUnmount() {
 		this.props.clearTimerForm();
 	}
 
 	fillCanvasText = (obj) => {
 		// text, width=this.state.canWidth, height=this.state.canHeight, fontSize="30px", font="Lato")
-		const { ctx, canHeight, canWidth } = this.state;
+		const { ctx, canHeight, canWidth } = this.getCanInfo();
 		ctx.font=`${obj.fontSize} ${obj.font}`;
 
 		ctx.fillStyle = colors.white;
@@ -84,21 +98,21 @@ class RunTimer extends React.Component {
 	}
 
 	fillCanvasColor = (color, x=0, y=0, height) => {
-		const { ctx, canWidth } = this.state;
+		const { ctx, canWidth } = this.getCanInfo();
 
 		ctx.fillStyle = color;
 		ctx.fillRect(x, y, canWidth, height)
 	}
 
 	clearCanvas = () => {
-		const { ctx, canHeight, canWidth } = this.state;
+		const { ctx, canHeight, canWidth } = this.getCanInfo();
 
 		ctx.clearRect(0,0, canWidth, canHeight)
 	}
 
 	resetTimers = () => {
 		const { intervalTime, restIncrement, restTime, totalTime } = this.props;
-		const { canWidth, canHeight } = this.state;
+		const { canWidth, canHeight } = this.getCanInfo();
 
 		this.stopTimer();
 		this.setState({
@@ -130,7 +144,7 @@ class RunTimer extends React.Component {
 
 	timerDoneTrigger = () => {
 
-		const { canWidth, canHeight } = this.state;
+		const { canWidth, canHeight } = this.getCanInfo();
 
 		console.log('Timer is done!');
 		// this.resetTimers();
@@ -174,7 +188,8 @@ class RunTimer extends React.Component {
 
 	changeInterval = () => {
 		
-		const { can, canHeight, canWidth, ctx, completedIntervals  } = this.state;		
+		const { completedIntervals  } = this.state;
+		const { can, canHeight, canWidth, ctx } = this.getCanInfo();
 		const { numIntervals } = this.props;
 		const intervalMs = this.state.intervalMs - 25;
 		const fillHeight = (1- (this.state.intervalMs / this.props.intervalTime)) * canHeight;				
@@ -234,7 +249,7 @@ class RunTimer extends React.Component {
 
 	changeRest = () => {
 		const { numIntervals } = this.props;
-		const { can, canWidth, canHeight, ctx } = this.state;
+		const { can, canWidth, canHeight, ctx } = this.getCanInfo();
 		const restMs = this.state.restMs - 25;
 		const fillHeight = (1- (this.state.restMs / this.props.restTime)) * canHeight;
 		let { completedIntervals } = this.state;
