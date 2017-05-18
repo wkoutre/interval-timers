@@ -1096,6 +1096,11 @@
   transition: 0.5s all;
 }
 .app-run-timer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 97.5%;
           flex: 0 1 97.5%;
@@ -1105,26 +1110,6 @@
   -ms-flex-pack: distribute;
       justify-content: space-around;
   overflow-y: auto;
-}
-@media all and (orientation: portrait) {
-  .app-run-timer {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-}
-@media all and (orientation: landscape) {
-  .app-run-timer {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-  }
 }
 .run-timer__timer-totals {
   display: -webkit-box;
@@ -1140,15 +1125,12 @@
           align-items: flex-start;
   color: #dbcdc9;
   -webkit-box-flex: 0;
-      -ms-flex: 0 1 25%;
-          flex: 0 1 25%;
+      -ms-flex: 0 1 100%;
+          flex: 0 1 100%;
 }
 @media all and (orientation: landscape) {
   .run-timer__timer-totals {
     height: 25%;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 100%;
-            flex: 0 1 100%;
   }
   .run-timer__timer-totals > h1 {
     -webkit-box-flex: 0;
@@ -1174,15 +1156,6 @@
       justify-content: space-around;
   -ms-flex-item-align: center;
       align-self: center;
-}
-@media all and (orientation: landscape) {
-  .run-timer__timer-totals-ul {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 100%;
-            flex: 0 1 100%;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
-  }
 }
 .run-timer__timer-totals-ul > li {
   padding: 2.5px;
@@ -1242,7 +1215,6 @@
   -webkit-box-flex: 0;
       -ms-flex: 0 1 40%;
           flex: 0 1 40%;
-  max-width: 80%;
   border: 5px solid #dbcdc9;
   border-radius: 50%;
 }
@@ -1254,8 +1226,8 @@
 }
 .run-timer__timer-data {
   -webkit-box-flex: 0;
-      -ms-flex: 0 1 20%;
-          flex: 0 1 20%;
+      -ms-flex: 0 1 70%;
+          flex: 0 1 70%;
   color: #dbcdc9;
   display: -webkit-box;
   display: -ms-flexbox;

@@ -1,22 +1,18 @@
 .app-run-timer
-	@media all and (orientation portrait)
-		{$flex-col}
+	{$flex-row-wrap}
 	flex 0 1 97.5%
 	align-items center
 	justify-content space-around
 	overflow-y auto
-	@media all and (orientation landscape)
-		{$flex-row-wrap}
 
 .run-timer__timer-totals
 	{$flex-row-wrap}
 	justify-content center
 	align-items flex-start
 	color $white
-	flex 0 1 25%
+	flex 0 1 100%
 	@media all and (orientation landscape)
 		height 25%
-		flex 0 1 100%
 		& > h1
 			flex 0 1 80%
 			text-align center
@@ -30,9 +26,6 @@
 	{$flex-row-wrap}
 	justify-content space-around
 	align-self center
-	@media all and (orientation landscape)
-		flex 0 1 100%
-		justify-content space-around
 			
 	& > li
 		padding 2.5px
@@ -65,7 +58,7 @@
 
 .run-timer__timer-circle
 	flex 0 1 40%
-	max-width 80%
+	// max-width 80%
 	border 5px solid $white
 	border-radius 50%
 	@media all and (orientation landscape)
@@ -73,7 +66,7 @@
 		max-width 40%
 
 .run-timer__timer-data
-	flex 0 1 20%
+	flex 0 1 70%
 	// border 1px solid red
 	color $white
 	{$flex-row-wrap}
