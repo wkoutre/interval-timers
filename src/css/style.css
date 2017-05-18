@@ -574,10 +574,10 @@
   color: #dbcdc9;
 }
 .app-home {
-  height: 100%;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 97.5%;
           flex: 0 1 97.5%;
+  overflow-y: auto;
 }
 @media all and (orientation: landscape) {
   .app-home {
@@ -588,17 +588,6 @@
         flex-wrap: wrap;
     -ms-flex-pack: distribute;
         justify-content: space-around;
-  }
-}
-@media all and (orientation: portrait) {
-  .app-home {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
   }
 }
 .home__recent-timers,
@@ -617,11 +606,15 @@
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  width: 100%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 97.5%;
+          flex: 0 1 97.5%;
 }
 .home__recent-timers > h1,
 .home__favorite-timers > h1 {
-  width: 100%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 100%;
+          flex: 0 1 100%;
   text-align: center;
   margin: 15px !important;
 }

@@ -1,11 +1,9 @@
 .app-home
-	height 100%
 	flex 0 1 97.5%
+	overflow-y auto
 	@media all and (orientation landscape)
 		{$flex-row-wrap}
 		justify-content space-around
-	@media all and (orientation portrait)
-		{$flex-col}
 
 .home__recent-timers,
 .home__favorite-timers
@@ -13,9 +11,9 @@
 	{$flex-col}
 	align-items center
 	justify-content flex-start
-	width 100%
+	flex 0 1 97.5%
 	& > h1
-		width 100%
+		flex 0 1 100%
 		text-align center
 		margin 15px !important
 	// @media all and (orientation portrait)
