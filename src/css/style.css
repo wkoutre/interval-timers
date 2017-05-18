@@ -1637,7 +1637,7 @@
     line-height: 2rem !important;
   }
 }
-@media all and (max-width: 1024px) and (orientation: landscape) {
+@media all and (orientation: landscape) {
   html {
     font-size: 18px;
   }
@@ -1745,9 +1745,6 @@ label {
   font-family: Lato;
 }
 .react-root {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
