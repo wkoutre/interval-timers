@@ -574,6 +574,11 @@
   color: #dbcdc9;
 }
 .app-home {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 97.5%;
           flex: 0 1 97.5%;
@@ -581,11 +586,6 @@
 }
 @media all and (orientation: landscape) {
   .app-home {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
     -ms-flex-pack: distribute;
         justify-content: space-around;
   }
@@ -645,7 +645,6 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  overflow-y: auto;
   width: 97.5%;
 }
 .home__recent-timers-li,
@@ -836,10 +835,11 @@
   margin: 2vh;
 }
 .login-create-account__label {
-  -webkit-box-flex: 0.25;
-      -ms-flex: 0.25 1 20%;
-          flex: 0.25 1 20%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 30%;
+          flex: 0 1 30%;
   text-align: right;
+  margin-right: 5px;
   color: #dbcdc9;
   margin-bottom: 1.5vh !important;
 }
@@ -938,14 +938,10 @@
       -ms-flex-pack: center;
           justify-content: center;
   justify-content: center;
+  margin-bottom: 2vmin;
 }
 .profile-photo > img {
   border-radius: 5px;
-}
-@media all and (orientation: landscape) {
-  .profile-photo {
-    margin-bottom: 2vmin;
-  }
 }
 .profile-info {
   -webkit-box-flex: 0;
