@@ -218,9 +218,6 @@
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 .create-timer-heading {
   -ms-flex-item-align: center;
@@ -912,15 +909,6 @@
   bottom: 5px;
   font-size: 1.5rem;
   color: #b7402c;
-}
-.app-profile {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
 }
 .app-profile__edit,
 .app-profile__static {
@@ -1745,9 +1733,6 @@ label {
   font-family: Lato;
 }
 .react-root {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   height: 100vh;
 }
 .new-timer {
