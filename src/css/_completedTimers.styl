@@ -1,14 +1,15 @@
 .app-completed-timers
 	flex 0 1 97.5%
 	// height 100%
-	{$flex-col}
-	// justify-content center
+	// {$flex-col}
+	{$flex-row-wrap}
+	justify-content center
 	align-items center
 
 .completed-timers__completed-timers-heading
 	align-self center
 	text-align center
-	flex 0 1
+	flex 0 1 75%
 	margin 2vmin 0 !important
 
 .app-completed-timers__none-heading-div
@@ -28,7 +29,7 @@
 
 .completed-timers__div
 	{$flex-row-wrap}
-	width 100%
+	flex 0 1 100%
 	overflow-y auto
 	align-items center
 	justify-content center
