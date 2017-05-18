@@ -7,11 +7,6 @@ module.exports = {
 		'./src/index.js'
 	],
 	target: 'web',
-  output: {
-    path: __dirname + '/dist',
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
 	output: {
 		path: path.join(__dirname, 'public'),
 		filename: 'bundle.js',
@@ -19,7 +14,6 @@ module.exports = {
 	},
 
 	plugins: [
-		new webpack.optimize.DedupePlugin(),
 		new webpack.DefinePlugin({
 			'process.env': {
 				'NODE_ENV': JSON.stringify('production'),
