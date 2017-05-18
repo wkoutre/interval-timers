@@ -307,19 +307,6 @@ class RunTimer extends React.Component {
 
 			if (completedIntervals === 0) {
 				this.setState({ completedIntervals: completedIntervals + 1 })
-
-			// const can = document.getElementById('timer-circle');
-			// const canHeight = can.height;				
-			// const ctx = can.getContext('2d');
-
-			// ctx.fillStyle = colors.red
-			// ctx.fillRect(0,0,1000,canHeight)
-			// const canWidth = can.width;
-
-			// ctx.font="50px Times"
-			// ctx.textAlign="center"
-			// ctx.fillText("GO", canWidth/2, canHeight/2)
-
 			}
 
 			console.log('running Total Timer');
@@ -398,8 +385,7 @@ class RunTimer extends React.Component {
 		const w = window.innerWidth
 		const canvasW = (w/3) * this.pixelRatio();
 
-		console.log(`canvasW`, canvasW);
-		
+		// console.log(`canvasW`, canvasW);
 
 		const { completedIntervals, intervalMs, restMs, timeElapsed, totalTimer, active, timeRemaining } = this.state;
 		const { msToText } = timeFuncs;
@@ -421,7 +407,7 @@ class RunTimer extends React.Component {
 					width={canvasW}
 					className="run-timer__timer-circle"
 					id="timer-circle"
-					onClick={() => !this.state.running ? this.runTimer() : this.stopTimer()}
+					onClick={() => !this.state.running && completedIntervals !== this.props.numIntervals ? this.runTimer() : this.stopTimer()}
 				></canvas>
 				<div className="run-timer__timer-data">
 					<p className="run-timer__timer-data-label">Time Elapsed: {msToText(timeElapsed - 1000)}</p>
