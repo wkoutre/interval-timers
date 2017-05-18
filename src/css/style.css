@@ -1284,7 +1284,6 @@
       -ms-flex: 0 1 97.5%;
           flex: 0 1 97.5%;
   color: #dbcdc9;
-  overflow: hidden;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -1383,9 +1382,6 @@
   }
 }
 .saved-timers__ul {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 100%;
-          flex: 0 1 100%;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1645,6 +1641,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Open Sans';
+  overflow-scrolling: touch;
 }
 h1 {
   font-size: 2rem !important;
