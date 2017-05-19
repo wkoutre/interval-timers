@@ -39,27 +39,30 @@ export const checkLoginMiddleware = store => next => action => {
 
 export const syncingMiddleware = store => next => action => {
 
+	if (base.getAuth() !== null) {
+		const state = store.getState();
+		const id = state.app.user.details.uid;
+		const shouldUpdate = action.type === C.SET_INITIAL_STATE || state.app.loggedIn === true;
 
-	const state = store.getState();
-	const id = state.app.user.details.uid;
-	const loggedIn = action.type === C.SET_INITIAL_STATE || state.app.loggedIn === true;
 
-	// console.groupCollapsed('syncingMiddleware');
-	// 	console.log('state:', state);
-	// 	console.log('id:', id);
-	// 	console.log('loggedIn', loggedIn);
-	// console.groupEnd('syncingMiddleware');	
+		// console.groupCollapsed('syncingMiddleware');
+		// 	console.log('state:', state);
+		// 	console.log('id:', id);
+		// 	console.log('loggedIn', loggedIn);
+		// console.groupEnd('syncingMiddleware');	
 
-	const update = () => {
-		const stringified = JSON.stringify(store.getState());
-		base.database().ref(`users/${id}/store`).set(stringified)
-		localStorage.setItem('workout-timer-app', stringified);
-	};
+		const update = () => {
+			
+			const stringified = JSON.stringify(store.getState());
+			base.database().ref(`users/${id}/store`).set(stringified)
+			localStorage.setItem('workout-timer-app', stringified);
+		};
 
-	// to sync with the current state, and not one step behind!
-	if (loggedIn && action.type !== C.LOGOUT && id && id !== 'undefined') {
-		setTimeout(update, 0);
+		// to sync with the current state, and not one step behind!
+		if ((shouldUpdate && id && id !== 'undefined')) {
+			setTimeout(update, 0);
+		}	
 	}
-
+	
 	return next(action);
 }

@@ -119,7 +119,8 @@ export const setTotalTime = (ms) =>
 
 export const login = (uid) => {
 	localStorage.setItem("workout-timer-uid", uid);
-
+	console.log(`action: login`, uid);
+	
 	return ({
 		type: C.SET_LOGIN_UID,
 		payload: uid
@@ -145,9 +146,6 @@ export const setPhotoURL = url =>
 	})
 
 export const logout = () => {
-
-	localStorage.removeItem('workout-timer-uid');
-	localStorage.removeItem('workout-timer-app');
 
 	return ({
 		type: C.LOGOUT
@@ -223,9 +221,13 @@ export const setFavorite = ({index, timerObj}) => {
 	})
 }
 	
-
 export const removeFavorite = (timerName) =>
 	({
 		type: C.REMOVE_FAVORITE,
 		timerName
+	})
+
+export const checkUserStatus = () =>
+	({
+		type: C.CHECK_USER_STATUS
 	})

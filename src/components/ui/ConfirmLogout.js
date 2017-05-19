@@ -9,10 +9,13 @@ const ConfirmLogout = (props) => {
 			console.log('local logout');
 			console.log(base.getAuth());	
 		console.groupEnd('logout group');
-		
-		base.auth().signOut();
+
 		props.logout()
-		props.push('/')
+		setTimeout(base.unauth(), 1);
+		
+		localStorage.removeItem('workout-timer-uid');
+		localStorage.removeItem('workout-timer-app');
+		
 	}
 
 	return (

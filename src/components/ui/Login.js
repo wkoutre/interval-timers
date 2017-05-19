@@ -28,11 +28,12 @@ class Login extends React.Component {
 	}
 
 	authenticate = (provider) => {
-		provider === 'facebook' ?
-			base.authWithOAuthPopup(provider, this.authHandler, {
-				scope: "email, user_birthday, user_photos, user_location, publish_actions, public_profile"
-			}) :
-			base.authWithOAuthPopup(provider, this.authHandler);
+		// provider === 'facebook' ?
+		// 	base.authWithOAuthPopup(provider, this.authHandler, {
+		// 		scope: "email, user_birthday, user_photos, user_location, publish_actions, public_profile"
+		// 	}) :
+		// 	// base.authWithOAuthPopup(provider, this.authHandler);
+			base.authWithOAuthRedirect(provider, this.authHandler);
 	}
 
 	toggleCreateAccount = (bool=false) => {
@@ -79,7 +80,7 @@ class Login extends React.Component {
 				.then(data => {
 					console.log(`data`, data);
 					const { uid } = data;
-					this.props.login(uid);
+					// this.props.login(uid);
 					this.props.push('/home');
 				})
 				.catch(error => {
@@ -130,6 +131,8 @@ class Login extends React.Component {
 	// }
 
 	authHandler = (err, authData) => {
+		console.log(`I am the authHandler`);
+		
 		if (err) {
 			if (err.code == "auth/account-exists-with-different-credential") {
 				errorProvider = err.credential.providerId;
@@ -182,7 +185,8 @@ class Login extends React.Component {
 				console.log("Preexisting user signing");
 				this.localSetInitialState(uid, data[uid]);
 			}
-			login(uid);
+			// login(uid);
+			
 			this.props.push('/home');
 		});
 	}

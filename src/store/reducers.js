@@ -243,7 +243,7 @@ const loggedIn = (state=false, action) => {
 const uid = (state="", action) => {
 	switch (action.type) {
 		case C.SET_LOGIN_UID:
-			return action.payload;
+			return action.payload || state;
 		case C.LOGOUT:
 			return "";
 		case C.SET_INITIAL_STATE:

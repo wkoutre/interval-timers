@@ -31,7 +31,9 @@ class Profile extends React.Component {
 		this.setState({ edit })
 	}
 
-	saveProfile = () => {
+	saveProfile = (e) => {
+		e.preventDefault();
+
 		const { fullName, email, birthday, loc: location, weight, visibility } = this.state;
 
 		const infoObj = {
@@ -127,7 +129,7 @@ class Profile extends React.Component {
 				<div className="profile-photo">
 					<img src={this.props.photoURL} alt={`${this.props.fullname} profile picture`}/>
 				</div>
-				<form onSubmit={() => this.saveProfile()} className="profile-info-form">
+				<form onSubmit={(e) => this.saveProfile(e)} className="profile-info-form">
 					<div className="profile-edit__section">
 						<ProfileLabel required={true} name="fullName" text="Full Name:" />
 						<ProfileInput value={!this.state.fullName && this.state.touched.fullName === false ? this.props.fullName : this.state.fullName} name="fullName" type="text" handleChange={this.handleChange} />
@@ -152,7 +154,7 @@ class Profile extends React.Component {
 						<ProfileLabel name="visibility" text="Public Profile:" />
 						{toggle}
 					</div>
-					<button disabled={!this.canSubmit()} className="profile-save-button" type="submit" onClick={() => this.saveProfile()}>SAVE</button>
+					<button disabled={!this.canSubmit()} className="profile-save-button" type="submit" onClick={(e) => this.saveProfile(e)}>SAVE</button>
 				</form>
 			</div>
 		)

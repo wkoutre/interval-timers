@@ -18,6 +18,60 @@ import CompletedTimers from './components/containers/ConCompletedTimers'
 import SavedTimers from './components/containers/ConSavedTimers'
 
 class App extends React.Component {
+
+	getUserStatus = () => {
+	  this.props.checkUserStatus();
+	  return new Promise( (resolve, reject) => {
+	    base.auth().onAuthStateChanged( (user) => {
+	      if (user) {
+	        const userRef = base.database().ref('users');
+	        userRef.once('value', snapshot => {
+	        	const auth = base.getAuth();
+	        	const database = snapshot.val();
+	        	const { uid } = auth;
+
+	        	if (!database[uid]) {
+	        		const uidRef = base.database().ref(`users/${uid}`);
+	        		const { displayName, email, photoURL } = user;
+
+							this.props.setFullName(displayName)
+							this.props.setEmail(email)
+							console.log('New user: remember to resize the photo from the photoURL');
+							this.props.setPhotoURL(photoURL)
+
+							uidRef.set({
+								userInfo: {
+									displayName,
+									email,
+									uid
+								}
+							})
+
+							this.props.login(uid);
+	        	} else {
+		        	const parsedStore = JSON.parse(database[uid].store);
+		        	// console.log(`parsedStore`, parsedStore);
+		      		this.props.setInitialState(parsedStore);
+							this.props.login(uid);  	
+		        }
+	        })
+	      } else {
+	      	reject(Error('Duplicate user'))
+	      }
+	    });
+	  });
+	};
+
+	componentWillMount() {
+		if (!localStorage['workout-timer-uid']) {
+			this.getUserStatus()
+				.catch(err => this.props.push('/error'))
+		}
+	}
+
+	componentWillUpdate() {
+		console.log(`App is updating`);
+	}
 	// componentWillMount() {
 	// 	console.log('Router', Router);
 		
@@ -46,14 +100,14 @@ class App extends React.Component {
 	}
 
 	render() {
-		
-	const { loggedIn } = this.props;
+
 		return (
 				<ConnectedRouter history={history}>
-				{!loggedIn ?
+				{!this.props.loggedIn ?
 					<Switch>
 						<Route path="/error" component={ErrorPage} />
 						<Route exact path="/" component={this.LocalLogin} />
+						<Redirect from="/*" to="/"/>
 					</Switch>
 					 :
 					<div className="react-root">

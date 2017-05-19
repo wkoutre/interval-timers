@@ -121,8 +121,7 @@ class Home extends React.Component {
 		this.setState({ recents })		
 	}
 	
-	render() {
-
+	render() {		
 		// lastThree = lastThree.map(this.listInfo);
 		const lastThree = this.state.lastThree.map(this.recentTimers);
 
