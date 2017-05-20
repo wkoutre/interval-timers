@@ -28,13 +28,16 @@ class Login extends React.Component {
 	}
 
 	authenticate = (provider) => {
-		// provider === 'facebook' ?
-		// 	base.authWithOAuthPopup(provider, this.authHandler, {
-		// 		scope: "email, user_birthday, user_photos, user_location, publish_actions, public_profile"
-		// 	}) :
-		// 	// base.authWithOAuthPopup(provider, this.authHandler);
-			localStorage['workout-timer-login']  = true;
-			base.authWithOAuthRedirect(provider, this.authHandler);
+		provider === 'facebook' ?
+			base.authWithOAuthPopup(provider, this.authHandler, {
+				scope: "email, user_birthday, user_photos, user_location, publish_actions, public_profile"
+			}) :
+			// base.authWithOAuthPopup(provider, this.authHandler);
+
+			// THIS IS FOR REDIRECT LOGIN, RATHER THAN POPUP
+			// localStorage['workout-timer-login']  = true;
+			
+			base.authWithOAuthPopup(provider, this.authHandler);
 	}
 
 	toggleCreateAccount = (bool=false) => {

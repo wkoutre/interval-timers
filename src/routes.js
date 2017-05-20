@@ -19,63 +19,67 @@ import SavedTimers from './components/containers/ConSavedTimers'
 
 class App extends React.Component {
 
-	getUserStatus = () => {
-	  this.props.checkUserStatus();
-	  localStorage.removeItem('workout-timer-login');
-	  return new Promise( (resolve, reject) => {
-	    base.auth().onAuthStateChanged( (user, error, completed) => {
-	      if (user) {
-	        const userRef = base.database().ref('users');
-	        userRef.once('value', snapshot => {
-	        	const auth = base.getAuth();
-	        	const database = snapshot.val();
-	        	const { uid } = auth;
 
-	        	if (!database[uid]) {
-	        		const uidRef = base.database().ref(`users/${uid}`);
-	        		const { displayName, email, photoURL } = user;
+	// THIS IS FOR REDIRECT LOGIN, RATHER THAN POPUP
+	
+	// getUserStatus = () => {
+	//   this.props.checkUserStatus();
+	//   localStorage.removeItem('workout-timer-login');
+	//   return new Promise( (resolve, reject) => {
+	//     base.auth().onAuthStateChanged( (user, error, completed) => {
+	//       if (user) {
+	//         const userRef = base.database().ref('users');
+	//         userRef.once('value', snapshot => {
+	//         	const auth = base.getAuth();
+	//         	const database = snapshot.val();
+	//         	const { uid } = auth;
 
-							this.props.setFullName(displayName)
-							this.props.setEmail(email)
-							console.log('New user: remember to resize the photo from the photoURL');
-							this.props.setPhotoURL(photoURL)
+	//         	if (!database[uid]) {
+	//         		const uidRef = base.database().ref(`users/${uid}`);
+	//         		const { displayName, email, photoURL } = user;
 
-							uidRef.set({
-								userInfo: {
-									displayName,
-									email,
-									uid
-								}
-							})
+	// 						this.props.setFullName(displayName)
+	// 						this.props.setEmail(email)
+	// 						console.log('New user: remember to resize the photo from the photoURL');
+	// 						this.props.setPhotoURL(photoURL)
 
-							this.props.login(uid);
-	        	} else {
-		        	const parsedStore = JSON.parse(database[uid].store);
-		        	// console.log(`parsedStore`, parsedStore);
-		      		this.props.setInitialState(parsedStore);
-							this.props.login(uid);  	
-		        }
-	        })
-	      } else if (completed) {
-	      	console.log(`completed`, completed);
-	      } else {
-	      	console.log(`error`, error);
-	      	reject(error)
-	      }
-	    });
-	  });
-	};
+	// 						uidRef.set({
+	// 							userInfo: {
+	// 								displayName,
+	// 								email,
+	// 								uid
+	// 							}
+	// 						})
 
-	componentWillMount() {
-		if (localStorage['workout-timer-login']) {
-			this.getUserStatus()
-				.catch(err => this.props.push('/error'))
-		}
-	}
+	// 						this.props.login(uid);
+	//         	} else {
+	// 	        	const parsedStore = JSON.parse(database[uid].store);
+	// 	        	// console.log(`parsedStore`, parsedStore);
+	// 	      		this.props.setInitialState(parsedStore);
+	// 						this.props.login(uid);  	
+	// 	        }
+	//         })
+	//       } else if (completed) {
+	//       	console.log(`completed`, completed);
+	//       } else {
+	//       	console.log(`error`, error);
+	//       	reject(error)
+	//       }
+	//     });
+	//   });
+	// };
 
-	componentWillUpdate() {
-		console.log(`App is updating`);
-	}
+
+	// THIS IS FOR REDIRECT LOGIN, RATHER THAN POPUP
+
+	// componentWillMount() {
+	// 	if (localStorage['workout-timer-login']) {
+	// 		this.getUserStatus()
+	// 			.catch(err => this.props.push('/error'))
+	// 	}
+	// }
+
+	
 	// componentWillMount() {
 	// 	console.log('Router', Router);
 		
