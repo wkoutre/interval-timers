@@ -40,6 +40,7 @@ export const checkLoginMiddleware = store => next => action => {
 export const syncingMiddleware = store => next => action => {
 
 	if (base.getAuth() !== null) {
+		
 		const state = store.getState();
 		const id = state.app.user.details.uid;
 		const shouldUpdate = action.type === C.SET_INITIAL_STATE || state.app.loggedIn === true;
@@ -52,7 +53,8 @@ export const syncingMiddleware = store => next => action => {
 		// console.groupEnd('syncingMiddleware');	
 
 		const update = () => {
-			
+			console.log(`middleware!`);
+									
 			const stringified = JSON.stringify(store.getState());
 			base.database().ref(`users/${id}/store`).set(stringified)
 			localStorage.setItem('workout-timer-app', stringified);

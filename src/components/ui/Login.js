@@ -84,7 +84,7 @@ class Login extends React.Component {
 				.then(data => {
 					console.log(`data`, data);
 					const { uid } = data;
-					// this.props.login(uid);
+					this.props.login(uid);
 					this.props.push('/home');
 				})
 				.catch(error => {
@@ -189,7 +189,7 @@ class Login extends React.Component {
 				console.log("Preexisting user signing");
 				this.localSetInitialState(uid, data[uid]);
 			}
-			// login(uid);
+			login(uid);
 			
 			this.props.push('/home');
 		});
