@@ -51,4 +51,4 @@ Live Version Available [on Heroku](https://workout-interval-timer.herokuapp.com)
 * The more timers completed, the darker the box.
 * OR... color-coded boxes depending on which timer(s) were completed that day
 
-#### Bugs, Questions, Comments? All Welcome :) 
+#### Bugs, Questions, Comments? All Welcome. 
