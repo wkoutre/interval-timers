@@ -21,8 +21,9 @@ class App extends React.Component {
 
 	getUserStatus = () => {
 	  this.props.checkUserStatus();
+	  localStorage.removeItem('workout-timer-login');
 	  return new Promise( (resolve, reject) => {
-	    base.auth().onAuthStateChanged( (user) => {
+	    base.auth().onAuthStateChanged( (user, error, completed) => {
 	      if (user) {
 	        const userRef = base.database().ref('users');
 	        userRef.once('value', snapshot => {
@@ -55,15 +56,18 @@ class App extends React.Component {
 							this.props.login(uid);  	
 		        }
 	        })
+	      } else if (completed) {
+	      	console.log(`completed`, completed);
 	      } else {
-	      	reject(Error('Duplicate user'))
+	      	console.log(`error`, error);
+	      	reject(error)
 	      }
 	    });
 	  });
 	};
 
 	componentWillMount() {
-		if (!localStorage['workout-timer-uid']) {
+		if (localStorage['workout-timer-login']) {
 			this.getUserStatus()
 				.catch(err => this.props.push('/error'))
 		}

@@ -33,6 +33,7 @@ class Login extends React.Component {
 		// 		scope: "email, user_birthday, user_photos, user_location, publish_actions, public_profile"
 		// 	}) :
 		// 	// base.authWithOAuthPopup(provider, this.authHandler);
+			localStorage['workout-timer-login']  = true;
 			base.authWithOAuthRedirect(provider, this.authHandler);
 	}
 
