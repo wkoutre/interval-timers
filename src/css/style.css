@@ -644,7 +644,6 @@
 }
 .home__recent-timers-ul,
 .home__favorite-timers-ul {
-  position: relative;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -666,6 +665,7 @@
 }
 .home__recent-timers-li,
 .home__favorite-timers-li {
+  position: relative;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 100%;
           flex: 0 1 100%;
@@ -722,9 +722,9 @@
   padding: 1px;
   background-color: transparent;
   position: absolute;
-  right: 5px;
-  bottom: 5px;
-  font-size: 1.5rem;
+  right: 0;
+  bottom: 0;
+  font-size: 2rem;
   color: #b7402c;
 }
 .home__recent-timers-info-totalTime {
@@ -917,10 +917,10 @@
   padding: 1px;
   background-color: transparent;
   position: absolute;
-  right: 5px;
-  bottom: 2.5px;
+  right: 0;
+  bottom: 0;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: #b7402c;
 }
 .app-profile {
@@ -1354,6 +1354,7 @@
 }
 @media all and (orientation: landscape) {
   .saved-timers__search {
+    height: 4vmax !important;
     -webkit-box-flex: 0;
         -ms-flex: 0 1 20%;
             flex: 0 1 20%;
@@ -1506,9 +1507,9 @@
   padding: 1px;
   background-color: transparent;
   position: absolute;
-  right: 5px;
-  bottom: 5px;
-  font-size: 1.5rem;
+  right: 0;
+  bottom: 0;
+  font-size: 2rem;
   color: #b7402c;
 }
 .saved-timers__info-totalTime {

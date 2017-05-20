@@ -53,7 +53,6 @@ export const syncingMiddleware = store => next => action => {
 		// console.groupEnd('syncingMiddleware');	
 
 		const update = () => {
-			console.log(`middleware!`);
 									
 			const stringified = JSON.stringify(store.getState());
 			base.database().ref(`users/${id}/store`).set(stringified)

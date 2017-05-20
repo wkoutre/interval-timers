@@ -158,7 +158,7 @@ class RunTimer extends React.Component {
 			align: "center",
 			canWidth: canWidth,
 			canHeight: canHeight+(canHeight/10)
-		}), 1);
+		}), 100);
 
 		const date = new Date();
 		const weekDay = date.getDay();
@@ -236,7 +236,13 @@ class RunTimer extends React.Component {
 
 		this.setState({ intervalMs })
 
-		if ( intervalMs <= 0 ) {
+		// console.log(`intervalMs`, intervalMs);
+		// console.log(`completedIntervals`, completedIntervals);
+		
+		
+		if (this.timerIsComplete()) {
+			this.timerDoneTrigger();
+		} else if ( intervalMs <= 0 ) {
 			this.state.totalTimer.ms > 0 && console.log("changing interval");
 			
 			this.setState({
@@ -245,6 +251,13 @@ class RunTimer extends React.Component {
 			})
 			ctx.clearRect(0,0,1000,canHeight)
 		}
+	}
+
+	timerIsComplete = () => {
+		const { completedIntervals, intervalMs } = this.state;
+		const { numIntervals } = this.props;
+
+		return (completedIntervals === numIntervals && intervalMs === 0);
 	}
 
 	changeRest = () => {
@@ -311,7 +324,6 @@ class RunTimer extends React.Component {
 
 			console.log('running Total Timer');
 
-			this.state.totalTimer.onDone(this.timerDoneTrigger)
 			this.state.totalTimer.start()
 
 			const totalId = setInterval( () => {
@@ -407,10 +419,10 @@ class RunTimer extends React.Component {
 					
 					className="run-timer__timer-circle"
 					id="timer-circle"
-					onClick={() => !this.state.running && completedIntervals !== this.props.numIntervals ? this.runTimer() : this.stopTimer()}
+					onClick={() => !this.state.running && this.state.totalTimer.ms > 0 ? this.runTimer() : this.stopTimer()}
 				></canvas>
 				<div className="run-timer__timer-data">
-					<p className="run-timer__timer-data-label">Time Elapsed: {msToText(timeElapsed - 1000)}</p>
+					<p className="run-timer__timer-data-label">Time Elapsed: {msToText(timeElapsed - 400)}</p>
 					<p className="run-timer__timer-data-label">Time Remaining: {msToText(this.state.timeRemaining)}</p>
 					<button className="run-timer__button run-timer__reset" onClick={() => this.resetTimers()}>Reset</button>
 				</div>
