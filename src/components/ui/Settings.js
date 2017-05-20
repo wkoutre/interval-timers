@@ -5,13 +5,9 @@ import { camelCaseToWords } from '../../helpers/stringHelpers'
 
 export const Settings = (props) => {
 	const { setDefaultRestTime, setDefaultIntervalTime, setDefaultRestIncrement, setDefaultNumIntervals, defaultRestTime, defaultIntervalTime, defaultNumIntervals, defaultRestIncrement } = props;
-
 	const settings = [['Rest Time', 'seconds'], ['Interval Time', 'minutes'], 'Number of Intervals', ['Rest Increment', 'seconds'], 'Interval End Sound', 'Rest End Sound', 'Timer Complete Sound'];
-
 	const settingValues = [ defaultRestTime, defaultIntervalTime, defaultNumIntervals, defaultRestIncrement ]
-
 	const setters = [ setDefaultRestTime, setDefaultIntervalTime, setDefaultNumIntervals, setDefaultRestIncrement ];
-
 	const settingChangers = settings.map( (setName, i) => {
 		// change this once the sound features are implementedDefault
 

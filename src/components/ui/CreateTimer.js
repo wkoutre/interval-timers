@@ -116,6 +116,7 @@ class CreateTimer extends React.Component {
 		const explanation = (
 			<div className="rest-increment-explanation-overlay">
 				<div className="rest-increment-explanation">
+					<h2>Rest Increment</h2>
 					<p className="rest-increment-explanation-text">After each interval, the amount of seconds entered here will be added to the rest time.</p>
 					<div className="rest-increment-explanation-example">
 						<h2>Example</h2>
@@ -127,7 +128,7 @@ class CreateTimer extends React.Component {
 							</ul>
 						</span>
 					</div>
-					<span className="close-explanation" onClick={() => this.toggleExplanation()}>x</span>
+					<span className="close-explanation" onClick={() => this.toggleExplanation()}>CLOSE</span>
 				</div>
 			</div>
 		)

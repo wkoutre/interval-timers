@@ -15,6 +15,7 @@ class Home extends React.Component {
 		}
 	}
 
+	// I only want to ever show, at most, the 3 (unique) most recently used timers
 	componentDidMount() {
 		let lastThree = [],
 			names = [];
@@ -26,7 +27,6 @@ class Home extends React.Component {
 				lastThree.push(completedTimers[i]);
 				names.push(completedTimers[i].timerName)
 			}
-			
 			if (lastThree.length >= 3)
 				break;
 		}
@@ -37,6 +37,8 @@ class Home extends React.Component {
 
 		this.setState({ lastThree, recents })
 	}
+
+	// sets the timer to be used in the RunTimer component
 
 	localChooseTimer = ({ numIntervals, intervalTime, restTime, timerName, restIncrement }) => {
 		
@@ -60,8 +62,8 @@ class Home extends React.Component {
 			totalTime
 		}
 
-		this.props.push('run-timer')
 		this.props.chooseTimer(obj);
+		this.props.push('run-timer')
 	}
 	
 	listInfo = (timer, i) => {
@@ -87,6 +89,7 @@ class Home extends React.Component {
 	recentTimers = (timer, i) => {
 		const { timers } = this.props;
 		
+		// if info if clicked...
 		if (this.state.recents[i]) {
 			return this.listInfo(timer, i);
 		} else {
@@ -95,12 +98,13 @@ class Home extends React.Component {
 					<span className="home__recent-timers-timer-name">{timer.timerName}</span>
 					<span
 						onClick={() => this.showInfo(i)}
-						className="home__recent-timers-info-button">info
+						className="home__recent-timers-info-button">
+							info
 					</span>
 					<span
 						onClick={() => this.localChooseTimer(timers[i])}
 						className="home__recent-timers-start-button">
-						start
+							start
 					</span>
 				</li>
 			)	
@@ -124,7 +128,6 @@ class Home extends React.Component {
 	render() {		
 		// lastThree = lastThree.map(this.listInfo);
 		const lastThree = this.state.lastThree.map(this.recentTimers);
-
 		const favoriteTimers = this.props.favorites.map( (timerObj, i) => {
 			const { timers } = this.props;
 
@@ -179,24 +182,3 @@ class Home extends React.Component {
 }
 
 export default Home;
-
-// 	const storage = base.storage();
-// 	const ref = storage.ref()
-// 	const message = "Bahahahaha";
-
-// 	const handleFileUpload = (file) => {
-// 	  console.log(file.target);
-	  
-	  
-// 	  this.props.actions.uploadRequest({
-// 	     file,
-// 	     name: 'Awesome Cat Pic'
-// 	  })
-// }
-	
-
-	// ref.child('strings/secondString').putString(message).then((snapshot) => {
- //  	console.log('Uploaded a raw string!');
-	// });
-
-	// object: key = date, 

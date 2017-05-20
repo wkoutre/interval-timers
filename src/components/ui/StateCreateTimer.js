@@ -92,7 +92,7 @@ class CreateTimer extends React.Component {
 		const totalMins = Math.floor(total/1);
 		const totalSeconds = ((total - totalMins) * 60).toFixed(0);
 		
-		return `${totalMins} ${this.minuteCalc(totalMins)}, ${totalSeconds} ${this.secondCalc(totalSeconds)}`;
+		return `${totalMins} ${this.minuteText(totalMins)}, ${totalSeconds} ${this.secondText(totalSeconds)}`;
 	}
 
 	// resets State to blanks
@@ -106,13 +106,10 @@ class CreateTimer extends React.Component {
 	}
 
 	localSaveTimer = (e) => {
-	
 		e.preventDefault();
 
 		const { saveTimer, clearTimerForm, timerName, numIntervals, intervalTime, restTime, restIncrement } = this.props;
-
 		const totalTime = timeFuncs.calcTotalTime(numIntervals, intervalTime, restIncrement, restTime);
-
 		const timerObj = {
 			timerName,
 			numIntervals,
@@ -126,33 +123,16 @@ class CreateTimer extends React.Component {
 		this.resetState();
 	}
 
-	minuteCalc = (val) => {
+	minuteText = (val) => {
 		return val == 1 ? "minute" : "minutes"
 	}
 
-	secondCalc = (val) => {
-		return val == 1 ? "second" : "seconds"
-	}
+	secondText = (val) => val == 1 ? "second" : "seconds"
 
-	interval = () => {
-		return this.props.numIntervals == 1 ? " interval" : " intervals";
-	}
-
-	minutes = () => {
-		return this.props.intervalTime != 1 ? " minutes" : " minute";
-	}
-
-	restSeconds = () => {
-		return this.props.restTime != 1 ? " seconds" : " second";
-	}
-
-	restIncrementCalc = () => {
-		return this.props.restIncrement !== 1 ? " seconds" : " second";
-	}
+	intervalText = () => this.props.numIntervals == 1 ? " interval" : " intervals"
 
 	canSubmit = () => {
 		const { intervalTime, numIntervals, timerName } = this.state;
-
 		const { timers } = this.props;
 
 		return (
@@ -188,7 +168,7 @@ class CreateTimer extends React.Component {
 								placeholder="number of intervals"
 								value={this.state.numIntervals}
 								onChange={(e) => this.handleChange(e)}/>
-					<span>&nbsp;{this.interval()}</span>
+					<span>&nbsp;{this.intervalText()}</span>
 					<label htmlFor="intervalTime" className="form-label">Interval Time:*</label>
 					<input
 								required type="number"
@@ -196,7 +176,7 @@ class CreateTimer extends React.Component {
 								placeholder="interval time"
 								value={this.state.intervalTime}
 								onChange={(e) => this.handleChange(e)}/>
-					<span>&nbsp;{this.minutes()}</span>
+					<span>&nbsp;{this.minuteText(intervalTime)}</span>
 					<label htmlFor="restTime" className="form-label">Rest Time:</label>
 					<input
 								required type="number"
@@ -204,7 +184,7 @@ class CreateTimer extends React.Component {
 								placeholder="rest time"
 								value={this.state.restTime}
 								onChange={(e) => this.handleChange(e)}/>
-					<span>&nbsp;{this.restSeconds()}</span>
+					<span>&nbsp;{this.secondText(restTime)}</span>
 					<label htmlFor="restIncrement" className="form-label">Rest Increment Per Set:</label>
 					<input type="number"
 								placeholder="rest increment per set"
@@ -212,7 +192,7 @@ class CreateTimer extends React.Component {
 								value={!this.state.restIncrement ? "" : this.state.restIncrement}
 								onChange={(e) => this.handleChange(e)}
 								/>
-				<span>&nbsp;{this.restIncrementCalc()}</span>
+				<span>&nbsp;{this.secondText(restIncrement)}</span>
 				<button
 					type="submit"
 					className="save-timer"

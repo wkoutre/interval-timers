@@ -28,8 +28,7 @@ class SavedTimers extends React.Component {
 		const totalIntervalTime = timeFuncs.minToMs((numIntervals * intervalTime));
 		const totalRestIncrementTime = timeFuncs.secToMs(timeFuncs.addedIncrementTime(restIncrement, numIntervals-1));
 		const totalRestTime = timeFuncs.secToMs(restTime) * (numIntervals);
-
-		// in ms
+		// totalTime is in ms
 		const totalTime = totalIntervalTime + totalRestIncrementTime + totalRestTime;
 
 		intervalTime = timeFuncs.minToMs(intervalTime);
@@ -50,7 +49,6 @@ class SavedTimers extends React.Component {
 	}
 
 	handleFavorite = (e, timerObj, index) => {
-
 		if (e.target.style.color !== 'gold') {
 			e.target.style.color = "gold"
 			this.props.setFavorite({index, timerObj});	
@@ -74,13 +72,14 @@ class SavedTimers extends React.Component {
 		this.setState({ timers })		
 	}
 
+	// taking timers that don't match search text out of the display; otherwise, their display value returns to being a flexbox
+
 	handleSearch = (e) => {
 		e.preventDefault();
 
 		const val = e.target.value;
 		const timerLis = document.getElementsByClassName('saved-timers__li');
 
-		// timerLis.forEach(li => console.log(li.value));
 		for (let i = 0; i < timerLis.length; i++) {
 			const li = timerLis[i];
 			const timerName = stringFuncs.wordToLowerCase(timerLis[i].firstChild.innerHTML);
@@ -112,7 +111,6 @@ class SavedTimers extends React.Component {
 				</li>
 				)
 			} else {
-				
 				return (
 				<li className="saved-timers__li" key={i} id={i}>
 					<span className="saved-timers__timer-name">{obj.timerName}
@@ -120,7 +118,6 @@ class SavedTimers extends React.Component {
 						<span onClick={(e) => this.handleFavorite(e, timers[i], i)} className="saved-timers__fav-button"
 							style={this.state.favoriteNames.indexOf(obj.timerName) > -1 ? {"color": "gold"} : {"color": "white"} }>&#9733;</span>
 					</span>
-					
 					<div className="saved-timers__buttons">
 						<span
 						onClick={() => this.localEditTimer(timers[i])}
@@ -141,8 +138,6 @@ class SavedTimers extends React.Component {
 			)
 		}
 	});
-
-
 
 	return (
 		<div className="app-saved-timers">
@@ -166,7 +161,7 @@ class SavedTimers extends React.Component {
 						timerNames :
 						<div className="saved-timers__no-timers">
 							<h1>No Timers</h1>
-							<Link to=""></Link>
+							<Link to="create-timer">Create something</Link>
 						</div>
 					}
 			</ul>
@@ -176,10 +171,3 @@ class SavedTimers extends React.Component {
 }
 
 export default SavedTimers;
-
-// <Link
-// 	to="/run-timer"
-// 	onClick={() => this.props.ChooseTimer(timers[i])}
-// 	className="saved-timers__start-timer saved-timers__option">
-// 	start
-// </Link>

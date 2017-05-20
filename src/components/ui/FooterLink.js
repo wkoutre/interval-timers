@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 import * as colors from '../../css/colors'
 
+// This is my own version of "activeClassName" for the react-redux-router being used in this project
+
 const HeaderLink = (props) => {
 	let customClass = props.classname;
 

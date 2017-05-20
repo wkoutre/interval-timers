@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 const CompletedTimers = (props) => {
 	const { completedTimers } = props;
-
 	const timerList = completedTimers.map( (timerObj, i) => {
 		const { timerName, ms, dateString } = timerObj
 
@@ -34,14 +33,3 @@ const CompletedTimers = (props) => {
 }
 
 export default CompletedTimers;
-
-			// <div 
-			// 	className="completed-timers__timer-div"
-			// 	key={`i-${key}`}>
-			// 	<ul className="completed-timers__timer-ul">
-			// 		<li className="completed-timers__timer-name completed-timers__timer-li">{timerName}</li>
-			// 		<li className="completed-timers__timer-date completed-timers__timer-li">{date}</li>
-			// 		<button className="completed-timers__remove-button" onClick={() => props.removeCompletedTimer(key)}>remove</button>
-			// 	</ul>
-			// </div>
-			// )

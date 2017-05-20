@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import base from '../Base'
-import HeaderLink from '../containers/ConHeaderLink'
 import ConfirmLogout from '../containers/ConConfirmLogout'
 
 class Header extends React.Component {
@@ -12,9 +11,9 @@ class Header extends React.Component {
 		}
 	}
 
+	// to bring up the overlay logout confirmation prompt
 	localLogOut = () => {
 		const isLoggingOut = true;
-
 		this.setState({ isLoggingOut });
 	}
 

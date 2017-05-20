@@ -2,7 +2,7 @@
 	flex 0 1 97.5%
 	{$flex-col}
 	overflow-y auto
-	height 95%
+	height 100%
 	align-items center
 	justify-content space-around
 
@@ -42,7 +42,6 @@
 
 .create-timer-form-section
 	flex 0 1 100%
-	margin 5px
 	{$flex-row-wrap}
 	justify-content space-around
 	align-items center
@@ -70,10 +69,11 @@
 
 .total-time-span
 	flex 0 1 50%
-	font-size 1rem
+	font-size 1.25rem
 	color $pink
 	
 .rest-increment-explanation-overlay
+	overflow-y auto !important
 	position fixed
 	top 0
 	left 0
@@ -81,15 +81,16 @@
 	z-index 1000
 	width 100vw
 	background-color rgba(112, 112, 112, 0.8)
+	{$flex-center-everything}
 
 .rest-increment-explanation
-	position fixed
-	left 10%
-	right 10%
-	top 15vh
-	padding 15px
+	overflow-y auto
+	padding 5px
+	flex 0 1 80%
+	max-height 65%		
+	position relative
 	// height 20vmax
-	margin 0 auto
+	// margin 0 auto
 	background-color $black2
 	border 3px solid $red
 	{$flex-row-wrap}
@@ -97,6 +98,10 @@
 	justify-content center
 	z-index 1001
 	opacity 1 !important
+	& h2
+		flex 0 1 100%
+		text-align center
+		margin-bottom 10px
 	& > *
 		flex 0 1 95%
 		{$flex-row-wrap}
@@ -104,19 +109,12 @@
 		text-align left
 		
 .rest-increment-explanation-example
-	{$flex-row-wrap}
-	align-items center
-	justify-content cebnter
-	& > h2
-		flex 0 1 100%
-		text-align center
-		margin-bottom 5px
-	// & > ul
-	// 	padding 0
-	// 	margin 0
+	{$flex-center-everything}
 	
 .close-explanation
 	flex 0 1 20%
 	padding 2.5px
-	border 1px solid $white !important
+	margin 5px 0
+	border 1px solid $red !important
+	color $red
 	text-align center !important

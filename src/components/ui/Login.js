@@ -32,12 +32,10 @@ class Login extends React.Component {
 			base.authWithOAuthPopup(provider, this.authHandler, {
 				scope: "email, user_birthday, user_photos, user_location, publish_actions, public_profile"
 			}) :
-			// base.authWithOAuthPopup(provider, this.authHandler);
+			base.authWithOAuthPopup(provider, this.authHandler);
 
 			// THIS IS FOR REDIRECT LOGIN, RATHER THAN POPUP
 			// localStorage['workout-timer-login']  = true;
-			
-			base.authWithOAuthPopup(provider, this.authHandler);
 	}
 
 	toggleCreateAccount = (bool=false) => {
@@ -74,12 +72,6 @@ class Login extends React.Component {
 
 		if (this.state.manualAccount) {
 
-			console.group('NEW USER');
-				console.log(`Name: ${userName}`);
-				console.log(`Email: ${userEmail}`);
-				console.log(`Password: ${this.state.userPassword}`);
-			console.groupEnd('NEW USER');
-
 			base.auth().createUserWithEmailAndPassword(this.state.userEmail, this.state.userPassword)
 				.then(data => {
 					console.log(`data`, data);
@@ -110,30 +102,13 @@ class Login extends React.Component {
 				  var errorMessage = error.message;
 				  console.log(errorCode, errorMessage);
 				  if (errorCode === 'auth/wrong-password') {
-				  	// const passwordInput = document.getElementById("login-existing-password");
-				  	// passwordInput.setAttribute('border', `1px solid ${colors.red}`)
 				  	alert('Wrong password, please try again.')
 				  }
 				});
 			}
 		}
 
-	// blinkInputBorder = (el) => {
-
-	// 						console.log(`el`, el);
-							
-	// 	const color = el.style.color;
-
-	// 	const blinking = setInterval( () => {
-	// 		if (color !== colors.red)
-	// 			el.setAttribute('border', '1px solid white');
-	// 		else
-	// 			`1px solid ${colors.red}`;
-	// 	}, 200)
-
-	// 	setTimeout(blinking, 1000);
-	// }
-
+	// authData: data returned from FB/Google API from FB/Google authentication
 	authHandler = (err, authData) => {
 		console.log(`I am the authHandler`);
 		
@@ -147,36 +122,33 @@ class Login extends React.Component {
 			return ;
 		}
 
-		const userRef = base.database().ref('users'); // to use FireBase API at"users" key on the database Tree
-	
+		// to use FireBase API at"users" key on the database Tree
+		const userRef = base.database().ref('users');
 
+		// gets a 'snapshot' of the 'users' key in the DB
+		// in my case, the values at the 'users' key are the UIDs associated with users' login tokens
 		userRef.once('value', snapshot => {
 			const { login } = this.props;
 			const data = snapshot.val() || {};
+			const { uid, displayName, email, photoURL } = authData.user;
 			
 			// 'data' is initially an empty object; then it's the userRef object once user has signed up for an account once
 
-			// authData: data returned from FB/Google API from FB/Google authentication
-
-			const { uid, displayName, email, photoURL } = authData.user;
-
-			// const { accessToken } = authData.credential;
-
-			console.groupCollapsed('login stuff')
-				console.log('snapshot.val()', data);
-				console.log('data[uid]', data[uid]);
-				console.log('authData', authData);
-			console.groupEnd('login stuff')
+			// console.groupCollapsed('login stuff')
+			// 	console.log('snapshot.val()', data);
+			// 	console.log('data[uid]', data[uid]);
+			// 	console.log('authData', authData);
+			// console.groupEnd('login stuff')
 
 			// if there's a new user...
-			
 			if (!data[uid]){
 				console.log("New user sign in");
 				const uidRef = base.database().ref(`users/${uid}`);
 				this.props.setFullName(displayName)
 				this.props.setEmail(email)
-				console.log('New user: remember to resize the photo from the photoURL');
 				this.props.setPhotoURL(photoURL)
+
+				// console.log('New user: remember to resize the photo from the photoURL');
 
 				uidRef.set({
 					userInfo: {
@@ -189,17 +161,14 @@ class Login extends React.Component {
 				console.log("Preexisting user signing");
 				this.localSetInitialState(uid, data[uid]);
 			}
+
+			// sets store's 'login' to true to true
 			login(uid);
-			
-			this.props.push('/home');
 		});
 	}
 
 	localSetInitialState = (uid, data) => {
-		console.log('UID', uid);
-		
 		data = JSON.parse(data.store);
-
 		this.props.setInitialState(data);
 	}
 

@@ -1,4 +1,4 @@
-import HeaderLink from '../ui/HeaderLink'
+import FooterLink from '../ui/FooterLink'
 // import { startTimer, stopTimer, incrementIntervals } from '../../actions'
 import { connect } from 'react-redux'
 
@@ -10,4 +10,4 @@ const mapStateToProps = ({ router }, props) => {
 	};
 }
 
-export default connect(mapStateToProps)(HeaderLink);
+export default connect(mapStateToProps)(FooterLink);

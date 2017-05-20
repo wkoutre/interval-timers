@@ -1,8 +1,11 @@
 .app-settings
 	{$flex-col}
+	@media all and (orientation portrait)
+		height 90%
 	width 97.5%
 	align-items center
-	justify-content flex-start
+	justify-content space-around
+	overflow-y auto
 	
 .settings-div
 	width 100%
@@ -11,7 +14,8 @@
 	justify-content space-around
 	align-items center
 	color $black4
-	margin 5px
+	@media all and (orientation landscape)
+		margin 5px
 
 .settings-label
 	font-size 1.5rem
@@ -24,10 +28,10 @@
 	flex 0.5 1 50%
 
 .settings-heading
-	width 75%
+	width 90%
 	color $white
 	text-align center
 	line-height 2.5rem
 	margin 5vh 0 !important
-	// & > span
-	// 	color $pink
+	& > span
+		color $pink

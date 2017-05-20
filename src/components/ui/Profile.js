@@ -35,7 +35,6 @@ class Profile extends React.Component {
 		e.preventDefault();
 
 		const { fullName, email, birthday, loc: location, weight, visibility } = this.state;
-
 		const infoObj = {
 			fullName,
 			email,
@@ -53,8 +52,6 @@ class Profile extends React.Component {
 	canSubmit = () => {
 		const { fullName, email, weight } = this.state;
 
-		// console.log(fullName !== "" && email !== "" && weight !== "");
-		
 		return fullName !== "" && email !== "" && weight !== "";
 	}
 
@@ -80,13 +77,11 @@ class Profile extends React.Component {
 		})
 	}
 
-	handleToggle = () => {
-		console.log(`handling toggle`);
-		
-		this.setState({ visibility: !this.state.visibility })
-	}
+	handleToggle = () => this.setState({ visibility: !this.state.visibility });
 
 	render() {
+
+		const { photoURL, fullName, email, birthday, location, weight, visibility } = this.props;
 
 		const toggleOn = {
 			"border": `2px solid ${colors.green} `,
@@ -108,21 +103,24 @@ class Profile extends React.Component {
 		)
 
 		const staticProfile = (
+
 			<div className="app-profile__static">
 				<div className="profile-photo">
 					<img src={this.props.photoURL} alt={`${this.props.fullname} profile picture`}/>
 				</div>
 				<div className="profile-info">
-					<p>{this.props.fullName}</p>
-					<p>{this.props.email}</p>
-					<p>{`${timeFuncs.findAge(this.props.birthday)} years old`}</p>
-					<p>{this.props.location}</p>
-					<p>{this.props.weight} lbs</p>
-					<p>Public profile: {this.props.visibility ? "ON" : "OFF"}</p>
+					<p>{fullName}</p>
+					<p>{email}</p>
+					<p>{birthday ? `${timeFuncs.findAge(birthday)} years old` : 'No Birthday Set'}</p>
+					<p>{location ? location : "No location set"}</p>
+					<p>{weight ? `${weight} lbs` : "No Weight Set"}</p>
+					<p>Public profile: {visibility ? "ON" : "OFF"}</p>
 				</div>
 				<button className="profile-edit-button" onClick={() => this.editProfile()}>EDIT</button>
 			</div>
 		)
+
+		// Yes, I'm aware this is an anti-pattern of React/Redux but... it's just how I've decided to implement it, because for some reason, I decided to make the action for this form happen onSubmit, rather than onChange like the other forms in this project
 
 		const editProfile = (
 			<div className="app-profile__edit">

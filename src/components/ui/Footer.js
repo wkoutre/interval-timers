@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import HeaderLink from '../containers/ConHeaderLink'
+import FooterLink from '../containers/ConFooterLink'
 import completedTimers from '../../css/icons/png/completedTimers.png'
 import home from '../../css/icons/png/home.png'
 import profile from '../../css/icons/png/profile.png'
@@ -19,7 +19,7 @@ const Footer = (props) => {
 				onClick={() => props.history.goBack()}>
 					&larr;
 			</span>
-			<HeaderLink
+			<FooterLink
 				classname="header-home-button footer-item"
 				to="home">
 				<img
@@ -27,8 +27,8 @@ const Footer = (props) => {
 				 	alt="home"
 				 	className="footer-image"
 				 />
-			</HeaderLink>
-			<HeaderLink
+			</FooterLink>
+			<FooterLink
 				classname="header-profile-button footer-item"
 				to="profile">
 				<img
@@ -36,8 +36,8 @@ const Footer = (props) => {
 				 	alt="profile"
 				 	className="footer-image"
 				 />
-			</HeaderLink>
-			<HeaderLink
+			</FooterLink>
+			<FooterLink
 				classname="header-settings-button footer-item"
 				to="settings">
 				<img
@@ -45,8 +45,8 @@ const Footer = (props) => {
 				 	alt="settings"
 				 	className="footer-image"
 				 />
-			</HeaderLink>
-			<HeaderLink
+			</FooterLink>
+			<FooterLink
 				to="completed-timers"
 				classname="footer-item footer-completed">
 				<img
@@ -54,20 +54,20 @@ const Footer = (props) => {
 				 	alt="completed timers"
 				 	className="footer-image"
 				 />
-			</HeaderLink>
-			<HeaderLink
+			</FooterLink>
+			<FooterLink
 				to="create-timer"
 				classname="footer-item footer-completed footer-timers">
 				&#43;
-			</HeaderLink>
-			<HeaderLink
+			</FooterLink>
+			<FooterLink
 				to="saved-timers"
 				classname="footer-item footer-timers">
 				<img
 				 	src={timer}
 				 	alt="saved timers"
 				 	className="footer-image"/>
-			</HeaderLink>
+			</FooterLink>
 		</footer>
 	)
 }
