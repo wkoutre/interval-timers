@@ -117,7 +117,7 @@ class CreateTimer extends React.Component {
 			<div className="rest-increment-explanation-overlay">
 				<div className="rest-increment-explanation">
 					<p className="rest-increment-explanation-text">After each interval, the amount of seconds entered here will be added to the rest time.</p>
-					<p className="rest-increment-explanation-example">
+					<div className="rest-increment-explanation-example">
 						<h2>Example</h2>
 						<span>The timer has 5 intervals set with a 10 second rest and 2 second rest increment.
 							<ul>
@@ -126,7 +126,7 @@ class CreateTimer extends React.Component {
 								<li>Rest after interval 3: 14 seconds</li>
 							</ul>
 						</span>
-					</p>
+					</div>
 					<span className="close-explanation" onClick={() => this.toggleExplanation()}>x</span>
 				</div>
 			</div>
@@ -180,7 +180,7 @@ class CreateTimer extends React.Component {
 							this.state.showExplanation ?
 								explanation :
 								<span className="question-mark"
-											onClick={() => this.toggleExplanation()}>(?)
+										onClick={() => this.toggleExplanation()}>(?)
 								</span>
 						}
 						</span>							
