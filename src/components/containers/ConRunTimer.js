@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 const mapStateToProps = ({ app }, props) => {
 	const { timerName, restIncrement, restTime, intervalTime, numIntervals, totalTime } = app.user.currentTimer.timerData;
 
+	const { audio } = app.user.timerInfo;
+
 	// const { completedIntervals, setIntervalTimer } = app.user.currentTimer;
 
 	// const {  } = app.user.currentTimer
@@ -16,7 +18,8 @@ const mapStateToProps = ({ app }, props) => {
 		restTime,
 		intervalTime,
 		totalTime,
-		numIntervals
+		numIntervals,
+		audio
 	};
 }
 	

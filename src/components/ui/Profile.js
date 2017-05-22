@@ -4,6 +4,7 @@ import ProfileInput from './ProfileInput'
 import ProfileLabel from './ProfileLabel'
 import * as timeFuncs from '../../timeHelpers'
 import * as colors from '../../css/colors'
+import NodeGeocoder from 'node-geocoder'
 
 class Profile extends React.Component {
 	constructor(props) {
@@ -79,6 +80,40 @@ class Profile extends React.Component {
 
 	handleToggle = () => this.setState({ visibility: !this.state.visibility });
 
+	requestLocation = () => {
+		const geoOptions = {
+			provider: 'google',
+			httpAdaptder: 'https',
+			apiKey: 'AIzaSyADkOrKh6sgBTRUanGiWKoYTsPWl37wgWU',
+			formatter: null
+		}
+
+		return new Promise( (resolve, reject) => {
+			if (navigator.geolocation) {
+				let obj;
+				navigator.geolocation.getCurrentPosition(pos => {
+					const geocoder = NodeGeocoder(geoOptions);
+					let { latitude, longitude } = pos.coords;
+
+					latitude = latitude.toFixed(3);
+					longitude = longitude.toFixed(3);
+
+					geocoder.reverse({
+						lat: latitude,
+						lon: longitude
+					})
+						.then(locationObj => {
+							const { city, countryCode } = locationObj[0]
+							this.setState({ loc: `${city},  ${countryCode}` })
+						})
+						.catch(err => console.log(`error:`, err))
+				})
+		} else {
+			alert(`Geolocation isn't supported by this browser.`)
+		}
+	})		
+}
+
 	render() {
 
 		const { photoURL, fullName, email, birthday, location, weight, visibility } = this.props;
@@ -141,7 +176,7 @@ class Profile extends React.Component {
 						<ProfileInput value={!this.state.birthday && this.state.touched.birthday === false ? this.props.birthday : this.state.birthday} name="birthday" type="date" handleChange={this.handleChange} />
 					</div>
 					<div className="profile-edit__section">
-						<ProfileLabel name="loc" text="Location:" />
+						<ProfileLabel name="loc" text={`Location (tap to detect current location):`} onClickFunc={this.requestLocation}/>
 						<ProfileInput value={!this.state.loc && this.state.touched.loc === false ? this.props.loc : this.state.loc} name="loc" type="text" handleChange={this.handleChange} />
 					</div>
 					<div className="profile-edit__section">

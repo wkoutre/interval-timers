@@ -392,6 +392,22 @@ const rootReducer = (state, action) => {
 	}
 }
 
+const audio = (state={}, action) => {
+	switch (action.type) {
+		case C.ADD_AUDIO:
+			console.log(`adding audio`);
+			const { audioName, url } = action
+			return ({
+				...state,
+				[audioName]: url
+			})
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerInfo.audio;
+		default:
+			return state;
+	}
+}
+
 
 /**/
 
@@ -477,7 +493,8 @@ const mainReducer = combineReducers({
 				}),
 				timers,
 				completedTimers,
-				favorites
+				favorites,
+				audio
 			}),
 			currentTimer: combineReducers({
 				timerData,

@@ -36,6 +36,8 @@ class Home extends React.Component {
 		}, [])
 
 		this.setState({ lastThree, recents })
+
+		
 	}
 
 	// sets the timer to be used in the RunTimer component

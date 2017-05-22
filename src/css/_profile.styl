@@ -1,17 +1,16 @@
 .app-profile
-	height 100%
 	overflow-y auto
 	display flex
-	align-items center
+	align-items flex-start
 
 .app-profile__edit,
 .app-profile__static
-	max-height 90%
+	// max-height 90%
 	{$flex-row-wrap}
 	justify-content center
 	align-items space-around
 	overflow-y auto
-	padding 10px 0
+	margin 15px 0
 	
 .profile-photo
 	flex 0 1 80%
@@ -57,15 +56,19 @@
 		box-shadow 0px 0px 1px 1px $white
 	
 .profile-label
-	flex 0 1 25%
+	flex 0 1 35%
 	font-size 1rem
 	text-align right
 	color $black4
+	@media all and (orientation: landscape)
+		flex 0 1 25%
 	
 .profile-input
-	flex 0 1 65%
+	flex 0 1 55%
 	{$input}
 	height 6vmax !important
+	@media all and (orientation: landscape)
+		flex 0 1 65%
 
 // .profile-save-button
 // 	flex 0 1 75%
@@ -77,11 +80,13 @@
 // 		box-shadow 0px 0px 1px 1px $white
 
 .visibility-toggle
-	flex 0 1 65%
+	flex 0 1 55%
 	padding 6px
 	border-radius 2px
 	display flex
 	align-items center
 	justify-content center
 	transition 0.5s all
+	@media all and (orientation: landscape)
+		flex 0 1 65%
 	

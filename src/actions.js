@@ -231,3 +231,15 @@ export const checkUserStatus = () =>
 	({
 		type: C.CHECK_USER_STATUS
 	})
+
+export const addAudio = ({ audioName, url }) => {
+	console.log(`audioName`, audioName);
+	console.log(`url`, url);
+
+	return ({
+		type: C.ADD_AUDIO,
+		audioName,
+		url
+	})
+}
+	

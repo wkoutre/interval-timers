@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter, push } from 'connected-react-router'
 import { history } from './store/store'
+import setAudio from './audio/audio'
 
 import base from './components/Base'
 
