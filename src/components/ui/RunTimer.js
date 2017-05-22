@@ -133,7 +133,11 @@ class RunTimer extends React.Component {
 		console.log('Timer is done!');
 		new Audio(`${this.props.audio.timerComplete}`).play()
 		// this.resetTimers();
-		this.setState({ numIntervals: this.state.numIntervals+1 })
+		this.setState({
+			numIntervals: this.state.numIntervals+1,
+			timeElapsed: this.props.totalTime - this.props.restTime,
+			timeRemaining: 0
+		})
 
 
 		this.clearCanvas();
@@ -322,24 +326,24 @@ class RunTimer extends React.Component {
 
 	stopTimer = () => {
 		const { totalId, totalTimer } = this.state;
-
+		clearInterval(totalId);
+		this.setState({ running: false, intervalMs: this.state.intervalMs - 25 })	
 		totalTimer.stop()
 
-		const intervalTimeElapsed = (this.state.completedIntervals-1)*this.props.intervalTime+(this.props.intervalTime - this.state.intervalMs);
-		const restTimeElapsed = (this.state.completedIntervals-1) * this.props.restTime;
-		const totalElapsed = intervalTimeElapsed + restTimeElapsed;
 
-		// console.log(`totalElapsed`, totalElapsed);
-		// console.log(`totalCalcElapsed`, this.props.totalTime - this.props.restTime - this.state.totalTimer.ms);
+		// const intervalTimeElapsed = (this.state.completedIntervals-1)*this.props.intervalTime+(this.props.intervalTime - this.state.intervalMs);
+		// const restTimeElapsed = (this.state.completedIntervals-1) * this.props.restTime;
+		// const totalElapsed = intervalTimeElapsed + restTimeElapsed;
+
+		// // console.log(`totalElapsed`, totalElapsed);
+		// // console.log(`totalCalcElapsed`, this.props.totalTime - this.props.restTime - this.state.totalTimer.ms);
 	
-		const remaining = this.props.totalTime - this.props.restTime - totalElapsed + 200;
+		// const remaining = this.props.totalTime - this.props.restTime - totalElapsed + 200;
 
-		// console.log(`remaining`, remaining);
+		// // console.log(`remaining`, remaining);
 		
-		totalTimer.ms = remaining;
-		clearInterval(totalId);
+		// totalTimer.ms = remaining;
 
-		this.setState({ running: false })	
 	}
 
 	pixelRatio = () => {
