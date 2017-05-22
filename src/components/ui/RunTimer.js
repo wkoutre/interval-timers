@@ -11,7 +11,7 @@ class RunTimer extends React.Component {
 		// everything in state is in milliseconds
 		this.state = {
 			completedIntervals: 0,
-			totalTimer: new Stopwatch(totalTime - restTime + 1000),
+			totalTimer: new Stopwatch(totalTime - restTime),
 			totalId: 0,
 			intervalMs: intervalTime,
 			restMs: restTime,
@@ -101,7 +101,7 @@ class RunTimer extends React.Component {
 		this.stopTimer();
 		this.setState({
 			completedIntervals: 0,
-			totalTimer: new Stopwatch(totalTime - restTime + 1000),
+			totalTimer: new Stopwatch(totalTime - restTime),
 			totalId: 0,
 			id: 0,
 			intervalMs: intervalTime,
@@ -241,10 +241,12 @@ class RunTimer extends React.Component {
 	}
 
 	timerIsComplete = () => {
-		const { completedIntervals, intervalMs } = this.state;
-		const { numIntervals } = this.props;
+		// const { completedIntervals, intervalMs } = this.state;
+		// const { numIntervals } = this.props;
 
-		return (completedIntervals === numIntervals && intervalMs <= 100);
+		// return (completedIntervals === numIntervals && intervalMs <= 100);
+
+		return this.state.totalTimer.ms === 0;
 	}
 
 	changeRest = () => {
