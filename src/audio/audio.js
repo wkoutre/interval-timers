@@ -13,6 +13,11 @@ const getAudioFile = (filename, action) => {
 	const storage = base.storage();
 	const audioRef = storage.ref('audio')
 	const audioPathRef = storage.ref(`audio/${filename}.m4a`)
+	const metadata = {
+		contentType: 'audio/mpeg'
+	}
+
+	audioPathRef.updateMetadata(metadata)
 	audioPathRef.getDownloadURL()
 		.then( url => {
 			const xhr = new XMLHttpRequest();
