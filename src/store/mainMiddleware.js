@@ -50,7 +50,6 @@ export const syncingMiddleware = store => next => action => {
 		.then((uid) => {
 			console.log(`uid`, uid);
 			const state = store.getState();
-			
 			const shouldUpdate = action.type === C.SET_INITIAL_STATE || state.app.loggedIn === true;
 
 			// console.groupCollapsed('syncingMiddleware');
