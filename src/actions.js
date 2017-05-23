@@ -243,3 +243,7 @@ export const addAudio = ({ audioName, url }) => {
 	})
 }
 	
+export const loggingIn = () =>
+	({
+		type: C.LOGGING_IN
+	})

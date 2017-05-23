@@ -1,12 +1,12 @@
 import Login from '../ui/Login'
-import { login, setInitialState, setFullName, setEmail, setPhotoURL } from '../../actions'
+import { loggingIn, login, setInitialState, setFullName, setEmail, setPhotoURL } from '../../actions'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 
 const mapStateToProps = ({ app }, props) => {
 	const { uid } = app.user;
-	const { loggedIn } = app;
-	return { uid, loggedIn };
+	const { loggedIn, loggingIn } = app;
+	return { uid, loggedIn, loggingIn};
 }
 
 const mapDispatchToProps = dispatch =>
@@ -40,7 +40,8 @@ const mapDispatchToProps = dispatch =>
 			dispatch(
 				setPhotoURL(url)
 			)
-		}
+		},
+		setLoggingIn() { dispatch( loggingIn() ) }
 	})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

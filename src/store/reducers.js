@@ -231,7 +231,8 @@ const completedIntervals = (state=0, action) => {
 
 const loggedIn = (state=false, action) => {
 	switch (action.type) {
-		case C.SET_LOGIN_UID: case C.SET_INITIAL_STATE:
+		case C.SET_LOGIN_UID:
+		case C.SET_INITIAL_STATE:
 			return true
 		case C.LOGOUT:
 			return false;
@@ -408,6 +409,18 @@ const audio = (state={}, action) => {
 	}
 }
 
+const loggingIn = (state=false, action) => {
+	switch (action.type) {
+		case C.LOGGING_IN:
+			return true;
+		case C.SET_LOGIN_UID:
+		case C.SET_INITIAL_STATE:
+			return false;
+		default:
+			return state;
+	}
+}
+
 
 /**/
 
@@ -466,6 +479,7 @@ const audio = (state={}, action) => {
 const mainReducer = combineReducers({
 	app: combineReducers({
 		loggedIn,
+		loggingIn,
 		user: combineReducers({
 			details: combineReducers({
 				fullName,

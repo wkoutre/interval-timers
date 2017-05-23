@@ -10,7 +10,8 @@ const setAudioFiles = () => {
 };
 
 const getAudioFile = (filename, action) => {
-	const storage = base.storage();
+	if (store.getState().app.loggedIn) {
+		const storage = base.storage();
 	const audioRef = storage.ref('audio')
 	const audioPathRef = storage.ref(`audio/${filename}.m4a`)
 	const metadata = {
@@ -38,7 +39,8 @@ const getAudioFile = (filename, action) => {
 				audioName: filename,
 				url: url
 			})
-		})
+		})	
+	}
 }
 
 export default setAudioFiles();

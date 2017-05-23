@@ -29,41 +29,50 @@ import base from '../components/Base'
 // 	return next(action);
 // }
 
-export const checkLoginMiddleware = store => next => action => {
-	if (!store.getState().app.loggedIn && history.location.pathname !== '/') {
-		history.push('/');
-	}
-
-	return next(action);
+const getUserStatus = () => {
+	return new Promise( (resolve, reject) => {
+		base.auth().onAuthStateChanged( user => {
+			// console.log(`user`, user);
+			// console.log(`uid`, user.uid);
+			if (user){
+				const { uid } = user;
+				resolve(uid);
+			}
+			else
+				reject();
+		})
+	})
 }
 
 export const syncingMiddleware = store => next => action => {
 
-	if (base.getAuth() !== null) {
-		
-		const state = store.getState();
-		const id = state.app.user.details.uid;
-		const shouldUpdate = action.type === C.SET_INITIAL_STATE || state.app.loggedIn === true;
+	getUserStatus()
+		.then((uid) => {
+			console.log(`uid`, uid);
+			const state = store.getState();
+			
+			const shouldUpdate = action.type === C.SET_INITIAL_STATE || state.app.loggedIn === true;
 
+			// console.groupCollapsed('syncingMiddleware');
+			// 	console.log('state:', state);
+			// 	console.log('id:', id);
+			// 	console.log('loggedIn', loggedIn);
+			// console.groupEnd('syncingMiddleware');	
 
-		// console.groupCollapsed('syncingMiddleware');
-		// 	console.log('state:', state);
-		// 	console.log('id:', id);
-		// 	console.log('loggedIn', loggedIn);
-		// console.groupEnd('syncingMiddleware');	
+			const update = () => {
+				const stringified = JSON.stringify(store.getState());
 
-		const update = () => {
-									
-			const stringified = JSON.stringify(store.getState());
-			base.database().ref(`users/${id}/store`).set(stringified)
-			localStorage.setItem('workout-timer-app', stringified);
-		};
+				base.database().ref(`users/${uid}/store`).set(stringified)
+				localStorage.setItem('workout-timer-app', stringified);
+			};
 
-		// to sync with the current state, and not one step behind!
-		if ((shouldUpdate && id && id !== 'undefined')) {
-			setTimeout(update, 0);
-		}	
-	}
-	
-	return next(action);
+			// to sync with the current state, and not one step behind!
+			if (shouldUpdate)
+				setTimeout(update, 0);
+			return next(action);
+		})
+		.catch( () => {
+			console.error('Nobody logged in')
+			return next(action);
+		})
 }

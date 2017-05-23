@@ -1,0 +1,97 @@
+Currying... one function w/ several functions that are called as they become available
+
+
+// reversing it because that's how we want them applied with each dispatched action
+
+const wrapDispatchWithMiddlewares = (store, middlewares) => {
+	middlewares.slice().reverse().middlewares.forEach(mid => {
+		store.dispatch = middleware(store)(store.dispatch)
+	})
+})
+
+inside the middleware functions themselves, we need to return a function...
+
+return next => {
+	return action => ...
+}
+
+const promise = store => next => action -> {
+	if (typeof action.then = 'function') {
+		return action.then(next)
+	}
+	return next(action)
+}
+
+just use applyMiddleware... from 'redux'
+
+redux-promise: promise middleware
+redux-logger: redux logger middleware
+redux-thunk
+
+thunks: actions that are really async functions returned by other functions
+
+
+// if it's a function, we're assuming it's an async action and, therefore, needs to be dispatched
+
+const thunk = store => next => action =>
+	typeof action === 'function' ?
+		action(store.dispatch, store.getState) :
+		next(action)
+
+
+-- thunks can dispatch both plain object actions and other thunks
+-- it will always go through the middleware change, but depending on whether of not the action is a function, it'll be dispatched first
+
+THUNK RACE CONDITION (video 23)
+-- we have to account for if an asynch action is already being handled
+-- avoiding unnecessary network operations is important
+
+Using redux thunk...
+
+In component, dispatch the action. If it's asycn, it returns a thunk that is a function that will get interpreted by redux-thunk middleware
+
+import thunk from npm, add it to the list of redux middlewares
+
+if thunk sees a Promise being returned, it will handle it appropriately
+
+... good practice is to return a Promise is the action may sometimes be async, depending on if the logic for it is actually run (race condition handling)
+
+HANDLING ERRORS IN ASYNC OPERATIONS
+
+Inside action creators, get the errors... still going to dispatch actions *** don't use catch, just use a second argument on .then ***
+
+type: 'FETCH_FAILURE',
+(...do something)
+
+NORMALIZR
+
+-- convert API responses to a normalized format to be able to simplify the reducers
+
+ ***** ***** *****
+
+ import { Schema, arroyOf } from 'normalizr';
+
+ export const todo = new Schema('todos');
+ export const arrayOfTodoes = arrayOf(todo)
+
+ ***** ***** *****
+
+ import { normalize } from 'normalizr'
+ import * as scheme from './Schema.js'
+
+
+Normalized responses have entities and result props
+
+Entities: normalized dictionary of whatever the response is, following the arrayofTodos Schema
+
+Result: array of todo ids, in the same order as they were in the original response
+
+normalize(response, schema.arrayOfTodos) ==> for fetching >1 todos
+normalize(response.todo) ==> for 1 todo
+
+so... in action creators, we check if action has a response prop on it, returning an immutable object using spread operator if that's the case
+
+SO:
+
+1) create schema file with schemas for lookup table
+2) change reducers to reflect new schemas
