@@ -74,7 +74,7 @@ class CompletedTimersCal extends React.Component {
 			return (
 				<div key={month} className="month-div">
 					<h1>{month}</h1>
-						<select className="calendar__month-selector" onChange={(e) => this.changeMonth(e)} name="months" id="month">
+						<select value={this.state.months[this.state.displayMonth]} className="calendar__month-selector" onChange={(e) => this.changeMonth(e)} name="months" id="month">
 						{this.state.months.map(mon => <option key={`${mon}-option`}  value={mon}>{mon}</option>)}
 					</select>
 					<ul className="month-obj">
@@ -155,7 +155,7 @@ class CompletedTimersCal extends React.Component {
 				}
 				<br/>
 				{
-					!this.state.showingInfo && <p>Tap marked days to see info.<br/> Toggle month above.</p>
+					!this.state.showingInfo && <p className="calendar__help-text">Tap marked days to see info.<br/> Toggle month above.</p>
 				}
 			</div>
 		)

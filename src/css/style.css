@@ -217,6 +217,9 @@
       -ms-flex-pack: center;
           justify-content: center;
 }
+.calendar__help-text {
+  margin-top: 15px;
+}
 .app-completed-timers {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 97.5%;
