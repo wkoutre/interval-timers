@@ -1,6 +1,7 @@
-export const msToSeconds = (ms) => Math.ceil(ms / 1000);
+export const msToSeconds = (ms) => (ms / 1000);
 export const msToMinutes = (ms) => msToSeconds(ms) / 60;
 export const msToHours = (ms) => msToMinutes(ms) / 60;
+export const minToSec = (min) => min * 60;
 export const secToMs = (sec) => sec * 1000;
 export const minToMs = (min) => min * 60000;
 export const twoPlacedFloat = (str) => parseFloat(str).toFixed(2);
@@ -31,18 +32,29 @@ export const calcTotalTime = (numIntervals, intervalTime, restIncrement, restTim
 }
 
 export const secondsToText = (seconds) => {
-	const secs = Math.floor(seconds % 60);
-	const mins = Math.floor(seconds / 60);
+	let secs = Math.ceil(seconds % 60);
+	let mins = Math.round(seconds / 60);
 
-	return `${mins} min, ${secs} secs`
+	// mins = mins < 9 ? '0' + parseInt(mins) : mins;
+	secs = secs < 9 ? '0' + parseInt(secs) : secs;
+
+	return `${mins}:${secs}`
+}
+
+export const minToText = (min) => {
+	return secondsToText(minToSec(min))
 }
 
 export const msToText = (ms) => {
 	
 	if (ms < 0)
 		ms = 0;
-	const secs = Math.floor((msToSeconds(ms)) % 60);
-	const mins = Math.floor(msToMinutes(ms));
+	const secs = Math.ceil((msToSeconds(ms)) % 60);
+	let mins;
+	if (ms > 59000)
+		 mins = Math.ceil(msToMinutes(ms));
+	else
+		mins = 0;
 
 	const secText = secs !== 1 ? 'secs' : 'sec'
 	const minText = mins !== 1 ? 'mins' : 'min'
@@ -98,4 +110,29 @@ export const restIncrementText = restIncrement => {
 	const restIncrementText = restIncrement !== 1 ? 'secs' : 'sec'
 
 	return `${restIncrement} ${restIncrementText} `
+}
+
+export const splitTimeFromMin = (mins) => {
+	let floorMin, minMs, secMs;
+
+	if (mins >= 1) {
+		floorMin = Math.floor(mins);
+		minMs = minToMs(floorMin)
+		secMs = Math.round(minToMs(mins%floorMin))
+	} else {
+		minMs = 0
+		secMs = Math.floor(minToMs(mins))
+	}
+
+	// console.log(`mins`, mins);
+	// console.log(`minMs`, minMs);
+	// console.log(`secMs`, secMs);
+	
+	let sec = Math.round(msToSeconds(secMs));
+	let min = Math.round(msToMinutes(minMs));
+
+	return {
+		sec,
+		min
+	}
 }

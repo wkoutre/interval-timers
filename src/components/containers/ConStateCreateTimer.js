@@ -6,7 +6,7 @@ import * as timeFuncs from '../../timeHelpers'
 const mapStateToProps = ({ app }, props) => {
 	const { timerInfo, uid } = app.user;
 	const { timers, timerName, intervalTime, numIntervals, restIncrement, restTime } = timerInfo.timerProps;
-	const { defaultIntervalTime, defaultNumIntervals, defaultRestIncrement, defaultRestTime } = timerInfo.timerProps.defaults;
+	const { defaultIntervalMins, defaultNumIntervals, defaultRestIncrement, defaultRestMins } = timerInfo.timerProps.defaults;
 
 	return {
 		intervalTime,
@@ -16,10 +16,10 @@ const mapStateToProps = ({ app }, props) => {
 		timerName,
 		timers,
 		uid,
-		defaultIntervalTime,
+		defaultIntervalMins,
 		defaultNumIntervals,
 		defaultRestIncrement,
-		defaultRestTime
+		defaultRestMins
 	}
 }
 

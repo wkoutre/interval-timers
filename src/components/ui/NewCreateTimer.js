@@ -7,36 +7,102 @@ class CreateTimer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showExplanation: false
+			showExplanation: false,
+			timerName: "",
+			restSec: 0,
+			restMin: 0,
+			intSec: 0,
+			intMin: 0,
+			numIntervals: 0,
+			restIncrement: 0
 		}
 	}
 
-	totalTimeCalc = () => {
-		let { numIntervals, intervalTime, restTime, restIncrement } = this.props;
+	componentWillMount() {
+		const { timerName, restTime, intervalTime, restIncrement, numIntervals } = this.props;
 
-		restTime = restTime ? restTime : 0;
-		intervalTime = intervalTime ? intervalTime : 0;
-		restIncrement = restIncrement ? restIncrement : 0;
+		// console.log(`restTime`, restTime);
+		
+		const splitRest = timeFuncs.splitTimeFromMin(restTime/60)
+
+		// console.log(`intervalTime`, intervalTime);
+		
+		const splitInt = timeFuncs.splitTimeFromMin(intervalTime)
+
+		const { sec: restSec, min: restMin } = splitRest;
+		const { sec: intSec, min: intMin } = splitInt;
+
+		this.setState({ timerName: timerName || "",
+		 restSec: restSec || 0, restMin: restMin || 0, intSec: intSec || 0, intMin: intMin || 0, restIncrement: restIncrement || 0, numIntervals: numIntervals || 0 })
+	}
+
+	totalTimeCalc = () => {
+		let { restMin, restSec, intMin, intSec, numIntervals, restIncrement } = this.state;
+
+		if (!numIntervals)
+			return `Add some intervals`;
+
+		let restTime = this.getRestTime();
+		let intervalTime = this.getIntervalTime();
+		
+		restTime = restTime ? restTime : "";
+		intervalTime = intervalTime ? intervalTime : "";
+		restIncrement = restIncrement ? restIncrement : "";
 
 		// all values in minutes
 		const intervalMins = (numIntervals * intervalTime);
 		const restIncrementTime = timeFuncs.addedIncrementTime(restIncrement, (numIntervals - 1)) / 60;
-		const restMins = (restTime / 60) * (numIntervals - 1) + restIncrementTime;
+		const restMins = (restTime / 60) * (numIntervals) + restIncrementTime;
 		const total = intervalMins + restMins;
 
 		const totalMins = Math.floor(total/1);
-		const totalSeconds = ((total - totalMins) * 60).toFixed(0);
+		let totalSeconds = ((total - totalMins) * 60).toFixed(0);
+
+		totalSeconds = totalSeconds < 0 ? 0 : totalSeconds;
 		
 		return `${totalMins} ${this.minuteCalc(totalMins)}, ${totalSeconds} ${this.secondCalc(totalSeconds)}`;
+	}
+
+	getRestTime = () => {
+		const { restMin, restSec } = this.state;
+
+		return restMin*60 + +restSec;
+	}
+
+	getIntervalTime = () => {
+		const { intMin, intSec } = this.state;
+
+		let time = +(intMin + intSec/60)
+
+		return +(time.toFixed(2));
+	}
+
+	resetForm = () => {
+		this.setState({
+			showExplanation: false,
+			timerName: "",
+			restSec: 0,
+			restMin: 0,
+			intSec: 0,
+			intMin: 0,
+			numIntervals: 0,
+			restIncrement: 0
+		})
 	}
 
 	localSaveTimer = (e, goToTimers) => {
 	
 		e.preventDefault();
 
-		const { saveTimer, clearTimerForm, timerName, numIntervals, intervalTime, restTime, restIncrement } = this.props;
+		const { saveTimer, clearTimerForm } = this.props;
+		let { restSec, restMin, intMin, intSec, timerName, numIntervals, restIncrement } = this.state;
 
+		const restTime = this.getRestTime()
+		const intervalTime = this.getIntervalTime()
 		const totalTime = timeFuncs.calcTotalTime(numIntervals, intervalTime, restIncrement, restTime);
+
+		restIncrement = !restIncrement ? 0 : restIncrement;
+
 		const timeCreated = new Date().getTime();
 
 		const timerObj = {
@@ -50,20 +116,17 @@ class CreateTimer extends React.Component {
 		}
 
 		saveTimer(timerObj);
-		clearTimerForm();
+		this.resetForm();
+		clearTimerForm()
 		goToTimers && this.props.push('saved-timers')
 	}
 
 	resetToDefaults = () => {
-		const { defaultRestIncrement, defaultRestMins, defaultNumIntervals, defaultIntervalMins, setTimerName, setNumIntervals, setRestIncrement, setIntervalTime, setRestTime } = this.props;
-		const arr = ["", defaultRestIncrement, defaultRestMins, defaultNumIntervals, defaultIntervalMins];
+		const { defaultRestIncrement: restIncrement, defaultRestMins: restMin, defaultRestSecs: restSec, defaultNumIntervals: numIntervals, defaultIntervalMins: intMin, defaultIntervalSecs: intSec } = this.props;
 
-		const functions = [setTimerName, setRestIncrement, setRestTime, setNumIntervals, setIntervalTime];
-
-		for (let i in arr) {
-			const val = arr[i];
-			functions[i](val)
-		}
+		console.log(`resetting to defaults`);
+		
+		this.setState({ restIncrement, restMin, restSec, numIntervals, intMin, intSec })
 	}
 
 	minuteCalc = (val) => {
@@ -91,7 +154,10 @@ class CreateTimer extends React.Component {
 	}
 
 	canSubmit = () => {
-		const { intervalTime, numIntervals, timerName, timers } = this.props;
+
+		const { timers } = this.props;
+		const { numIntervals, timerName } = this.state;
+		const intervalTime = this.getIntervalTime();
 		
 		return (
 						!numIntervals ||
@@ -108,6 +174,22 @@ class CreateTimer extends React.Component {
 		showExplanation = !showExplanation;
 
 		this.setState({ showExplanation })
+	}
+
+	handleChange = (e) => {
+		const stateProp = e.target.name;
+		let val = e.target.value;
+
+		if (stateProp !== "timerName")
+			val = +val;
+		
+		if ((stateProp === "restSec" || stateProp === "intSec") && val > 59)
+			val = 59;
+
+		if ((stateProp === "restMin" || stateProp === "intMin") && val > 200)
+			val = 200;
+		
+		this.setState({ [stateProp]: val})
 	}
 
 	render() {
@@ -143,9 +225,10 @@ class CreateTimer extends React.Component {
 									className="create-timer-input"
 									required type="text"
 									placeholder="timer name"
-									value={timerName}
+									name="timerName"
+									value={this.state.timerName}
 									maxLength="40"
-									onChange={(e) => setTimerName(e.target.value || "")}/>
+									onChange={(e) => this.handleChange(e)}/>
 					</div>
 					<div className="create-timer-form-section">
 						<span className="create-timer-label"><span className="create-timer-label-text">Number of Intervals:*</span> </span>
@@ -153,26 +236,50 @@ class CreateTimer extends React.Component {
 									className="create-timer-input"
 									required type="number"
 									placeholder="number of intervals"
-									value={numIntervals}
-									onChange={(e) => setNumIntervals(e.target.value || 0)}/>
+									max="99"
+									name="numIntervals"
+									value={this.state.numIntervals}
+									onChange={(e) => this.handleChange(e)}/>
 					</div>
 					<div className="create-timer-form-section">
-						<span className="create-timer-label"><span className="create-timer-label-text">Interval Time:* (mins) </span></span>
+						<span className="create-timer-label"> <span className="create-timer-label-text">Interval Min</span></span>
 						<input
 								className="create-timer-input"
 								required type="number"
-								placeholder="interval time"
-								value={intervalTime}
-								onChange={(e) => setIntervalTime(parseFloat(e.target.value) || 0)}/>
-					</div>
-					<div className="create-timer-form-section">
-						<span className="create-timer-label"> <span className="create-timer-label-text">Rest Time: (secs)</span></span>
+								placeholder="interval min"
+								max="200"
+								name="intMin"
+								value={this.state.intMin}
+								onChange={(e) => this.handleChange(e)}/>
+						<span className="create-timer-label"> <span className="create-timer-label-text">Interval Sec</span></span>
 						<input
 								className="create-timer-input"
 								required type="number"
-								placeholder="rest time"
-								value={restTime}
-								onChange={(e) => setRestTime(e.target.value || 0)}/>
+								placeholder="interval sec"
+								max="59"
+								name="intSec"
+								value={this.state.intSec}
+								onChange={(e) => this.handleChange(e)}/>
+					</div>
+					<div className="create-timer-form-section">
+						<span className="create-timer-label"> <span className="create-timer-label-text">Rest Min</span></span>
+						<input
+								className="create-timer-input"
+								required type="number"
+								placeholder="rest min"
+								max="200"
+								name="restMin"
+								value={this.state.restMin}
+								onChange={(e) => this.handleChange(e)}/>
+						<span className="create-timer-label"> <span className="create-timer-label-text">Rest Sec</span></span>
+						<input
+								className="create-timer-input"
+								required type="number"
+								placeholder="rest sec"
+								max="59"
+								name="restSec"
+								value={this.state.restSec}
+								onChange={(e) => this.handleChange(e)}/>
 					</div>
 					<div className="create-timer-form-section">
 						<span className="create-timer-label"> <span className="create-timer-label-text">Added Rest Per Set (secs)
@@ -190,8 +297,9 @@ class CreateTimer extends React.Component {
 								className="create-timer-input"
 								type="number"
 								placeholder="rest increment per set"
-								value={restIncrement !== 0 ? restIncrement : ""}
-								onChange={(e) => setRestIncrement(e.target.value || 0)}/>
+								value={this.state.restIncrement}
+								name="restIncrement"
+								onChange={(e) => this.handleChange(e)}/>
 					</div>
 					<div className="create-timer__total-time create-timer-form-section">
 						<h3>Total time: </h3>

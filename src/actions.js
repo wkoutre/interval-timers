@@ -37,15 +37,27 @@ export const setDefaultNumIntervals = (num) => {
 	})
 }
 
-export const setDefaultRestTime = (time) =>
+export const setDefaultRestMins = (time) =>
 	({
-		type: C.SET_DEFAULT_REST_TIME,
+		type: C.SET_DEFAULT_REST_MINS,
 		payload: +time
 	})
 
-export const setDefaultIntervalTime = (time) =>
+export const setDefaultRestSecs = (time) => 
 	({
-		type: C.SET_DEFAULT_INTERVAL_TIME,
+		type: C.SET_DEFAULT_REST_SECS,
+		payload: +time
+	})
+
+export const setDefaultIntervalMins = (time) =>
+	({
+		type: C.SET_DEFAULT_INTERVAL_MINS,
+		payload: +time
+	})
+
+export const setDefaultIntervalSecs = (time) =>
+	({
+		type: C.SET_DEFAULT_INTERVAL_SECS,
 		payload: +time
 	})
 

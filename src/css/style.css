@@ -509,7 +509,8 @@
   color: #ab8b82 !important;
   margin: 0 !important;
   font-size: 1rem !important;
-  margin: 0 !important;
+  margin: 5px 0 !important;
+  height: 4vmax !important;
 }
 .create-timer-input:focus,
 .create-timer-input:active {
@@ -528,8 +529,8 @@
 }
 .create-timer-form-section {
   -webkit-box-flex: 0;
-      -ms-flex: 0 1 100%;
-          flex: 0 1 100%;
+      -ms-flex: 0 1 95%;
+          flex: 0 1 95%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

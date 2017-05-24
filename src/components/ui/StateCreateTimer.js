@@ -7,7 +7,7 @@ class CreateTimer extends React.Component {
 	constructor(props) {
 
 		super(props);
-		const { setTimerName, setNumIntervals, setRestIncrement, setIntervalTime, setRestTime, defaultRestIncrement, defaultRestTime, defaultNumIntervals, defaultIntervalTime } = props;
+		const { setTimerName, setNumIntervals, setRestIncrement, setIntervalTime, setRestTime, defaultRestIncrement, defaultRestMins, defaultNumIntervals, defaultIntervalMins } = props;
 
 		this.state = {
 			timerName: props.timerName || "",
@@ -17,7 +17,7 @@ class CreateTimer extends React.Component {
 			intervalTime:  props.timerName === "" ? "" : props.intervalTime,
 			functions: [setTimerName, setNumIntervals, setRestIncrement, setIntervalTime, setRestTime],
 			arrNames: ["timerName", "restIncrement", "restTime", "numIntervals", "intervalTime"],
-			defaults: [defaultRestIncrement, defaultRestTime, defaultNumIntervals, defaultIntervalTime]
+			defaults: [defaultRestIncrement, defaultRestMins, defaultNumIntervals, defaultIntervalMins]
 		}
 	}
 

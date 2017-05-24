@@ -358,6 +358,7 @@ class RunTimer extends React.Component {
 		const w = window.innerWidth
 		const { completedIntervals, intervalMs, restMs, timeElapsed, totalTimer, active, timeRemaining } = this.state;
 		const { msToText } = timeFuncs;
+		const offset = totalTime % 1000;
 
 		// const can = this.createHiDPIcan(200, 200);
 
@@ -379,8 +380,8 @@ class RunTimer extends React.Component {
 					onClick={() => !this.state.running && this.state.totalTimer.ms > 0 ? this.runTimer() : this.stopTimer()}
 				></canvas>
 				<div className="run-timer__timer-data">
-					<p className="run-timer__timer-data-label">Time Elapsed: {msToText(totalTime-timeRemaining-restTime-1000)}</p>
-					<p className="run-timer__timer-data-label">Time Remaining: {msToText(timeRemaining)}</p>
+					<p className="run-timer__timer-data-label">Time Elapsed: {msToText(this.state.totalTimer._elapsedMS - 1000)}</p>
+					<p className="run-timer__timer-data-label">Time Remaining: {msToText(this.state.totalTimer.ms - offset)}</p>
 					<button className="run-timer__button run-timer__reset" onClick={() => this.resetTimers()}>Reset</button>
 				</div>
 			</div>

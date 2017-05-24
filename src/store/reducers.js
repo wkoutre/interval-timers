@@ -77,23 +77,46 @@ const defaultNumIntervals = (state=0, action) => {
 	}
 }
 
-const defaultIntervalTime = (state=0, action) => {
+const defaultIntervalMins = (state=0, action) => {
 	switch (action.type) {
-		case C.SET_DEFAULT_INTERVAL_TIME:
+		case C.SET_DEFAULT_INTERVAL_MINS:
 			return action.payload;
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.defaults.defaultIntervalTime;
+			return action.payload.app.user.timerInfo.defaults.defaultIntervalMins;
 		default:
 			return state;
 	}
 }
 
-const defaultRestTime = (state=0, action) => {
+const defaultIntervalSecs = (state=0, action) => {
 	switch (action.type) {
-		case C.SET_DEFAULT_REST_TIME:
+		case C.SET_DEFAULT_INTERVAL_SECS:
 			return action.payload;
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.defaults.defaultRestTime;
+			return action.payload.app.user.timerInfo.defaults.defaultIntervalSecs;
+		default:
+			return state;
+	}
+}
+
+const defaultRestMins = (state=0, action) => {
+	switch (action.type) {
+		case C.SET_DEFAULT_REST_MINS:
+			return action.payload;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerInfo.defaults.defaultRestMins;
+		default:
+			return state;
+	}
+}
+
+const defaultRestSecs = (state=0, action) => {
+
+	switch (action.type) {
+		case C.SET_DEFAULT_REST_SECS:
+			return action.payload;
+		case C.SET_INITIAL_STATE:
+			return action.payload.app.user.timerInfo.defaults.defaultRestSecs;
 		default:
 			return state;
 	}
@@ -447,8 +470,8 @@ const loggingIn = (state=false, action) => {
 // 										timerInfo: combineReducers({
 // 											defaults: combineReducers({
 // 												defaultNumIntervals,
-// 												defaultIntervalTime,
-// 												defaultRestTime,
+// 												defaultIntervalMins,
+// 												defaultRestMins,
 // 												defaultRestIncrement
 // 											}),
 // 											timerProps: combineReducers({
@@ -493,8 +516,10 @@ const mainReducer = combineReducers({
 			timerInfo: combineReducers({
 				defaults: combineReducers({
 					defaultNumIntervals,
-					defaultIntervalTime,
-					defaultRestTime,
+					defaultIntervalMins,
+					defaultIntervalSecs,
+					defaultRestMins,
+					defaultRestSecs,
 					defaultRestIncrement
 				}),
 				timerProps: combineReducers({

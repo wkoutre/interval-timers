@@ -25,6 +25,15 @@ class SavedTimers extends React.Component {
 
 	localChooseTimer = ({ numIntervals, intervalTime, restTime, timerName, restIncrement }) => {
 		
+		console.groupCollapsed('CHOOSING TIMER');
+			console.log(`numIntervals`, numIntervals);
+			console.log(`intervalTime`, intervalTime);
+			console.log(`restTime`, restTime);
+			console.log(`timerName`, timerName);
+			console.log(`restIncrement`, restIncrement);
+			
+		console.groupEnd('CHOOSING TIMER');
+
 		const totalIntervalTime = timeFuncs.minToMs((numIntervals * intervalTime));
 		const totalRestIncrementTime = timeFuncs.secToMs(timeFuncs.addedIncrementTime(restIncrement, numIntervals-1));
 		const totalRestTime = timeFuncs.secToMs(restTime) * (numIntervals);
@@ -103,9 +112,9 @@ class SavedTimers extends React.Component {
 				return (
 					<li className="saved-timers__li" key={i} id={i}>
 						<span className="saved-timers__info-value saved-timers__info-numIntervals">{numIntervals} intervals</span>
-						<span className="saved-timers__info-value saved-timers__info-restTime">{restTime} sec rest interval</span>
-						<span className="saved-timers__info-value saved-timers__info-intervalTime">{intervalTime} min per interval</span>
-						<span className="saved-timers__info-value saved-timers__info-restIncrement">{restIncrement} sec rest incr</span>
+						<span className="saved-timers__info-value saved-timers__info-restTime">{timeFuncs.secondsToText(restTime)} rest interval</span>
+						<span className="saved-timers__info-value saved-timers__info-intervalTime">{timeFuncs.minToText(intervalTime)} per interval</span>
+						<span className="saved-timers__info-value saved-timers__info-restIncrement">{timeFuncs.minToText(restIncrement)} rest incr</span>
 						<span className="saved-timers__info-value saved-timers__info-totalTime">{timeFuncs.msToText(totalTime)}</span>
 						<span className="saved-timers__hide-info-button" onClick={() => this.hideInfo(i)}>x</span>
 				</li>

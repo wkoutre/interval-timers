@@ -1,4 +1,4 @@
-import CreateTimer from '../ui/CreateTimer'
+import CreateTimer from '../ui/NewCreateTimer'
 import { clearTimerForm, setTimerName, saveTimer, setNumIntervals, setRestTime, setIntervalTime, setRestIncrement, editTimer, deleteTimer, chooseTimer, setTotalTime } from '../../actions'
 import { connect } from 'react-redux'
 import * as timeFuncs from '../../timeHelpers'
@@ -9,7 +9,7 @@ const mapStateToProps = ({ app }, props) => {
 	const { uid } = app.user.details;
 	const { timerName, intervalTime, numIntervals, restIncrement, restTime } = timerInfo.timerProps;
 	const { timers } = timerInfo;
-	const { defaultIntervalTime, defaultNumIntervals, defaultRestIncrement, defaultRestTime } = timerInfo.defaults;
+	const { defaultIntervalMins, defaultIntervalSecs, defaultNumIntervals, defaultRestIncrement, defaultRestMins, defaultRestSecs } = timerInfo.defaults;
 
 	return {
 		intervalTime,
@@ -19,10 +19,12 @@ const mapStateToProps = ({ app }, props) => {
 		timerName,
 		timers,
 		uid,
-		defaultIntervalTime,
+		defaultIntervalMins,
+		defaultIntervalSecs,
 		defaultNumIntervals,
 		defaultRestIncrement,
-		defaultRestTime
+		defaultRestMins,
+		defaultRestSecs
 	}
 }
 
