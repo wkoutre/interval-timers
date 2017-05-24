@@ -1510,14 +1510,14 @@
 }
 @media all and (orientation: landscape) {
   .run-timer__timer-circle {
-    height: 50%;
-    max-width: 40%;
+    height: 40%;
+    max-width: 30%;
   }
 }
 .run-timer__timer-data {
   -webkit-box-flex: 0;
-      -ms-flex: 0 1 70%;
-          flex: 0 1 70%;
+      -ms-flex: 0 1 80%;
+          flex: 0 1 80%;
   color: #dbcdc9;
   display: -webkit-box;
   display: -ms-flexbox;

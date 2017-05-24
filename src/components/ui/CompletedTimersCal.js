@@ -97,8 +97,9 @@ class CompletedTimersCal extends React.Component {
 	localRemoveTimer = (ms, e) => {
 		const style = e.target.parentElement.style;
 
-		style.opacity = 0.25
+		style.opacity = 0
 		style.backgroundColor = colors.red;
+		setTimeout(() => style.display = 'none', 500);
 		this.props.removeCompletedTimer(ms)
 	}
 
@@ -134,11 +135,12 @@ class CompletedTimersCal extends React.Component {
 	}
 
 	changeMonth = (e) => {
-		// const val = e.target.value;
+		const val = e.target.value;
 		const displayMonth = this.state.months.indexOf(val);
-		
+				
 		this.showCalendar();
 		this.setState({ displayMonth });
+		e.target.value = val;
 	}
 
 	render() {

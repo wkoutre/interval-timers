@@ -216,7 +216,7 @@ class RunTimer extends React.Component {
 		});
 
 		this.fillCanvasText({
-			text: `${timeFuncs.msToText(intervalMs)}`,
+			text: `${timeFuncs.msToText(this.state.intervalMs)}`,
 			fontSize: "25px",
 			font: "Calibri",
 			align: "center",
@@ -228,12 +228,12 @@ class RunTimer extends React.Component {
 		
 		if (this.timerIsComplete()) {
 			this.timerDoneTrigger();
-		} else if ( intervalMs <= 25 && completedIntervals !== numIntervals) {
+		} else if (intervalMs < 0 && completedIntervals !== numIntervals) {
+			new Audio(`${this.props.audio.rest}`).play()
 			console.log(`change interval, making rest noise`);
 			
 			this.state.totalTimer.ms > 0 && console.log("changing interval");
-			new Audio(`${this.props.audio.rest}`).play()
-			
+
 			this.setState({
 				intervalMs: this.props.intervalTime,
 				active: "rest"
@@ -243,11 +243,6 @@ class RunTimer extends React.Component {
 	}
 
 	timerIsComplete = () => {
-		// const { completedIntervals, intervalMs } = this.state;
-		// const { numIntervals } = this.props;
-
-		// return (completedIntervals === numIntervals && intervalMs <= 100);
-
 		return this.state.totalTimer.ms === 0;
 	}
 
@@ -279,7 +274,7 @@ class RunTimer extends React.Component {
 		});
 
 		this.fillCanvasText({
-			text: `${timeFuncs.msToText(restMs)}`,
+			text: `${timeFuncs.msToText(this.state.restMs)}`,
 			fontSize: "25px",
 			font: "Calibri",
 			align: "center",
@@ -288,13 +283,14 @@ class RunTimer extends React.Component {
 		});
 
 		this.setState({ restMs })
-		if (this.state.restMs <= 0) {
+
+		if (restMs <= 0) {
+			new Audio(`${this.props.audio.go}`).play()
 			this.setState({
 				restMs: this.props.restTime + (this.props.restIncrement * this.state.completedIntervals),
 				active: "interval",
 				completedIntervals: completedIntervals + 1
 			 })
-			new Audio(`${this.props.audio.go}`).play()
 			ctx.clearRect(0,0,1000,canHeight)
 		}
 	}
@@ -332,23 +328,10 @@ class RunTimer extends React.Component {
 	stopTimer = () => {
 		const { totalId, totalTimer } = this.state;
 		clearInterval(totalId);
-		this.setState({ running: false, intervalMs: this.state.intervalMs - 25 })	
+		this.setState({ running: false })
 		totalTimer.stop()
 
-
-		// const intervalTimeElapsed = (this.state.completedIntervals-1)*this.props.intervalTime+(this.props.intervalTime - this.state.intervalMs);
-		// const restTimeElapsed = (this.state.completedIntervals-1) * this.props.restTime;
-		// const totalElapsed = intervalTimeElapsed + restTimeElapsed;
-
-		// // console.log(`totalElapsed`, totalElapsed);
-		// // console.log(`totalCalcElapsed`, this.props.totalTime - this.props.restTime - this.state.totalTimer.ms);
-	
-		// const remaining = this.props.totalTime - this.props.restTime - totalElapsed + 200;
-
-		// // console.log(`remaining`, remaining);
-		
-		// totalTimer.ms = remaining;
-
+		this.state.totalTimer.reset(this.state.timeRemaining)
 	}
 
 	pixelRatio = () => {
@@ -396,7 +379,7 @@ class RunTimer extends React.Component {
 					onClick={() => !this.state.running && this.state.totalTimer.ms > 0 ? this.runTimer() : this.stopTimer()}
 				></canvas>
 				<div className="run-timer__timer-data">
-					<p className="run-timer__timer-data-label">Time Elapsed: {msToText(totalTime-timeRemaining-restTime)}</p>
+					<p className="run-timer__timer-data-label">Time Elapsed: {msToText(totalTime-timeRemaining-restTime-1000)}</p>
 					<p className="run-timer__timer-data-label">Time Remaining: {msToText(timeRemaining)}</p>
 					<button className="run-timer__button run-timer__reset" onClick={() => this.resetTimers()}>Reset</button>
 				</div>
