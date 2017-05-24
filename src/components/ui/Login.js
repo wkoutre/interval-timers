@@ -112,8 +112,6 @@ class Login extends React.Component {
 
 	// authData: data returned from FB/Google API from FB/Google authentication
 	authHandler = (err, authData) => {
-		console.log(`I am the authHandler`);
-		
 		if (err) {
 			if (err.code == "auth/account-exists-with-different-credential") {
 				errorProvider = err.credential.providerId;

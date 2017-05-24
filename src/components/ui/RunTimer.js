@@ -24,31 +24,32 @@ class RunTimer extends React.Component {
 	}
 
 	componentDidMount() {
-		const can = document.getElementById('timer-circle');
-		const canHeight = can.height;				
-		const canWidth = can.width;
-		const ctx = can.getContext('2d');
+		// const can = document.getElementById('timer-circle');
+		// const canHeight = can.height;				
+		// const canWidth = can.width;
+		// const ctx = can.getContext('2d');
 
-		this.setState({
-			can,
-			canHeight,
-			canWidth,
-			ctx
-		})
+		// this.setState({
+		// 	can,
+		// 	canHeight,
+		// 	canWidth,
+		// 	ctx
+		// })
 
-		const fillIt = () => {
-			this.fillCanvasColor(colors.black1, 0, 0, canHeight)	
-			this.fillCanvasText({
-				text: 'START',
-				align: 'center',
-				fontSize: "30px",
-				font: "Calibri",
-				canWidth: canWidth,
-				canHeight: canHeight+(canHeight/10)
-			});
-		}
+		// const fillIt = () => {
+		// 	this.fillCanvasColor(colors.black1, 0, 0, canHeight)	
+		// 	this.fillCanvasText({
+		// 		text: 'START',
+		// 		align: 'center',
+		// 		fontSize: "30px",
+		// 		font: "Calibri",
+		// 		canWidth: canWidth,
+		// 		canHeight: canHeight+(canHeight/10)
+		// 	});
+		// }
 
-		setTimeout(fillIt, 1);
+		// setTimeout(fillIt, 1);
+		setTimeout(this.resetTimers, 50)
 	}
 
 	getCanInfo = () => {
@@ -67,6 +68,7 @@ class RunTimer extends React.Component {
 
 	componentWillUnmount() {
 		this.props.clearTimerForm();
+		clearInterval(this.state.totalId)
 	}
 
 	fillCanvasText = (obj) => {
@@ -304,6 +306,7 @@ class RunTimer extends React.Component {
 
 			if (completedIntervals === 0) {
 				this.setState({ completedIntervals: completedIntervals + 1 })
+				new Audio(`${this.props.audio.go}`).play()
 			}
 
 			this.state.totalTimer.start()

@@ -305,8 +305,7 @@ const completedTimers = (state=[], action) => {
 				...state
 			]
 		case C.REMOVE_COMPLETED_TIMER:
-			let newState = state.slice(0, action.index).concat(state.slice(action.index+1));
-			return newState
+			return state.filter(arrObjs => action.ms !== arrObjs.ms);
 		case C.SET_INITIAL_STATE:
 			return action.payload.app.user.timerInfo.completedTimers;
 		default:

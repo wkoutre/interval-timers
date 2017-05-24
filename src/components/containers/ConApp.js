@@ -1,4 +1,4 @@
-import App from '../../routes'
+import App from '../routes'
 import { login, logout, setInitialState, checkUserStatus, setFullName, setEmail, setPhotoURL } from '../../actions'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
@@ -6,10 +6,12 @@ import { push } from 'connected-react-router'
 
 const mapStateToProps = ({ app }, props) => {
 
-	const { loggedIn, setInitialState } = app
-	
+	const { loggedIn } = app
+	const { audio } = app.user.timerInfo;
+
 	return {
-		loggedIn
+		loggedIn,
+		audio
 	}
 }
 

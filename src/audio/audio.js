@@ -43,4 +43,4 @@ const getAudioFile = (filename, action) => {
 	}
 }
 
-export default setAudioFiles();
+export default setAudioFiles;

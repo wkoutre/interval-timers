@@ -1,22 +1,22 @@
 import React from 'react'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter, push } from 'connected-react-router'
-import { history } from './store/store'
-import setAudio from './audio/audio'
+import { history } from '../store/store'
+import { getUserStatus } from '../store/mainMiddleware'
+import setAudioFiles from '../audio/audio'
+import base from './Base'
 
-import base from './components/Base'
-
-import Login from './components/containers/ConLogin'
-import Header from './components/containers/ConHeader'
-import Footer from './components/containers/ConFooter'
-import Home from './components/containers/ConHome'
-import CreateTimer from './components/containers/ConCreateTimer'
-import RunTimer from './components/containers/ConRunTimer'
-import Profile from './components/containers/ConProfile'
-import ErrorPage from './components/containers/ConErrorPage'
-import Settings from './components/containers/ConSettings'
-import CompletedTimers from './components/containers/ConCompletedTimers'
-import SavedTimers from './components/containers/ConSavedTimers'
+import Login from './containers/ConLogin'
+import Header from './containers/ConHeader'
+import Footer from './containers/ConFooter'
+import Home from './containers/ConHome'
+import CreateTimer from './containers/ConCreateTimer'
+import RunTimer from './containers/ConRunTimer'
+import Profile from './containers/ConProfile'
+import ErrorPage from './containers/ConErrorPage'
+import Settings from './containers/ConSettings'
+import CompletedTimers from './containers/ConCompletedTimers'
+import SavedTimers from './containers/ConSavedTimers'
 
 class App extends React.Component {
 
@@ -100,6 +100,10 @@ class App extends React.Component {
 	// 	}
 	// }
 
+	componentWillMount() {
+		Object.keys(this.props.audio).length === 0 && setAudioFiles()
+	}
+
 	LocalLogin = () => {
 		return (
 			<div className="react-root">
@@ -109,6 +113,8 @@ class App extends React.Component {
 	}
 
 	render() {
+
+
 
 		return (
 				<ConnectedRouter history={history}>

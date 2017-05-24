@@ -29,11 +29,9 @@ import base from '../components/Base'
 // 	return next(action);
 // }
 
-const getUserStatus = () => {
+export const getUserStatus = () => {
 	return new Promise( (resolve, reject) => {
 		base.auth().onAuthStateChanged( user => {
-			// console.log(`user`, user);
-			// console.log(`uid`, user.uid);
 			if (user){
 				const { uid } = user;
 				resolve(uid);
@@ -48,9 +46,8 @@ export const syncingMiddleware = store => next => action => {
 
 	getUserStatus()
 		.then((uid) => {
-			console.log(`uid`, uid);
 			const state = store.getState();
-			const shouldUpdate = action.type === C.SET_INITIAL_STATE || state.app.loggedIn === true;
+			const shouldUpdate = (action.type === C.SET_INITIAL_STATE || state.app.loggedIn === true) && action.type !== C.LOGOUT && action.type !== C.SET_LOGIN;
 
 			// console.groupCollapsed('syncingMiddleware');
 			// 	console.log('state:', state);
@@ -62,7 +59,12 @@ export const syncingMiddleware = store => next => action => {
 				const stringified = JSON.stringify(store.getState());
 
 				base.database().ref(`users/${uid}/store`).set(stringified)
-				localStorage.setItem('workout-timer-app', stringified);
+				try {
+					localStorage.setItem('workout-timer-app', stringified);	
+				} catch(err) {
+					console.error(`${err}:  Local storage doesn't exist`)
+				}
+				
 			};
 
 			// to sync with the current state, and not one step behind!

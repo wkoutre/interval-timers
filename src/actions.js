@@ -119,8 +119,7 @@ export const setTotalTime = (ms) =>
 
 export const login = (uid) => {
 	localStorage.setItem("workout-timer-uid", uid);
-	console.log(`action: login`, uid);
-	
+
 	return ({
 		type: C.SET_LOGIN_UID,
 		payload: uid
@@ -180,10 +179,10 @@ export const addCompletedTimer = ({ dateString, ms, timerName }) => {
 	})
 }
 	
-export const removeCompletedTimer = (index) =>
+export const removeCompletedTimer = (ms) =>
 	({
 		type: C.REMOVE_COMPLETED_TIMER,
-		index
+		ms
 	})
 
 export const setProfileInfo = (infoObj) =>
