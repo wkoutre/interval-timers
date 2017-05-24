@@ -134,7 +134,7 @@ class CompletedTimersCal extends React.Component {
 	}
 
 	changeMonth = (e) => {
-		const val = e.target.value;
+		// const val = e.target.value;
 		const displayMonth = this.state.months.indexOf(val);
 		
 		this.showCalendar();
