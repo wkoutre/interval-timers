@@ -66,7 +66,9 @@ class CreateTimer extends React.Component {
 	getRestTime = () => {
 		const { restMin, restSec } = this.state;
 
-		return restMin*60 + +restSec;
+		let time = +(restMin*60 + +restSec);
+
+		return +(time.toFixed(5));
 	}
 
 	getIntervalTime = () => {
@@ -74,7 +76,7 @@ class CreateTimer extends React.Component {
 
 		let time = +(intMin + intSec/60)
 
-		return +(time.toFixed(2));
+		return +(time.toFixed(5));
 	}
 
 	resetForm = () => {
@@ -99,7 +101,7 @@ class CreateTimer extends React.Component {
 
 		const restTime = this.getRestTime()
 		const intervalTime = this.getIntervalTime()
-		const totalTime = timeFuncs.calcTotalTime(numIntervals, intervalTime, restIncrement, restTime);
+		const totalTime = Math.round(timeFuncs.calcTotalTime(numIntervals, intervalTime, restIncrement, restTime));
 
 		restIncrement = !restIncrement ? 0 : restIncrement;
 

@@ -34,15 +34,15 @@ class SavedTimers extends React.Component {
 			
 		console.groupEnd('CHOOSING TIMER');
 
-		const totalIntervalTime = timeFuncs.minToMs((numIntervals * intervalTime));
-		const totalRestIncrementTime = timeFuncs.secToMs(timeFuncs.addedIncrementTime(restIncrement, numIntervals-1));
-		const totalRestTime = timeFuncs.secToMs(restTime) * (numIntervals);
+		const totalIntervalTime = Math.round(timeFuncs.minToMs((numIntervals * intervalTime)));
+		const totalRestIncrementTime = Math.round(timeFuncs.secToMs(timeFuncs.addedIncrementTime(restIncrement, numIntervals-1)));
+		const totalRestTime = Math.round(timeFuncs.secToMs(restTime) * (numIntervals));
 		// totalTime is in ms
-		const totalTime = totalIntervalTime + totalRestIncrementTime + totalRestTime;
+		const totalTime = Math.round(totalIntervalTime + totalRestIncrementTime + totalRestTime);
 
-		intervalTime = timeFuncs.minToMs(intervalTime);
-		restTime = timeFuncs.secToMs(restTime);
-		restIncrement = timeFuncs.secToMs(restIncrement);
+		intervalTime = Math.round(timeFuncs.minToMs(intervalTime));
+		restTime = Math.round(timeFuncs.secToMs(restTime));
+		restIncrement = Math.round(timeFuncs.secToMs(restIncrement));
 		
 		const obj = {
 			intervalTime,

@@ -5,6 +5,8 @@ import Stopwatch from 'timer-stopwatch';
 import * as timeFuncs from '../../timeHelpers'
 import * as colors from '../../css/colors'
 
+const MS = 1000;
+
 class RunTimer extends React.Component {
 	constructor(props) {
 		super(props);
@@ -18,12 +20,12 @@ class RunTimer extends React.Component {
 			intervalMs: intervalTime,
 			restMs: restTime,
 			active: "interval",
+			timeElapsed: 0,
 			timeRemaining: props.totalTime - props.restTime,
 			running: false,
-			can: "",
-			go: new Audio(`${this.props.audio.go}`),
-			rest: new Audio(`${this.props.audio.rest}`),
-			complete: new Audio(`${this.props.audio.timerComplete}`)
+			go: new Audio(`${props.audio.go}`),
+			rest: new Audio(`${props.audio.rest}`),
+			timerComplete: new Audio(`${props.audio.timerComplete}`)
 		}
 	}
 
@@ -42,14 +44,16 @@ class RunTimer extends React.Component {
 		this.setState({
 			completedIntervals: 0,
 			totalTimer: new Stopwatch(totalTime - restTime),
-			totalId: 0,
-			id: 0,
+			intervalId: 0,
 			intervalMs: intervalTime,
 			restMs: restTime,
-			newBreak: totalTime - intervalTime,
 			active: "interval",
+			timeElapsed: 0,
 			timeRemaining: totalTime - restTime,
-			running: false
+			running: false,
+			go: new Audio(`${this.props.audio.go}`),
+			rest: new Audio(`${this.props.audio.rest}`),
+			complete: new Audio(`${this.props.audio.timerComplete}`)
 		})
 	}
 
@@ -97,8 +101,8 @@ class RunTimer extends React.Component {
 	fillCanvasOnInterval = () => {
 		const { canWidth, can, ctx, canHeight } = this.getCanInfo();
 		const { completedIntervals, intervalMs } = this.state;
-		const { numIntervals } = this.props;
-		const fillHeight = (1 - (this.state.intervalMs / this.props.intervalTime)) * canHeight;
+		const { numIntervals, intervalTime } = this.props;
+		const fillHeight = (1 - ((intervalMs - MS) / intervalTime)) * canHeight;
 		
 		// fill can from the top with % of timer complete
 		this.fillCanvasColor(colors.green, 0, 0, canHeight)
@@ -126,6 +130,46 @@ class RunTimer extends React.Component {
 
 		this.fillCanvasText({
 			text: `${timeFuncs.msToText(intervalMs)}`,
+			fontSize: "25px",
+			font: "Calibri",
+			align: "center",
+			canWidth: canWidth,
+			canHeight: canHeight*1.5
+		});
+	}
+
+	fillCanvasOnRest = () => {
+		const { canWidth, can, ctx, canHeight } = this.getCanInfo();
+		const { completedIntervals, restMs } = this.state;
+		const { numIntervals, restTime } = this.props;
+		const fillHeight = (1 - ((restMs - MS) / restTime)) * canHeight;
+		
+		// fill can from the top with % of timer complete
+		this.fillCanvasColor(colors.red, 0, 0, canHeight)
+
+		// fill can from % of time complete to bottom with black
+		ctx.font="50px Times"
+		this.fillCanvasColor(colors.black1, 0, fillHeight, canHeight)	
+		this.fillCanvasText({
+			text: 'REST',
+			align: 'center',
+			fontSize: "30px",
+			font: "Calibri",
+			canWidth: canWidth,
+			canHeight: canHeight/1.5
+		});
+
+		this.fillCanvasText({
+			text: `${completedIntervals}  / ${numIntervals} `,
+			fontSize: "25px",
+			font: "Calibri",
+			align: "center",
+			canWidth: canWidth,
+			canHeight: canHeight*1.1
+		});
+
+		this.fillCanvasText({
+			text: `${timeFuncs.msToText(restMs)}`,
 			fontSize: "25px",
 			font: "Calibri",
 			align: "center",
@@ -201,41 +245,42 @@ class RunTimer extends React.Component {
 	}
 
 	toggleIntervalRest = () => {
-		let { timeElapsed, timeRemaining, intervalMs, restMs } = {...this.state};
-
-		if (timeRemaining <= 10) {
+		if (this.state.timeRemaining <= 0) {
 			this.endTimer();
-		}
-
-		timeElapsed = this.state.totalTimer._elapsedMS
-		timeRemaining -= 10;
-
-		this.setState({ timeElapsed, timeRemaining });
-
-		if (this.state.active === 'interval') {
-			intervalMs -= 10;
-			this.fillCanvasOnInterval();
-			if (intervalMs === 10){
-				this.setState({ 
-					intervalMs: this.props.intervalTime,
-					active: 'rest'
-				})
-				this.state.rest.play()
-			} else {
-				this.setState({ intervalMs })
-			}
-			// if it's a rest interval...
 		} else {
-			restMs -= 10;
-			if (restMs === 10){
-				this.setState({ 
-					restMs: this.props.restTime,
-					active: 'interval',
-					completedIntervals: this.state.completedIntervals + 1
-				})
-				this.state.go.play()
+			let { timeElapsed, timeRemaining, intervalMs, restMs } = {...this.state};
+
+			timeElapsed += MS;
+			timeRemaining -= MS;
+
+			this.setState({ timeElapsed, timeRemaining });
+
+			if (this.state.active === 'interval') {
+				intervalMs -= MS;
+				this.fillCanvasOnInterval();
+				if (intervalMs === 0 && this.state.totalTimer.ms > 0){
+					this.setState({ 
+						intervalMs: this.props.intervalTime,
+						active: 'rest'
+					})
+					this.state.rest.play()
+				} else {
+					this.setState({ intervalMs })
+				}
+				// if it's a rest interval...
 			} else {
-				this.setState({ restMs })
+				restMs -= MS;
+				this.fillCanvasOnRest();
+				if (restMs === 0){
+					this.setState({ 
+						restMs: this.props.restTime,
+						active: 'interval',
+						completedIntervals: this.state.completedIntervals + 1
+					})
+					this.state.go.play()
+				} else {
+					this.setState({ restMs })
+				}
 			}
 		}
 	}
@@ -246,7 +291,8 @@ class RunTimer extends React.Component {
 			
 			const running = true;
 			const { totalTimer } = this.state;
-			const intervalId = setInterval(this.toggleIntervalRest, 10);
+
+			const intervalId = setInterval(this.toggleIntervalRest, MS);
 
 			this.setState({ running, intervalId })
 
@@ -268,6 +314,7 @@ class RunTimer extends React.Component {
 		const { intervalId } = this.state;
 		const running = false;
 
+		this.state.totalTimer.reset(this.state.timeRemaining)
 		clearInterval(intervalId);
 		this.setState({ running })
 	}
@@ -322,7 +369,7 @@ class RunTimer extends React.Component {
 					onClick={() => !this.state.running && this.state.totalTimer.ms > 0 ? this.runTimer() : this.stopTimer()}
 				></canvas>
 				<div className="run-timer__timer-data">
-					<p className="run-timer__timer-data-label">Time Elapsed: {msToText(totalTime-timeRemaining-restTime-1000)}</p>
+					<p className="run-timer__timer-data-label">Time Elapsed: {msToText(totalTime-timeRemaining-restTime)}</p>
 					<p className="run-timer__timer-data-label">Time Remaining: {msToText(timeRemaining)}</p>
 					<button className="run-timer__button run-timer__reset" onClick={() => this.resetTimer()}>Reset</button>
 				</div>

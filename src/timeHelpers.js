@@ -136,3 +136,9 @@ export const splitTimeFromMin = (mins) => {
 		min
 	}
 }
+
+export const roundMsToThousand = (ms) => {
+	if (ms % 1000 === 0)
+		return ms;
+	
+}

@@ -106,7 +106,7 @@
   }
 }
 .day-num-completed {
-  color: #22633e;
+  color: #34995f;
   font-size: 1.5rem;
 }
 .calendar__details {
@@ -128,7 +128,7 @@
   margin-bottom: 15px;
 }
 .calendar__details-close {
-  color: #22633e;
+  color: #34995f;
   padding: 10px;
   font-size: 2rem;
   text-decoration: underline;
@@ -156,7 +156,7 @@
   -webkit-box-flex: 0;
       -ms-flex: 0 1 100%;
           flex: 0 1 100%;
-  color: #7a8897;
+  color: #a5b6c9;
   margin-bottom: 5px;
 }
 .calendar__day-details-timerName {
@@ -242,13 +242,13 @@
   text-align: center;
 }
 .completed-timers__no-timers-link {
-  color: #7a8897;
-  border-bottom: 2px dotted #7a8897;
+  color: #a5b6c9;
+  border-bottom: 2px dotted #a5b6c9;
   -webkit-box-flex: 0;
       -ms-flex: 0 1;
           flex: 0 1;
-  -webkit-text-decoration-color: #7a8897;
-          text-decoration-color: #7a8897;
+  -webkit-text-decoration-color: #a5b6c9;
+          text-decoration-color: #a5b6c9;
 }
 .completed-timers__div {
   display: -webkit-box;
@@ -294,7 +294,7 @@
   }
 }
 .completed-timers__timer-name {
-  color: #7a8897;
+  color: #a5b6c9;
   -ms-flex-item-align: start;
       align-self: flex-start;
   -webkit-box-flex: 1;
@@ -387,8 +387,8 @@
   box-shadow: 0px 0px 1px 1px #dbcdc9;
 }
 .confirm-logout__yes {
-  border-color: #22633e;
-  color: #22633e;
+  border-color: #34995f;
+  color: #34995f;
 }
 .confirm-logout__no {
   border-color: #b7402c;
@@ -465,7 +465,7 @@
   text-align: right;
 }
 .question-mark {
-  color: #7a8897;
+  color: #a5b6c9;
   text-decoration: underline;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 100%;
@@ -909,7 +909,7 @@
           flex: 0 1 100% !important;
   text-align: center;
   font-weight: bold;
-  color: #7a8897;
+  color: #a5b6c9;
   font-size: 1.5rem;
   margin-bottom: 3vmin;
 }
@@ -941,7 +941,7 @@
   font-weight: bold;
   margin-top: 5px;
   font-size: 1.5rem;
-  color: #22633e;
+  color: #34995f;
 }
 .home__favorite-timers-li {
   display: -webkit-box;
@@ -970,8 +970,8 @@
   color: #dbcdc9;
 }
 .home__recent-timers-start-button {
-  border: 1px solid #22633e;
-  color: #22633e;
+  border: 1px solid #34995f;
+  color: #34995f;
 }
 .logging-in {
   height: 100%;
@@ -1032,7 +1032,7 @@
   padding: 0px 15px;
 }
 .login-create-account {
-  color: #7a8897;
+  color: #a5b6c9;
 }
 .login-create-account:hover {
   text-decoration: underline;
@@ -1062,7 +1062,7 @@
   top: 15vh;
   margin: 0 auto;
   background-color: #161616;
-  border: 3px solid #22633e;
+  border: 3px solid #34995f;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1445,7 +1445,7 @@
 }
 .timer-totals__label {
   font-weight: bold;
-  color: #7a8897;
+  color: #a5b6c9;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 100%;
           flex: 0 1 100%;
@@ -1723,8 +1723,8 @@
           align-items: center;
 }
 .saved-timers__start-timer {
-  color: #22633e;
-  border: 1px solid #22633e;
+  color: #34995f;
+  border: 1px solid #34995f;
 }
 .saved-timers__delete-timer {
   color: #b7402c;
@@ -1746,8 +1746,8 @@
           justify-content: center;
 }
 .saved-timers__edit-timer {
-  color: #7a8897;
-  border: 1px solid #7a8897;
+  color: #a5b6c9;
+  border: 1px solid #a5b6c9;
 }
 .saved-timers__info-value,
 .saved-timers__hide-info-button {
@@ -1769,7 +1769,7 @@
 .saved-timers__info-totalTime {
   font-weight: bold;
   font-size: 1.5rem;
-  color: #22633e;
+  color: #34995f;
 }
 .saved-timers__no-timers {
   margin-top: 25px;
@@ -1800,7 +1800,7 @@
 .saved-timers__no-timers > a {
   font-size: 1.5rem;
   text-decoration: underline;
-  color: #7a8897 !important;
+  color: #a5b6c9 !important;
 }
 .app-settings {
   display: -webkit-box;
