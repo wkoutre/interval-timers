@@ -258,3 +258,8 @@ export const loggingIn = () =>
 	({
 		type: C.LOGGING_IN
 	})
+
+export const refreshToLogin = () =>
+	({
+		type: C.REFRESH_TO_LOGIN
+	})

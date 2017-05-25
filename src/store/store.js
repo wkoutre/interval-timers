@@ -9,9 +9,11 @@ import createDebounce from 'redux-debounce'
 // window.base = base;
 
 const uid = localStorage['workout-timer-uid'];
-const initialState = localStorage['workout-timer-app'] ?
-	JSON.parse(localStorage['workout-timer-app']) :
-	{}
+// const initialState = localStorage['workout-timer-app'] ?
+// 	JSON.parse(localStorage['workout-timer-app']) :
+// 	{}
+
+const initialState = {};
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

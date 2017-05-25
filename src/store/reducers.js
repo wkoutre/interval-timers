@@ -438,6 +438,8 @@ const loggingIn = (state=false, action) => {
 		case C.SET_LOGIN_UID:
 		case C.SET_INITIAL_STATE:
 			return false;
+		case C.REFRESH_TO_LOGIN:
+			return false;
 		default:
 			return state;
 	}

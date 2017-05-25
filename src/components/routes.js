@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter, push } from 'connected-react-router'
 import { history } from '../store/store'
-import { getUserStatus } from '../store/mainMiddleware'
+import { getUserStatus, getUserStore } from '../store/mainMiddleware'
 import setAudioFiles from '../audio/audio'
 import base from './Base'
 
@@ -101,7 +101,12 @@ class App extends React.Component {
 	// }
 
 	componentWillMount() {
-		Object.keys(this.props.audio).length === 0 && setAudioFiles()
+		this.props.setLoggingIn();
+		Object.keys(this.props.audio).length === 0 && setAudioFiles();
+		getUserStatus()
+			.then(uid => getUserStore(uid))
+			.then(store => this.props.setInitialState(store))
+			.catch(err => this.props.refreshToLogin())
 	}
 
 	LocalLogin = () => {

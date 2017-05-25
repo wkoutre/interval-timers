@@ -1,5 +1,5 @@
 import App from '../routes'
-import { login, logout, setInitialState, checkUserStatus, setFullName, setEmail, setPhotoURL } from '../../actions'
+import { login, logout, setInitialState, checkUserStatus, setFullName, setEmail, setPhotoURL, loggingIn, refreshToLogin } from '../../actions'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 
@@ -56,7 +56,9 @@ const mapDispatchToProps = dispatch =>
 			dispatch(
 				push(path)
 			)
-		}
+		},
+		setLoggingIn() { dispatch( loggingIn() ) },
+		refreshToLogin() { dispatch( refreshToLogin() ) }
 	})
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

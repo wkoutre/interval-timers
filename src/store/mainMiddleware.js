@@ -42,6 +42,22 @@ export const getUserStatus = () => {
 	})
 }
 
+export const getUserStore = (uid) => {
+	return new Promise( (resolve, reject) => {
+		const userRef = base.database().ref('users');
+		userRef.once('value', snapshot => {
+			const data = snapshot.val();
+			const store = JSON.parse(data[uid].store);
+			console.log(`store`, store);
+			
+			if (store)			
+				resolve(store);
+			else
+				reject('Error: No store returned from server')
+		})
+	})
+}
+
 export const syncingMiddleware = store => next => action => {
 
 	getUserStatus()
