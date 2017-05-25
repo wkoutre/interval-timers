@@ -1,4 +1,4 @@
-import RunTimer from '../ui/RunTimer'
+import RunTimer from '../ui/SimpleRunTimer'
 // import { startTimer, stopTimer, incrementIntervals } from '../../actions'
 import { chooseTimer, clearTimerForm, addCompletedTimer } from '../../actions'
 import { connect } from 'react-redux'
