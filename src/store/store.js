@@ -6,9 +6,7 @@ import { createBrowserHistory } from 'history'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 import createDebounce from 'redux-debounce'
 
-console.log('store.js is loading...');
-
-window.base = base;
+// window.base = base;
 
 const uid = localStorage['workout-timer-uid'];
 const initialState = localStorage['workout-timer-app'] ?
@@ -27,8 +25,6 @@ const config = {
 const debouncer = createDebounce(config)
 const createMiddleware = composeEnhancers(applyMiddleware(historyMiddleware, debouncer, syncingMiddleware))
 const store = createMiddleware(createStore)(connectRouter(history)(mainReducer), initialState)
-
-console.log('Store LOADED');
 
 module.exports = {
 	store,

@@ -71,7 +71,7 @@ const defaultNumIntervals = (state=0, action) => {
 		case C.SET_DEFAULT_NUM_INTERVALS:
 			return action.payload;
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.defaults.defaultNumIntervals;
+			return action.payload.app.user.timerInfo.defaults.defaultNumIntervals || 0;
 		default:
 			return state;
 	}
@@ -82,7 +82,7 @@ const defaultIntervalMins = (state=0, action) => {
 		case C.SET_DEFAULT_INTERVAL_MINS:
 			return action.payload;
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.defaults.defaultIntervalMins;
+			return action.payload.app.user.timerInfo.defaults.defaultIntervalMins || 0;
 		default:
 			return state;
 	}
@@ -93,7 +93,7 @@ const defaultIntervalSecs = (state=0, action) => {
 		case C.SET_DEFAULT_INTERVAL_SECS:
 			return action.payload;
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.defaults.defaultIntervalSecs;
+			return action.payload.app.user.timerInfo.defaults.defaultIntervalSecs || 0;
 		default:
 			return state;
 	}
@@ -104,7 +104,7 @@ const defaultRestMins = (state=0, action) => {
 		case C.SET_DEFAULT_REST_MINS:
 			return action.payload;
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.defaults.defaultRestMins;
+			return action.payload.app.user.timerInfo.defaults.defaultRestMins || 0;
 		default:
 			return state;
 	}
@@ -116,7 +116,7 @@ const defaultRestSecs = (state=0, action) => {
 		case C.SET_DEFAULT_REST_SECS:
 			return action.payload;
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.defaults.defaultRestSecs;
+			return action.payload.app.user.timerInfo.defaults.defaultRestSecs || 0;
 		default:
 			return state;
 	}
@@ -127,7 +127,7 @@ const defaultRestIncrement = (state=0, action) => {
 		case C.SET_DEFAULT_REST_INCREMENT:
 			return action.payload;
 		case C.SET_INITIAL_STATE:
-			return action.payload.app.user.timerInfo.defaults.defaultRestIncrement;
+			return action.payload.app.user.timerInfo.defaults.defaultRestIncrement || 0;
 		default:
 			return state;
 	}
