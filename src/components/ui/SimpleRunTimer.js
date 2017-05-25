@@ -300,6 +300,7 @@ class RunTimer extends React.Component {
 			if (this.state.completedIntervals === 0){
 				this.clearCanvas();
 				const completedIntervals = 1;
+				this.state.go.play();
 				this.setState({ completedIntervals })
 			}
 
