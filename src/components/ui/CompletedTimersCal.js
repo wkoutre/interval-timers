@@ -73,10 +73,9 @@ class CompletedTimersCal extends React.Component {
 
 			return (
 				<div key={month} className="month-div">
+				<span onClick={() => this.monthBack()} className="calendar__arrow calendar__back">&lArr;</span>
 					<h1>{month}</h1>
-						<select className="calendar__month-selector" onChange={(e) => this.changeMonth(e)} name="months" id="month">
-						{this.state.months.map(mon => <option key={`${mon}-option`}  value={mon}>{mon}</option>)}
-					</select>
+				<span onClick={() => this.monthForward()} className="calendar__arrow calendar__forward">&rArr;</span>
 					<ul className="month-obj">
 						{dayBoxes}
 					</ul>
@@ -85,6 +84,28 @@ class CompletedTimersCal extends React.Component {
 		})
 
 		this.setState({ calendar: calendarData })
+	}
+
+	monthBack = () => {
+		let { displayMonth } = this.state;
+
+		if (displayMonth === 0)
+			displayMonth = 11;
+		else
+			displayMonth -= 1;
+
+		this.setState({ displayMonth })
+	}
+
+	monthForward = () => {
+		let { displayMonth } = this.state;
+
+		if (displayMonth === 11)
+			displayMonth = 0;
+		else
+			displayMonth += 1;
+
+		this.setState({ displayMonth })
 	}
 
 	showCalendar = () => {
@@ -132,14 +153,6 @@ class CompletedTimersCal extends React.Component {
 
 		console.log(`showing details`, completedObj);
 
-	}
-
-	changeMonth = (e) => {
-		const val = e.target.value;
-		const displayMonth = this.state.months.indexOf(val);
-				
-		this.showCalendar();
-		this.setState({ displayMonth });	
 	}
 
 	render() {

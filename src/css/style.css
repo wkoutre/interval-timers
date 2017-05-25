@@ -48,37 +48,6 @@
   text-align: center;
   margin: 10px;
 }
-.calendar__month-selector {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 35%;
-          flex: 0 1 35%;
-  background-color: transparent;
-  height: 6vmax !important;
-  border-radius: 2px !important;
-  border: 1px solid #dbcdc9 !important;
-  background-color: transparent !important;
-  color: #ab8b82 !important;
-  margin: 0 !important;
-  font-size: 1rem !important;
-  border: 2px solid #dbcdc9 !important;
-  font-size: 1.5rem !important;
-  text-align: center;
-}
-.calendar__month-selector:focus,
-.calendar__month-selector:active {
-  color: #dbcdc9 !important;
-  outline: none !important;
-  box-shadow: 0px 0px 1px 1px #dbcdc9 !important;
-  margin: 0 !important;
-}
-.calendar__month-selector::-moz-selection {
-  background-color: #fff;
-  color: #282828;
-}
-.calendar__month-selector::selection {
-  background-color: #fff;
-  color: #282828;
-}
 .month-obj {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 97.5%;
@@ -219,6 +188,10 @@
 }
 .calendar__help-text {
   margin-top: 15px;
+}
+.calendar__arrow {
+  color: #dbcdc9;
+  font-size: 1.5rem;
 }
 .app-completed-timers {
   -webkit-box-flex: 0;
