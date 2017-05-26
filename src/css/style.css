@@ -500,6 +500,10 @@
   background-color: #fff;
   color: #282828;
 }
+.create-timer-input:active,
+.create-timer-input:focus {
+  margin: 5px 0 !important;
+}
 .create-timer-form-section {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 95%;
@@ -1486,6 +1490,14 @@
   .run-timer__timer-circle {
     height: 40%;
     max-width: 30%;
+  }
+}
+@media all and (max-width: 1024px) {
+  .run-timer__timer-circle {
+    height: 40% !important;
+    -webkit-box-flex: 0 !important;
+        -ms-flex: 0 1 70% !important;
+            flex: 0 1 70% !important;
   }
 }
 .run-timer__timer-data {

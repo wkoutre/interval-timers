@@ -48,7 +48,6 @@ export const getUserStore = (uid) => {
 		userRef.once('value', snapshot => {
 			const data = snapshot.val();
 			const store = JSON.parse(data[uid].store);
-			console.log(`store`, store);
 			
 			if (store)			
 				resolve(store);

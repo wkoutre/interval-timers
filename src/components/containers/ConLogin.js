@@ -1,5 +1,5 @@
 import Login from '../ui/Login'
-import { loggingIn, login, setInitialState, setFullName, setEmail, setPhotoURL } from '../../actions'
+import { refreshToLogin, loggingIn, login, setInitialState, setFullName, setEmail, setPhotoURL } from '../../actions'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 
@@ -41,7 +41,9 @@ const mapDispatchToProps = dispatch =>
 				setPhotoURL(url)
 			)
 		},
-		setLoggingIn() { dispatch( loggingIn() ) }
+		setLoggingIn() { dispatch( loggingIn() ) },
+		refreshToLogin() { dispatch( refreshToLogin() ) }
+		
 	})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

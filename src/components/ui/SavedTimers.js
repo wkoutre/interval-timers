@@ -53,8 +53,9 @@ class SavedTimers extends React.Component {
 			totalTime
 		}
 
-		this.props.push('run-timer')
+		
 		this.props.chooseTimer(obj);
+		this.props.push('run-timer');
 	}
 
 	handleFavorite = (e, timerObj, index) => {
@@ -106,7 +107,6 @@ class SavedTimers extends React.Component {
 		const { timers } = this.props;
 		let timerNames = this.props.timers.map( (obj, i) => {
 			const { numIntervals, restTime, intervalTime, restIncrement, totalTime } = obj;
-			const editBox = <div>EDITING</div>
 
 			if (this.state.timers[i]) {
 				return (

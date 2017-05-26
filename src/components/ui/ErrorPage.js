@@ -11,7 +11,7 @@ export const ErrorPage = (props) => {
 		provider = capitalizeWord(errorProvider.replace(regex, ''));
 	}
 
-	const back = <Link className="error-page__go-back" to="/">click here</Link>
+	const back = <Link onClick={() => {props.refreshToLogin()}} className="error-page__go-back" to="/">click here</Link>
 
 	return (
 		<div className="error-page">

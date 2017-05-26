@@ -33,10 +33,10 @@ export const calcTotalTime = (numIntervals, intervalTime, restIncrement, restTim
 
 export const secondsToText = (seconds) => {
 	let secs = Math.ceil(seconds % 60);
-	let mins = Math.round(seconds / 60);
+	let mins = Math.floor(seconds / 60);
 
 	// mins = mins < 9 ? '0' + parseInt(mins) : mins;
-	secs = secs < 9 ? '0' + parseInt(secs) : secs;
+	secs = secs < 10 ? '0' + parseInt(secs) : secs;
 
 	return `${mins}:${secs}`
 }

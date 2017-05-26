@@ -36,24 +36,22 @@ class Home extends React.Component {
 		}, [])
 
 		this.setState({ lastThree, recents })
-
-		
 	}
 
 	// sets the timer to be used in the RunTimer component
 
-	localChooseTimer = ({ numIntervals, intervalTime, restTime, timerName, restIncrement }) => {
-		
-		const totalIntervalTime = timeFuncs.minToMs((numIntervals * intervalTime));
-		const totalRestIncrementTime = timeFuncs.secToMs(timeFuncs.addedIncrementTime(restIncrement, numIntervals-1));
-		const totalRestTime = timeFuncs.secToMs(restTime) * (numIntervals);
+	localChooseTimer = (timerObj) => {		
+		let { numIntervals, intervalTime, restTime, timerName, restIncrement } = timerObj;
 
-		// in ms
-		const totalTime = totalIntervalTime + totalRestIncrementTime + totalRestTime;
+		const totalIntervalTime = Math.round(timeFuncs.minToMs((numIntervals * intervalTime)));
+		const totalRestIncrementTime = Math.round(timeFuncs.secToMs(timeFuncs.addedIncrementTime(restIncrement, numIntervals-1)));
+		const totalRestTime = Math.round(timeFuncs.secToMs(restTime) * (numIntervals));
+		// totalTime is in ms
+		const totalTime = Math.round(totalIntervalTime + totalRestIncrementTime + totalRestTime);
 
-		intervalTime = timeFuncs.minToMs(intervalTime);
-		restTime = timeFuncs.secToMs(restTime);
-		restIncrement = timeFuncs.secToMs(restIncrement);
+		intervalTime = Math.round(timeFuncs.minToMs(intervalTime));
+		restTime = Math.round(timeFuncs.secToMs(restTime));
+		restIncrement = Math.round(timeFuncs.secToMs(restIncrement));
 		
 		const obj = {
 			intervalTime,
@@ -63,6 +61,9 @@ class Home extends React.Component {
 			restIncrement,
 			totalTime
 		}
+
+		// console.log(`obj`, obj);
+		
 
 		this.props.chooseTimer(obj);
 		this.props.push('run-timer')
@@ -90,6 +91,8 @@ class Home extends React.Component {
 
 	recentTimers = (timer, i) => {
 		const { timers } = this.props;
+
+		const thisTimer = timers.filter(obj => obj.timerName === timer.timerName)
 		
 		// if info if clicked...
 		if (this.state.recents[i]) {
@@ -104,7 +107,7 @@ class Home extends React.Component {
 							info
 					</span>
 					<span
-						onClick={() => this.localChooseTimer(timers[i])}
+						onClick={() => this.localChooseTimer(thisTimer[0])}
 						className="home__recent-timers-start-button">
 							start
 					</span>
@@ -130,14 +133,17 @@ class Home extends React.Component {
 	render() {		
 		// lastThree = lastThree.map(this.listInfo);
 		const lastThree = this.state.lastThree.map(this.recentTimers);
+
 		const favoriteTimers = this.props.favorites.map( (timerObj, i) => {
-			const { timers } = this.props;
+			const thisTimer = this.props.timers.filter(obj => obj.timerName === timerObj[0].timerName)
+			const name = thisTimer.length > 0 ? thisTimer[0].timerName : ""
+			const timer = thisTimer.length > 0 ? thisTimer[0] : {}
 
 			return (
 				<li key={i} className="home__favorite-timers-li">
-					<span className="home__favorite-timers-timer-name">{timerObj[0].timerName}</span>
+					<span className="home__favorite-timers-timer-name">{name}</span>
 					<span
-						onClick={() => this.localChooseTimer(timers[timerObj[1]])}
+						onClick={() => this.localChooseTimer(timer)}
 						className="home__recent-timers-start-button">
 						start
 					</span>
@@ -151,7 +157,9 @@ class Home extends React.Component {
 					<h1>Recents</h1>
 					<ul className="home__recent-timers-ul">
 						{lastThree.length > 0 ?
+
 							lastThree :
+
 							<li className="home__recent-timers-li">
 								<span className="home__recent-timers-timer-name">Nothing Completed Recently</span>
 									<br/>
@@ -165,10 +173,11 @@ class Home extends React.Component {
 					<h1>Favorites</h1>
 					<ul className="home__favorite-timers-ul">
 						{favoriteTimers.length > 0 ?
+
 							favoriteTimers :
+
 							<li className="home__favorite-timers-li">
 								<span className="home__favorite-timers-timer-name">No Favorites<br/>
-
 								<span className="home__favorite-timers-timer-text">
 									Star timers on the
 								<Link to='/saved-timers'><span className="home__favorite-timers-timer-text home__favorite-timers-timer-name-link"> Saved Timers </span></Link>

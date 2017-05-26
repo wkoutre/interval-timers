@@ -9,12 +9,12 @@ class CreateTimer extends React.Component {
 		this.state = {
 			showExplanation: false,
 			timerName: "",
-			restSec: 0,
-			restMin: 0,
-			intSec: 0,
-			intMin: 0,
-			numIntervals: 0,
-			restIncrement: 0
+			restSec: "",
+			restMin: "",
+			intSec: "",
+			intMin: "",
+			numIntervals: "",
+			restIncrement: ""
 		}
 	}
 
@@ -33,11 +33,13 @@ class CreateTimer extends React.Component {
 		const { sec: intSec, min: intMin } = splitInt;
 
 		this.setState({ timerName: timerName || "",
-		 restSec: restSec || 0, restMin: restMin || 0, intSec: intSec || 0, intMin: intMin || 0, restIncrement: restIncrement || 0, numIntervals: numIntervals || 0 })
+		 restSec: restSec || "", restMin: restMin || "", intSec: intSec || "", intMin: intMin || "", restIncrement: restIncrement || "", numIntervals: numIntervals || "" })
 	}
 
 	totalTimeCalc = () => {
 		let { restMin, restSec, intMin, intSec, numIntervals, restIncrement } = this.state;
+
+		const arrOfProps = [restMin, restSec, intMin, intSec, numIntervals, restIncrement].map(val => val === "" ? 0 : val);
 
 		if (!numIntervals)
 			return `Add some intervals`;
@@ -190,6 +192,9 @@ class CreateTimer extends React.Component {
 
 		if ((stateProp === "restMin" || stateProp === "intMin") && val > 200)
 			val = 200;
+
+		if (val === 0)
+			val = "";
 		
 		this.setState({ [stateProp]: val})
 	}

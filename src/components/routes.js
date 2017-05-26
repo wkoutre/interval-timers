@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Redirect, Switch } from 'react-router-dom'
-import { ConnectedRouter, push } from 'connected-react-router'
+import { ConnectedRouter } from 'connected-react-router'
 import { history } from '../store/store'
 import { getUserStatus, getUserStore } from '../store/mainMiddleware'
 import setAudioFiles from '../audio/audio'
@@ -105,7 +105,14 @@ class App extends React.Component {
 		Object.keys(this.props.audio).length === 0 && setAudioFiles();
 		getUserStatus()
 			.then(uid => getUserStore(uid))
-			.then(store => this.props.setInitialState(store))
+			.then(parsedStore => {
+				const path = parsedStore.router.location.pathname.slice(1);
+				
+				this.props.setInitialState(parsedStore)
+				
+				setTimeout( () => this.props.push(path), 1)
+				
+			})
 			.catch(err => this.props.refreshToLogin())
 	}
 
@@ -153,4 +160,3 @@ class App extends React.Component {
 
 export default App
 
-// <Route path={"/"} component={Header} />

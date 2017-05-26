@@ -34,7 +34,7 @@ class Login extends React.Component {
 			base.authWithOAuthPopup(provider, this.authHandler, {
 				scope: "email, user_birthday, user_photos, user_location, publish_actions, public_profile"
 			}) :
-			base.authWithOAuthPopup(provider, this.authHandler);
+			base.authWithOAuthPopup(provider, this.authHandler)
 
 			// THIS IS FOR REDIRECT LOGIN, RATHER THAN POPUP
 			// localStorage['workout-timer-login']  = true;
@@ -118,12 +118,19 @@ class Login extends React.Component {
 				console.log(errorProvider);
 				
 				this.props.push('error')
+			} else {
+				console.log(`error!`);
+				this.props.refreshToLogin()
+				alert(`There's been a problem logging in. If you're unsure of why, please email wkoutre@gmail.com. NOTE: Signing in will NOT work in private/incognito browing mode.`)
 			}
 			return ;
 		}
 
 		// to use FireBase API at"users" key on the database Tree
 		const userRef = base.database().ref('users');
+		if (!authData)
+			console.log(`no authdata`);
+			
 
 		// gets a 'snapshot' of the 'users' key in the DB
 		// in my case, the values at the 'users' key are the UIDs associated with users' login tokens
