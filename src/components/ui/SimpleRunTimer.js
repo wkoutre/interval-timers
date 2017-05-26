@@ -369,10 +369,16 @@ class RunTimer extends React.Component {
 				<div className="run-timer__timer-totals">
 					<h1>{timerName}</h1>
 					<ul className="run-timer__timer-totals-ul">
-						<li><span className="timer-totals__label">Total Intervals:</span> <span className="timer-totals__value">{numIntervals} intervals</span></li>
-						<li><span className="timer-totals__label">Interval Time:</span> <span className="timer-totals__value">{timeFuncs.minToText(timeFuncs.msToMinutes(intervalTime))}</span></li>						
-						<li><span className="timer-totals__label">Rest Time:</span> <span className="timer-totals__value">{timeFuncs.secondsToText(timeFuncs.msToSeconds(restTime))}</span></li>
-						{restIncrement !== 0 && <li>Rest Increment: {timeFuncs.secondsToText(timeFuncs.msToSeconds(restIncrement))}</li>}
+						<li><span className="timer-totals__label"># Intervals</span> <span className="timer-totals__value">{numIntervals} intervals</span></li>
+						<li><span className="timer-totals__label">Interval Time</span> <span className="timer-totals__value">{timeFuncs.minToText(timeFuncs.msToMinutes(intervalTime))}</span></li>						
+						<li><span className="timer-totals__label">Rest Time</span> <span className="timer-totals__value">{timeFuncs.secondsToText(timeFuncs.msToSeconds(restTime))}</span></li>
+						{restIncrement !== 0 &&
+							<li>
+								<span className="timer-totals__label">Rest Increment</span>
+								<span className="timer-totals__value">{timeFuncs.secondsToText(timeFuncs.msToSeconds(restIncrement))} intervals
+								</span>
+							</li>
+							}
 					</ul>
 				</div>
 				<canvas

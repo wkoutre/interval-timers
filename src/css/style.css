@@ -1401,11 +1401,7 @@
   text-align: center;
   -ms-flex-item-align: start;
       align-self: flex-start;
-}
-@media all and (orientation: landscape) {
-  .run-timer__timer-totals {
-    height: 25%;
-  }
+  margin-bottom: 20px;
 }
 .run-timer__timer-totals-ul {
   margin: 0;
@@ -1425,7 +1421,6 @@
 }
 .run-timer__timer-totals-ul > li {
   padding: 2.5px;
-  font-size: 1.25rem;
   -webkit-box-flex: 0.25;
       -ms-flex: 0.25 1 20%;
           flex: 0.25 1 20%;
@@ -1454,11 +1449,14 @@
       -ms-flex: 0 1 100%;
           flex: 0 1 100%;
   text-align: center;
+  font-size: 1.35rem;
+  margin-bottom: 15px !important;
 }
 .timer-totals__value {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 100%;
           flex: 0 1 100%;
+  font-size: 1.25rem;
   text-align: center;
 }
 .run-timer__button {
@@ -1478,26 +1476,32 @@
   box-shadow: 0px 0px 1px 1px #dbcdc9;
 }
 .run-timer__timer-circle {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 40%;
-          flex: 0 1 40%;
-  height: 40%;
-  margin: 2px 0;
+  max-width: 80%;
   border: 5px solid #dbcdc9;
   border-radius: 50%;
+}
+@media all and (orientation: portrait) {
+  .run-timer__timer-circle {
+    margin: 5px 0;
+    height: 30%;
+  }
 }
 @media all and (orientation: landscape) {
   .run-timer__timer-circle {
     height: 40%;
-    max-width: 30%;
   }
 }
-@media all and (max-width: 1024px) {
+@media all and (min-width: 768px) {
   .run-timer__timer-circle {
-    height: 40% !important;
-    -webkit-box-flex: 0 !important;
-        -ms-flex: 0 1 70% !important;
-            flex: 0 1 70% !important;
+    height: 40%;
+  }
+}
+@media all and (min-width: 768px) and (orientation: landscape) {
+  .run-timer__timer-circle {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 50%;
+            flex: 0 1 50%;
+    height: 50%;
   }
 }
 .run-timer__timer-data {
@@ -1540,12 +1544,17 @@
 .run-timer__timer-data-label {
   background-color: #090f12;
   margin-bottom: 10px !important;
-  padding: 5px;
-  font-size: 1.15rem;
+  padding: 2vmin;
+  font-size: 1.25rem;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 100%;
           flex: 0 1 100%;
   margin: 0;
+}
+@media all and (min-width: 1024px) {
+  .run-timer__timer-data-label {
+    font-size: 1.5rem;
+  }
 }
 .app-saved-timers {
   -ms-flex-item-align: start;
