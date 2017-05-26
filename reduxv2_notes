@@ -43,6 +43,15 @@ const thunk = store => next => action =>
 -- it will always go through the middleware change, but depending on whether of not the action is a function, it'll be dispatched first
 
 THUNK RACE CONDITION (video 23)
+
+export const whateverAction = info => dispatch =>
+	SERVER.whateverAction(info).then(response => {
+		dispatch({
+			type: '',
+			response: normalized_responsessssdd
+		})
+	});
+
 -- we have to account for if an asynch action is already being handled
 -- avoiding unnecessary network operations is important
 

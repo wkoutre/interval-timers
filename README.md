@@ -21,7 +21,7 @@ Live Version Available [on Heroku](https://workout-interval-timer.herokuapp.com)
 ### Current features:
 * React UI
 * Redux store synced with Firebase DB and (if applicable) localStorage
-* Store is set on a page refresh to ensure data retention
+* When logged in, store is set asynchronously from server on a page refresh to ensure data retention
 * OAuth with Google, Facebook, or manual email address/password
 * Interval Timer: Create timer with Name, Interval Time, Number of Intervals, Rest Time, Rest Increment Time w/ live calculations on input
 * Profile page: data grabbed from social media Oauth provider
