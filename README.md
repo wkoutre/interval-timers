@@ -5,7 +5,7 @@
 Live Version Available [on Heroku](https://workout-interval-timer.herokuapp.com)
 
 #### Clone / Navigate to Directory
-```git clone https://github.com/wkoutre/react-redux-workout-app.git [folder-name]```
+```git clone https://github.com/wkoutre/interval-timers.git [folder-name]```
 
 ```cd [folder-name]```
 
