@@ -1401,7 +1401,7 @@
   text-align: center;
   -ms-flex-item-align: start;
       align-self: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 1vmin;
 }
 .run-timer__timer-totals-ul {
   margin: 0;
@@ -1450,7 +1450,7 @@
           flex: 0 1 100%;
   text-align: center;
   font-size: 1.35rem;
-  margin-bottom: 15px !important;
+  margin-bottom: 1vmin;
 }
 .timer-totals__value {
   -webkit-box-flex: 0;
@@ -1483,12 +1483,12 @@
 @media all and (orientation: portrait) {
   .run-timer__timer-circle {
     margin: 5px 0;
-    height: 30%;
+    height: 35%;
   }
 }
 @media all and (orientation: landscape) {
   .run-timer__timer-circle {
-    height: 40%;
+    height: 45%;
   }
 }
 @media all and (min-width: 768px) {
