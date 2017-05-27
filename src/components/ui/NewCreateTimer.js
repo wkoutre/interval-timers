@@ -242,6 +242,7 @@ class CreateTimer extends React.Component {
 						<input
 									className="create-timer-input"
 									required type="number"
+									pattern="[0-9]*"
 									placeholder="number of intervals"
 									max="99"
 									name="numIntervals"
@@ -253,6 +254,7 @@ class CreateTimer extends React.Component {
 						<input
 								className="create-timer-input"
 								required type="number"
+								pattern="[0-9]*"
 								placeholder="interval min"
 								max="200"
 								name="intMin"
@@ -262,6 +264,7 @@ class CreateTimer extends React.Component {
 						<input
 								className="create-timer-input"
 								required type="number"
+								pattern="[0-9]*"
 								placeholder="interval sec"
 								max="59"
 								name="intSec"
@@ -273,6 +276,7 @@ class CreateTimer extends React.Component {
 						<input
 								className="create-timer-input"
 								required type="number"
+								pattern="[0-9]*"
 								placeholder="rest min"
 								max="200"
 								name="restMin"
@@ -282,6 +286,7 @@ class CreateTimer extends React.Component {
 						<input
 								className="create-timer-input"
 								required type="number"
+								pattern="[0-9]*"
 								placeholder="rest sec"
 								max="59"
 								name="restSec"
@@ -303,6 +308,7 @@ class CreateTimer extends React.Component {
 						<input
 								className="create-timer-input"
 								type="number"
+								pattern="[0-9]*"
 								placeholder="rest increment per set"
 								value={this.state.restIncrement}
 								name="restIncrement"
@@ -342,12 +348,6 @@ class CreateTimer extends React.Component {
 
 export default CreateTimer;
 
-// {this.props.timers.length > 0 && <SavedTimers />}
-
-// <span>&nbsp;{this.interval()}</span>
-// <span>&nbsp;{this.minutes()}</span>
-// <span>&nbsp;{this.restSeconds()}</span>
-// <span>&nbsp;{this.restIncrement()}</span>
 
 
 
