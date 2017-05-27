@@ -159,10 +159,10 @@ class SavedTimers extends React.Component {
 					onChange={(e) => this.handleSearch(e)}
 					ref={ (e) => { this.searchVal = e; }}
 					/>
-				<button className="saved-timers__sort-button" onClick={() => this.props.sortDateAscending()}>old &rarr; new</button>
-				<button className="saved-timers__sort-button" onClick={() => this.props.sortDateDescending()}>new &rarr; old</button>
-				<button className="saved-timers__sort-button" onClick={() => this.props.sortTimersAZ()}>A &rarr; Z</button>
-				<button className="saved-timers__sort-button" onClick={() => this.props.sortTimersZA()}>Z &rarr; A</button>
+				<button className="saved-timers__sort-button" onTouchStart={() => this.props.sortDateAscending()}>old &rarr; new</button>
+				<button className="saved-timers__sort-button" onTouchStart={() => this.props.sortDateDescending()}>new &rarr; old</button>
+				<button className="saved-timers__sort-button" onTouchStart={() => this.props.sortTimersAZ()}>A &rarr; Z</button>
+				<button className="saved-timers__sort-button" onTouchStart={() => this.props.sortTimersZA()}>Z &rarr; A</button>
 			</div>
 			<ul className="saved-timers__ul">
 				{

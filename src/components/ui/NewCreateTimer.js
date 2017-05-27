@@ -332,12 +332,14 @@ class CreateTimer extends React.Component {
 						onClick={(e) => this.localSaveTimer(e, false)}>SAVE / ADD ANOTHER
 					</button>
 					<button
+						type="button"
 						className="create-timer-button"
 						onClick={() => this.resetToDefaults()}>SET TO DEFAULTS
 					</button>
 					<button
+						type="reset"
 						className="create-timer-button"
-						onClick={() => this.props.clearTimerForm()}>CLEAR TIMER
+						onClick={() => this.resetForm()}>CLEAR TIMER
 					</button>
 				</form>
 

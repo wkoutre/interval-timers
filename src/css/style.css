@@ -61,14 +61,15 @@
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   color: #dbcdc9;
+  font-size: 1rem;
 }
 .month-obj__day-box,
 .month-obj__last-day-box {
   padding: 1vw;
   height: 8.333333333333334vmin;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 16.666666666666668%;
-          flex: 1 1 16.666666666666668%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 16.666666666666668%;
+          flex: 0 1 16.666666666666668%;
   border: 1px solid #474646;
   margin: 1px;
   display: -webkit-box;
@@ -86,23 +87,11 @@
 @media all and (orientation: landscape) {
   .month-obj__day-box,
   .month-obj__last-day-box {
-    height: 6.666666666666667vmin;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 12.5%;
-            flex: 1 1 12.5%;
-    margin: 3px;
-  }
-}
-.month-obj__last-day-box {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 16.666666666666668%;
-          flex: 0 1 16.666666666666668%;
-}
-@media all and (orientation: landscape) {
-  .month-obj__last-day-box {
+    height: 5vmin;
     -webkit-box-flex: 0;
-        -ms-flex: 0 1 13%;
-            flex: 0 1 13%;
+        -ms-flex: 0 1 11.49425287356322%;
+            flex: 0 1 11.49425287356322%;
+    margin: 1px;
   }
 }
 .day-num-completed {
@@ -397,6 +386,7 @@
 .confirm-logout__overlay {
   position: fixed;
   top: 0;
+  left: 0;
   height: 100vh;
   z-index: 1000;
   width: 100vw;

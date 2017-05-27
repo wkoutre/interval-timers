@@ -31,24 +31,25 @@
 	padding 0
 	{$flex-row-wrap}
 	color $white
+	font-size 1rem
 
 .month-obj__day-box,
 .month-obj__last-day-box
 	padding 1vw
 	height (100/12)vmin
-	flex 1 1 (100/6)%
+	flex 0 1 (100/6)%
 	border 1px solid $black3
 	margin 1px
 	{$flex-center-everything}
 	@media all and (orientation landscape)
-		height (100/15)vmin
-		flex 1 1 (100/8)%
-		margin 3px
+		height (100/20)vmin
+		flex 0 1 (100/8.7)%
+		margin 1px
 		
-.month-obj__last-day-box
-	flex 0 1 (100/6)%
-	@media all and (orientation landscape)
-		flex 0 1 ((100/8)% + 0.5px)
+// .month-obj__last-day-box
+// 	flex 0 1 (100/6)%
+// 	@media all and (orientation landscape)
+// 		flex 0 1 ((100/8)% + 0.5px)
 
 .day-num-completed
 	color $green
