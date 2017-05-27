@@ -36,7 +36,9 @@ class Settings extends React.Component {
 							</label>
 						<input
 							type="number"
-							value={settingValues[i]}
+							value={settingValues[i] || ""}
+							placeholder={setName}
+							pattern="[0-9]*"
 							name={`settings-input-${lower}`}
 							className="settings-input"
 							onChange={(e) => setters[i](e.target.value)}/>

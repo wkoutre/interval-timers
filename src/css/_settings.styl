@@ -1,7 +1,7 @@
 .app-settings
 	{$flex-col}
-	@media all and (orientation portrait)
-		height 90%
+	// @media all and (orientation portrait)
+	// 	height 90%
 	width 97.5%
 	height 100%
 	align-items center
@@ -22,10 +22,14 @@
 	flex 0.5 1 40%
 	text-align right
 	margin 0 10px 0 0 !important
+	@media all and (orientation landscape)
+		flex 0.25 1 25%
 
 .settings-input
 	{$input}
 	flex 0.25 1 25%
+	@media all and (orientation landscape)
+		flex 0.5 1 50%
 
 .settings-heading
 	width 90%
