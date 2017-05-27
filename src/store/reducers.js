@@ -153,9 +153,17 @@ const timers = (state=[], action) => {
 		case C.SORT_TIMERS_DATE_ASCENDING:
 			const ascState = [...state].sort( (a, b) => a.timeCreated > b.timeCreated);
 
+			console.log(`sorting ascending`)
+			console.log(`ascState`, ascState)
+
 			return ascState;
 		case C.SORT_TIMERS_DATE_DESCENDING:
 			const descState = [...state].sort( (a, b) => a.timeCreated < b.timeCreated);
+
+			console.log(`sorting descending`)
+			console.log(`descState`, descState)
+			
+			
 
 			return descState;
 		case C.SORT_TIMERS_A_Z:
