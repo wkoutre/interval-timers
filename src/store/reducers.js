@@ -151,19 +151,15 @@ const timers = (state=[], action) => {
 		case C.SET_INITIAL_STATE:
 			return action.payload.app.user.timerInfo.timers;
 		case C.SORT_TIMERS_DATE_ASCENDING:
-			const ascState = [...state].sort( (a, b) => a.timeCreated > b.timeCreated);
-
-			console.log(`sorting ascending`)
-			console.log(`ascState`, ascState)
+			const ascState = [...state].sort( (a, b) => {
+				return a.timeCreated > b.timeCreated ? 1 : -1;
+			})
 
 			return ascState;
 		case C.SORT_TIMERS_DATE_DESCENDING:
-			const descState = [...state].sort( (a, b) => a.timeCreated < b.timeCreated);
-
-			console.log(`sorting descending`)
-			console.log(`descState`, descState)
-			
-			
+			const descState = [...state].sort( (a, b) => {
+				return a.timeCreated < b.timeCreated ? 1 : -1;
+			})
 
 			return descState;
 		case C.SORT_TIMERS_A_Z:
@@ -172,7 +168,7 @@ const timers = (state=[], action) => {
 				const aUpper = a.timerName.split('').map(i => i.toUpperCase()).join(''); 
 				const bUpper = b.timerName.split('').map(i => i.toUpperCase()).join('');
 				
-				return aUpper > bUpper;
+				return aUpper > bUpper ? 1 : -1;
 			})
 
 			return az;
@@ -183,7 +179,7 @@ const timers = (state=[], action) => {
 				const aUpper = a.timerName.split('').map(i => i.toUpperCase()).join(''); 
 				const bUpper = b.timerName.split('').map(i => i.toUpperCase()).join('');
 
-				return aUpper < bUpper;
+				return aUpper < bUpper ? 1 : -1;
 			})
 
 			return za;
