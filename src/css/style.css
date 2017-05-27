@@ -1,3 +1,6 @@
+span {
+  font-size: 1rem;
+}
 .calendar {
   width: 100vw;
   height: 100%;
@@ -786,6 +789,7 @@
 }
 .header-back-button {
   color: #dbcdc9;
+  font-size: 1.5rem;
 }
 .app-home {
   max-height: 100%;
@@ -898,6 +902,14 @@
       -ms-flex: 1 1 25%;
           flex: 1 1 25%;
 }
+.home__recent-timers-info {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 30%;
+          flex: 0 30%;
+  font-size: 1rem;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
 .home__recent-timers-timer-name,
 .home__recent-timers-info-timerName,
 .home__favorite-timers-timer-name {
@@ -917,13 +929,6 @@
 .home__favorite-timers-timer-name-link {
   color: #dbcdc9;
   border-bottom: 1px dotted #dbcdc9;
-}
-.home__recent-timers-info {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 30%;
-          flex: 0 30%;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
 }
 .home__recent-timers-hide-info {
   padding: 1px;
@@ -1030,6 +1035,7 @@
 }
 .login-create-account {
   color: #a5b6c9;
+  font-size: 1.5rem;
 }
 .login-create-account:hover {
   text-decoration: underline;
@@ -1037,6 +1043,7 @@
 }
 .login-manual {
   color: #b7402c;
+  font-size: 1.5rem;
 }
 .login-p {
   font-size: 1.5rem;
@@ -2031,11 +2038,11 @@ h4 {
     bottom: 9vh;
   }
 }
-ul {
-  list-style: none;
-}
 label {
   font-family: Lato;
+}
+ul {
+  list-style: none;
 }
 .react-root {
   height: 100vh;
