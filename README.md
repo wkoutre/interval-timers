@@ -14,7 +14,6 @@ Live Version Available [on Heroku](https://workout-interval-timer.herokuapp.com)
 
  #### Scripts
  ```npm run start``` : starts a locally served build of the app
- 
  ``` npm run build``` : creates public folder, minifies and builds app for deployment to hosting provider
 
 
