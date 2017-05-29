@@ -1862,17 +1862,17 @@ span {
 }
 .settings-label {
   font-size: 1.5rem;
-  -webkit-box-flex: 0.5;
-      -ms-flex: 0.5 1 40%;
-          flex: 0.5 1 40%;
+  -webkit-box-flex: 0.25;
+      -ms-flex: 0.25 1 20%;
+          flex: 0.25 1 20%;
   text-align: right;
   margin: 0 10px 0 0 !important;
 }
 @media all and (orientation: landscape) {
   .settings-label {
     -webkit-box-flex: 0.25;
-        -ms-flex: 0.25 1 25%;
-            flex: 0.25 1 25%;
+        -ms-flex: 0.25 1 10%;
+            flex: 0.25 1 10%;
   }
 }
 .settings-input {
@@ -1883,9 +1883,9 @@ span {
   color: #ab8b82 !important;
   margin: 0 !important;
   font-size: 1rem !important;
-  -webkit-box-flex: 0.25;
-      -ms-flex: 0.25 1 25%;
-          flex: 0.25 1 25%;
+  -webkit-box-flex: 0.5;
+      -ms-flex: 0.5 1 25%;
+          flex: 0.5 1 25%;
 }
 .settings-input:focus,
 .settings-input:active {
@@ -1918,6 +1918,7 @@ span {
 }
 .settings-heading > span {
   color: #ab8b82;
+  font-size: 2rem;
 }
 @import url("https://fonts.googleapis.com/css?family=Lato|Open+Sans");
 @media all and (max-width: 1024px) {

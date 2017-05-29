@@ -163,7 +163,7 @@ class Home extends React.Component {
 							<li className="home__recent-timers-li">
 								<span className="home__recent-timers-timer-name">Nothing Completed Recently</span>
 									<br/>
-									<span className="home__favorite-timers-timer-text">Click the + to get started
+									<span onClick={() => this.props.push('/create-timer')} className="home__favorite-timers-timer-text">Tap here to get started
 								</span>
 							</li>
 						}

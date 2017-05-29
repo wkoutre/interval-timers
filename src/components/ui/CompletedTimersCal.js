@@ -37,11 +37,7 @@ class CompletedTimersCal extends React.Component {
 			monthsObj[mon] = days[m]
 		}
 
-		const date = new Date(completedTimers[0].ms)
-		console.log(`date`, date.getDate());
-		
 		const curMonthNum = new Date().getMonth();
-		
 		const calendarData = Object.keys(monthsObj).map(month => {
 			const completed = completedTimers.filter(arr => arr.dateString.indexOf(month) !== -1);
 
