@@ -7,6 +7,7 @@ import setAudioFiles from '../audio/audio'
 import base from './Base'
 
 import Login from './containers/ConLogin'
+import LoggingIn from './ui/LoggingIn'
 import Header from './containers/ConHeader'
 import Footer from './containers/ConFooter'
 import Home from './containers/ConHome'
@@ -19,9 +20,89 @@ import CompletedTimers from './containers/ConCompletedTimers'
 import SavedTimers from './containers/ConSavedTimers'
 
 class App extends React.Component {
+	state = { loggedIn: null }
+
+	componentWillMount() {
+		this.props.setLoggingIn();
+		Object.keys(this.props.audio).length === 0 && setAudioFiles();
+		getUserStatus()
+			.then(uid => getUserStore(uid))
+			.then(parsedStore => {
+				const path = parsedStore.router.location.pathname.slice(1);
+				
+				this.props.setInitialState(parsedStore)
+				
+				this.setState({ loggedIn: true })
+				setTimeout( () => this.props.push(path), 1)
+				
+			})
+			.catch(this.handleNotLoggedIn)
+	}
+
+	handleNotLoggedIn = () => {
+		this.props.refreshToLogin();
+		this.setState({ loggedIn: false })
+	}
+
+	changeLogin = (status) => this.setState({ loggedIn: status })
+
+	LocalLogin = () => {
+		return (
+			<div className="react-root">
+				<Login changeLogin={this.changeLogin.bind(this)}/>
+			</div>
+		)
+	}
+
+	showContent = () => {
+		switch(this.state.loggedIn) {
+			case null:
+				return <LoggingIn />;
+			case true:
+				return (
+					<div className="react-root">
+						<Header changeLogin={this.changeLogin.bind(this)}/>
+						<div className="page-content">
+							<Switch>
+								<Redirect exact from="/" to="/home" />
+								<Route path="/error" component={ErrorPage} />
+								<Route path="/home" component={Home} />
+								<Route path="/create-timer" component={CreateTimer}/>
+								<Route path="/run-timer" component={RunTimer}/>
+								<Route path="/profile" component={Profile}/>
+								<Route path="/settings" component={Settings}/>
+								<Route path="/saved-timers" component={SavedTimers}/>
+								<Route path="/completed-timers" component={CompletedTimers}/>
+							</Switch>	
+						</div>
+						<Footer />
+					</div>
+				);
+			default:
+				return (
+					<Switch>
+						<Route path="/error" component={ErrorPage} />
+						<Route exact path="/" component={this.LocalLogin} />
+						<Redirect from="/*" to="/"/>
+					</Switch>
+				)
+		}
+	}
+
+	render() {
+
+		return (
+				<ConnectedRouter history={history}>
+				{this.showContent()}
+				</ConnectedRouter>
+		)	
+	}
+}
+
+export default App
 
 
-	// THIS IS FOR REDIRECT LOGIN, RATHER THAN POPUP
+// THIS IS FOR REDIRECT LOGIN, RATHER THAN POPUP
 	
 	// getUserStatus = () => {
 	//   this.props.checkUserStatus();
@@ -99,64 +180,3 @@ class App extends React.Component {
 	// 		store.dispatch(push('/'))
 	// 	}
 	// }
-
-	componentWillMount() {
-		this.props.setLoggingIn();
-		Object.keys(this.props.audio).length === 0 && setAudioFiles();
-		getUserStatus()
-			.then(uid => getUserStore(uid))
-			.then(parsedStore => {
-				const path = parsedStore.router.location.pathname.slice(1);
-				
-				this.props.setInitialState(parsedStore)
-				
-				setTimeout( () => this.props.push(path), 1)
-				
-			})
-			.catch(err => this.props.refreshToLogin())
-	}
-
-	LocalLogin = () => {
-		return (
-			<div className="react-root">
-				<Login />
-			</div>
-		)
-	}
-
-	render() {
-
-		return (
-				<ConnectedRouter history={history}>
-				{!this.props.loggedIn ?
-					<Switch>
-						<Route path="/error" component={ErrorPage} />
-						<Route exact path="/" component={this.LocalLogin} />
-						<Redirect from="/*" to="/"/>
-					</Switch>
-					 :
-					<div className="react-root">
-						<Header />
-						<div className="page-content">
-							<Switch>
-								<Redirect exact from="/" to="/home" />
-								<Route path="/error" component={ErrorPage} />
-								<Route path="/home" component={Home} />
-								<Route path="/create-timer" component={CreateTimer}/>
-								<Route path="/run-timer" component={RunTimer}/>
-								<Route path="/profile" component={Profile}/>
-								<Route path="/settings" component={Settings}/>
-								<Route path="/saved-timers" component={SavedTimers}/>
-								<Route path="/completed-timers" component={CompletedTimers}/>
-							</Switch>	
-						</div>
-						<Footer />
-					</div>
-					}
-				</ConnectedRouter>
-		)	
-	}
-}
-
-export default App
-

@@ -33,7 +33,7 @@ class LoggingIn extends React.Component {
 	render() {
 		return (
 		<div className="logging-in">
-			<h1>Logging in{'.'.repeat(this.state.dots)}</h1>
+			<h1>Loading{'.'.repeat(this.state.dots)}</h1>
 		</div>
 		)	
 	}

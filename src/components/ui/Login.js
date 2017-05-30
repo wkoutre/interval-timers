@@ -29,7 +29,7 @@ class Login extends React.Component {
 	}
 
 	authenticate = (provider) => {
-		this.props.setLoggingIn();
+		this.props.changeLogin(null)
 		provider === 'facebook' ?
 			base.authWithOAuthPopup(provider, this.authHandler, {
 				scope: "email, user_birthday, user_photos, user_location, publish_actions, public_profile"
@@ -117,10 +117,12 @@ class Login extends React.Component {
 				errorProvider = err.credential.providerId;
 				console.log(errorProvider);
 				
+				this.props.changeLogin(false)
 				this.props.push('error')
 			} else {
 				console.log(`error!`);
-				this.props.refreshToLogin()
+				// this.props.refreshToLogin()
+				this.props.changeLogin(false);
 				alert(`There's been a problem logging in. If you're unsure of why, please email wkoutre@gmail.com. NOTE: Signing in will NOT work in private/incognito browing mode.`)
 			}
 			return ;
@@ -170,6 +172,7 @@ class Login extends React.Component {
 			}
 
 			// sets store's 'login' to true to true
+			this.props.changeLogin(true);
 			login(uid);
 		});
 	}
@@ -211,25 +214,20 @@ class Login extends React.Component {
 					</div>
 			)
 		
-		console.log(`loggingIn`, this.props.loggingIn);
-		
-		if (this.props.loggingIn)
-			return <LoggingIn />
-		else
-			return (
-				<div className="app-login">
-						<h2 className="login-title">Interval Timer</h2>
-						<button className="btn-facebook login-facebook" onClick={() => this.authenticate('facebook')}>Login with Facebook</button>
-						<button className="btn-google login-facebook" onClick={() => this.authenticate('google')}>Sign In with Google</button>
-						<br />
-						<p className="login-p">
-							<span onClick={() => this.toggleManualLogin()} className="login-manual">Sign in with your email</span>, or
-							<span onClick={() => this.toggleCreateAccount()} className="login-create-account"> create an account!</span>
-						</p>
-						{this.state.manualAccount && accountForm}
-						{this.state.manualLogin && manualForm}
-					</div>
-			)
+		return (
+			<div className="app-login">
+					<h2 className="login-title">Interval Timer</h2>
+					<button className="btn-facebook login-facebook" onClick={() => this.authenticate('facebook')}>Login with Facebook</button>
+					<button className="btn-google login-facebook" onClick={() => this.authenticate('google')}>Sign In with Google</button>
+					<br />
+					<p className="login-p">
+						<span onClick={() => this.toggleManualLogin()} className="login-manual">Sign in with your email</span>, or
+						<span onClick={() => this.toggleCreateAccount()} className="login-create-account"> create an account!</span>
+					</p>
+					{this.state.manualAccount && accountForm}
+					{this.state.manualLogin && manualForm}
+				</div>
+		)
 	}
 }
 

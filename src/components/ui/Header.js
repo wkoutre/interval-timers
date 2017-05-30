@@ -29,7 +29,7 @@ class Header extends React.Component {
 					onClick={() => this.localLogOut()}>
 						Logout
 				</h4>
-				{ this.state.isLoggingOut && <ConfirmLogout cancelLogout={this.cancelLogout}/> }
+				{ this.state.isLoggingOut && <ConfirmLogout changeLogin={this.props.changeLogin} cancelLogout={this.cancelLogout}/> }
 			</header>
 		)
 	}

@@ -5,8 +5,8 @@ import base from '../Base'
 const ConfirmLogout = (props) => {
 
 	const localLogout = () => {
-
-;		props.logout()
+		props.changeLogin(false);
+		props.logout()
 		setTimeout(base.unauth(), 1);
 		
 		localStorage.removeItem('workout-timer-uid');
