@@ -29,7 +29,8 @@ class Login extends React.Component {
 	}
 
 	authenticate = (provider) => {
-		this.props.changeLogin(null)
+		this.props.setLoggingIn();
+		
 		provider === 'facebook' ?
 			base.authWithOAuthPopup(provider, this.authHandler, {
 				scope: "email, user_birthday, user_photos, user_location, publish_actions, public_profile"
@@ -117,12 +118,10 @@ class Login extends React.Component {
 				errorProvider = err.credential.providerId;
 				console.log(errorProvider);
 				
-				this.props.changeLogin(false)
 				this.props.push('error')
 			} else {
 				console.log(`error!`);
-				// this.props.refreshToLogin()
-				this.props.changeLogin(false);
+				this.props.refreshToLogin()
 				alert(`There's been a problem logging in. If you're unsure of why, please email wkoutre@gmail.com. NOTE: Signing in will NOT work in private/incognito browing mode.`)
 			}
 			return ;
@@ -172,7 +171,6 @@ class Login extends React.Component {
 			}
 
 			// sets store's 'login' to true to true
-			this.props.changeLogin(true);
 			login(uid);
 		});
 	}

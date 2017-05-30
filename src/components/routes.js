@@ -20,23 +20,21 @@ import CompletedTimers from './containers/ConCompletedTimers'
 import SavedTimers from './containers/ConSavedTimers'
 
 class App extends React.Component {
-	state = { loggedIn: null }
-
 	componentWillMount() {
-		this.props.setLoggingIn();
+		// this.props.setLoggingIn();
 		Object.keys(this.props.audio).length === 0 && setAudioFiles();
 		getUserStatus()
-			.then(uid => getUserStore(uid))
-			.then(parsedStore => {
-				const path = parsedStore.router.location.pathname.slice(1);
-				
-				this.props.setInitialState(parsedStore)
-				
-				this.setState({ loggedIn: true })
-				setTimeout( () => this.props.push(path), 1)
-				
-			})
 			.catch(this.handleNotLoggedIn)
+			.then(uid => getUserStore(uid))
+				.then(parsedStore => {
+					const path = parsedStore.router.location.pathname.slice(1);
+					
+					this.props.setInitialState(parsedStore)
+					
+					setTimeout( () => this.props.push(path), 1)
+					
+				})
+			
 	}
 
 	handleNotLoggedIn = () => {
@@ -44,24 +42,22 @@ class App extends React.Component {
 		this.setState({ loggedIn: false })
 	}
 
-	changeLogin = (status) => this.setState({ loggedIn: status })
-
 	LocalLogin = () => {
 		return (
 			<div className="react-root">
-				<Login changeLogin={this.changeLogin.bind(this)}/>
+				<Login />
 			</div>
 		)
 	}
 
 	showContent = () => {
-		switch(this.state.loggedIn) {
+		switch(this.props.loggedIn) {
 			case null:
 				return <LoggingIn />;
 			case true:
 				return (
 					<div className="react-root">
-						<Header changeLogin={this.changeLogin.bind(this)}/>
+						<Header />
 						<div className="page-content">
 							<Switch>
 								<Redirect exact from="/" to="/home" />

@@ -5,7 +5,6 @@ import base from '../Base'
 const ConfirmLogout = (props) => {
 
 	const localLogout = () => {
-		props.changeLogin(false);
 		props.logout()
 		setTimeout(base.unauth(), 1);
 		
