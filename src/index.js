@@ -9,9 +9,9 @@ import './css/bootstrap/css/bootstrap.min.css'
 import './css/bootstrap-social/bootstrap-social.css'
 import './css/style.css'
 
-render (
-		<Provider store={store}>
-			<App />	
-		</Provider>,	
-		document.getElementById('root')
-	)
+setTimeout( () => render(
+			<Provider store={store}>
+				<App />	
+			</Provider>,	
+			document.getElementById('root')
+		), 500);

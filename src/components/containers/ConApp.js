@@ -1,4 +1,4 @@
-import App from '../routes'
+import App from '../index'
 import { login, logout, setInitialState, checkUserStatus, setFullName, setEmail, setPhotoURL, loggingIn, refreshToLogin } from '../../actions'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
