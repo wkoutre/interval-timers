@@ -155,7 +155,7 @@ class Login extends React.Component {
 			
 			// 'data' is initially an empty object; then it's the userRef
 			// if there's a new user...
-			if (!data[uid]){
+			if (!data){
 				console.log("New user sign in");
 				this.props.setFullName(displayName)
 				this.props.setEmail(email)
@@ -172,7 +172,7 @@ class Login extends React.Component {
 				})
 			} else {
 				console.log("Preexisting user signing");
-				this.localSetInitialState(uid, data[uid]);
+				this.localSetInitialState(uid, data);
 			}
 
 			// sets store's 'login' to true to true
