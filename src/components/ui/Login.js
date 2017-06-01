@@ -79,6 +79,7 @@ class Login extends React.Component {
 				.then(data => {
 					console.log(`data`, data);
 					const { uid } = data;
+
 					this.props.login(uid);
 					this.props.push('/home');
 				})
@@ -126,32 +127,36 @@ class Login extends React.Component {
 			}
 			return ;
 		}
-
 		// to use FireBase API at"users" key on the database Tree
-		const userRef = base.database().ref('users');
+		const { currentUser } = base.auth();
+		
+		const uidRef = base.database().ref(`users/${currentUser.uid}/`);
+		
 		if (!authData)
 			console.log(`no authdata`);
 			
 
 		// gets a 'snapshot' of the 'users' key in the DB
 		// in my case, the values at the 'users' key are the UIDs associated with users' login tokens
-		userRef.once('value', snapshot => {
+		uidRef.once('value', snapshot => {
+
+			/*
+			NEED TO UPDATE THIS WORKFLOW USING:
+			const { currentUser } = firebase.auth();
+			base.database().ref(`/users/${currentUser.uid}/`)
+			and making changes there, instead of using userRef.once()
+
+			*/
+
+			console.log('inside snapshot');
 			const { login } = this.props;
 			const data = snapshot.val() || {};
 			const { uid, displayName, email, photoURL } = authData.user;
 			
-			// 'data' is initially an empty object; then it's the userRef object once user has signed up for an account once
-
-			// console.groupCollapsed('login stuff')
-			// 	console.log('snapshot.val()', data);
-			// 	console.log('data[uid]', data[uid]);
-			// 	console.log('authData', authData);
-			// console.groupEnd('login stuff')
-
+			// 'data' is initially an empty object; then it's the userRef
 			// if there's a new user...
 			if (!data[uid]){
 				console.log("New user sign in");
-				const uidRef = base.database().ref(`users/${uid}`);
 				this.props.setFullName(displayName)
 				this.props.setEmail(email)
 				this.props.setPhotoURL(photoURL)

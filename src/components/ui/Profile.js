@@ -147,7 +147,7 @@ class Profile extends React.Component {
 					<p>{fullName}</p>
 					<p>{email}</p>
 					<p>{birthday ? `${timeFuncs.findAge(birthday)} years old` : 'No Birthday Set'}</p>
-					<p>{location ? location : "No location set"}</p>
+					<p>{location ? location : "No Location Set"}</p>
 					<p>{weight ? `${weight} lbs` : "No Weight Set"}</p>
 					<p>Public profile: {visibility ? "ON" : "OFF"}</p>
 				</div>

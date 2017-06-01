@@ -44,10 +44,10 @@ export const getUserStatus = () => {
 
 export const getUserStore = (uid) => {
 	return new Promise( (resolve, reject) => {
-		const userRef = base.database().ref('users');
+		const userRef = base.database().ref(`/users/${uid}/`);
 		userRef.once('value', snapshot => {
 			const data = snapshot.val();
-			const store = JSON.parse(data[uid].store);
+			const store = JSON.parse(data.store)
 			
 			if (store)			
 				resolve(store);

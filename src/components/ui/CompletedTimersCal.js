@@ -39,7 +39,9 @@ class CompletedTimersCal extends React.Component {
 
 		const curMonthNum = new Date().getMonth();
 		const calendarData = Object.keys(monthsObj).map(month => {
-			const completed = completedTimers.filter(arr => arr.dateString.indexOf(month) !== -1);
+			console.log(`month`, month)
+			
+			const completed = completedTimers.filter(arr => arr.dateString.indexOf(month.slice(0, 3)) !== -1);
 
 			// array of completedTimers
 			const days = monthsObj[month];
@@ -53,6 +55,7 @@ class CompletedTimersCal extends React.Component {
 						return arr;
 					}
 				})
+				
 
 				const innerText = bool ? <span onClick={() => this.showDetails(dayCompleted)} className="day-num-completed">&#10003;({dayCompleted.length})</span> : <span className="day-num">{i}</span>
 
