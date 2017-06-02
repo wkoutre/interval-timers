@@ -79,7 +79,6 @@ export const syncingMiddleware = store => next => action => {
 				} catch(err) {
 					console.error(`${err}:  Local storage doesn't exist`)
 				}
-				
 			};
 
 			// to sync with the current state, and not one step behind!
