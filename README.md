@@ -1,8 +1,8 @@
 ## An Interval Timer mobile app written using React and Redux
 
-Things I learned from this project:
+Lessons learned from this project:
 
-* Plan out as much of database Schema as possible at the beginning. Brainstorm out the entire app -- each piece -- gathering features and determining their interoperability/dependencies.
+* Plan out as much of the app architecture as possible at the beginning. Brainstorm everything, gathering features and determining their interoperability/dependencies.
 * Reusability.  Reusability. Reusability. Either using HOC (Higher Order Component) or plain old React best practices. It'll especially help with styling and forms.
 * Firebase and Redux have a very healthy relationship, so take advantage of it. To not is like shooting yourself in the foot. 
 * JSON.stringify is very expensive... in mapping out the App, identify nodes where server state persistence is necessary, as well as when it is not. Doing it haphazardly is like practicing fadeaways in your backyard: a terrible habit, unless you're LeBron.
