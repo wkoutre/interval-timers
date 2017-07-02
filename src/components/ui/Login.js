@@ -151,11 +151,14 @@ class Login extends React.Component {
 			console.log('inside snapshot');
 			const { login } = this.props;
 			const data = snapshot.val() || {};
+
+			console.log(`DATA`, data)
+			
 			const { uid, displayName, email, photoURL } = authData.user;
 			
 			// 'data' is initially an empty object; then it's the userRef
 			// if there's a new user...
-			if (!data){
+			if (Object.keys(data).length === 0){
 				console.log("New user sign in");
 				this.props.setFullName(displayName)
 				this.props.setEmail(email)
@@ -172,6 +175,9 @@ class Login extends React.Component {
 				})
 			} else {
 				console.log("Preexisting user signing");
+				console.log('uid', uid);
+				console.log(`data`, data);
+				
 				this.localSetInitialState(uid, data);
 			}
 
