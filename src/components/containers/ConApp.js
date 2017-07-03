@@ -4,14 +4,16 @@ import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 
 
-const mapStateToProps = ({ app }, props) => {
+const mapStateToProps = (state, props) => {
 
-	const { loggedIn } = app
-	const { audio } = app.user.timerInfo;
+	const { loggedIn } = state.app
+	const { audio } = state.app.user.timerInfo;
+	const { router } = state;
 
 	return {
 		loggedIn,
-		audio
+		audio,
+		router
 	}
 }
 

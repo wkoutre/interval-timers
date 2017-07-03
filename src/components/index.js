@@ -37,6 +37,12 @@ class App extends React.Component {
 			
 	}
 
+	componentDidUpdate() {
+		console.log(this.props.router.location.pathname);
+		console.log(`?`, this.props.router.location.pathname.indexOf('error') === -1)
+		
+	}
+
 	handleNotLoggedIn = () => {
 		this.props.refreshToLogin();
 		this.setState({ loggedIn: false })
@@ -52,7 +58,7 @@ class App extends React.Component {
 
 	showContent = () => {
 		switch(this.props.loggedIn) {
-			case null:
+			case (null):
 				return <LoggingIn />;
 			case true:
 				return (
@@ -89,7 +95,10 @@ class App extends React.Component {
 
 		return (
 				<ConnectedRouter history={history}>
-				{this.showContent()}
+				{this.props.router.location.pathname.indexOf('error') === -1 ?
+					this.showContent() :
+					<ErrorPage />
+				}
 				</ConnectedRouter>
 		)	
 	}
