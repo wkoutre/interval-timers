@@ -1,6 +1,9 @@
 {
   "name": "workout-app",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.1.4"
+  },
   "description": "A full-featured workout app and custom timer written in React-Redux",
   "main": "./dist",
   "scripts": {
